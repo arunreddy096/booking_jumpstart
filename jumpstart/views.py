@@ -26,8 +26,9 @@ class LoginSignup(View):
         if form.is_valid() and 'first_name' not in request.POST.keys():
             user = authenticate(email=form.cleaned_data['email'], password=form.cleaned_data['password'])
             if user is None:
+                user_signup = RegistrationForm()
                 messages.error(request, "Incorrect username or password")
-                return render(request, 'login.html', {'form': form})
+                return render(request, 'login.html', {'form': form, 'signup': user_signup})
             request.session['user_id'] = user.id
             return render(request, 'new_home.html', {'form': form, 'user': user})
 
@@ -79,7 +80,7 @@ class ForgotPassword(View):
 
 class CreateBookingView(View):
     form_class = BookingForm
-    template_name = 'jumpstart/bookingpage.html'
+    template_name = 'bookingpage.html'
 
     # @login_required()
     def get(self, request, *args, **kwargs):
