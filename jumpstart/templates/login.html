@@ -1,0 +1,60 @@
+{% load static %}
+{% load socialaccount %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}" media="screen">
+    <script class="u-script" type="text/javascript" src="{% static 'js/login.js' %}" defer=""></script>
+
+</head>
+<body>
+<div class="container2">
+    <h1>JUMPSTART</h1>
+    {% if messages %}
+        {% for message in messages %}
+            <p class="p-3 mb-2 bg-success text-dark">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+    {% if signup.errors %}
+        <div style="margin-left: 300px; margin-top: 150px">
+            {% for field in signup %}
+                {% for error in field.errors %}
+                    <h5><strong>{{ error|escape }}</strong></h5>
+                {% endfor %}{% endfor %}
+        </div>
+    {% endif %}
+</div>
+<div class="container">
+    <form class="signUp" method="POST"> {% csrf_token %}
+        <h3>Welcome</br>Back !</h3>
+        <a href="{% provider_login_url 'google' %}" class="">
+            <img src="https://cdn.cdnlogo.com/logos/g/35/google-icon.svg" width="30" height="30">
+        </a>
+        <p>- or -</p>
+        {{ form.email }}
+        {{ form.password }}
+        <button class="form-btn sx log-in" type="button">Sign up</button>
+        <button class="form-btn dx" type="submit">Log In</button>
+        <a href="{% url 'forgot' %}" class="">
+            <p class="forgot">
+                Forgot/Reset password >>></p>
+        </a>
+    </form>
+    <form id='su' class="signIn" method="POST"> {% csrf_token %}
+        <h3>Create Your Account</h3>
+        <div style="margin-top: 15%">
+            {{ signup.first_name }}
+            {{ signup.last_name }}
+            {{ signup.email }}
+            {{ signup.password1 }}
+            {{ signup.password2 }}
+        </div>
+        <button class="form-btn sx back" type="button">Back</button>
+        <button class="form-btn dx" type="submit">Sign Up</button>
+    </form>
+</div>
+</body>
+</html>
