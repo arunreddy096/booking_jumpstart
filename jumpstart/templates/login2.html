@@ -31,7 +31,7 @@
                     <div class="heading">
                 {% if messages %}
                     {% for message in messages %}
-                        <p>{{ message }}</p>
+                        <p style="color: #f95959">{{ message }}</p>
                     {% endfor %}
                 {% else %}
                         <h2>Welcome</h2>
@@ -84,6 +84,7 @@
                         <div class="form-group">
                             {{ signup.first_name.label_tag }}
                             {{ signup.first_name }}
+                            <span class="error"></span>
                         </div>
                         <div class="form-group">
                             {{ signup.last_name.label_tag }}
@@ -135,7 +136,7 @@
 {#                        </div>#}
 
                         <div class="CTA">
-                            <input type="submit" value="Signup Now" id="submit">
+                            <input type="submit" value="Signup">
                             <a href="#" class="switch">I have an account</a>
                         </div>
                     </form>

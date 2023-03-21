@@ -180,3 +180,8 @@ SOCIALACCOUNT_QUERY_EMAIL = True
 ACCOUNT_LOGOUT_ON_GET = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_EMAIL_REQUIRED = True
+
+MEDIA_ROOT = os.path.abspath(os.path.join(BASE_DIR, 'jumpstart'))
+print(f"{BASE_DIR}\n{MEDIA_ROOT}")
+MEDIA_URL = '/images/'
+

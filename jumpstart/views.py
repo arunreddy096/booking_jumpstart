@@ -29,14 +29,19 @@ class LoginSignup(View):
                 user_signup = RegistrationForm()
                 messages.error(request, "Incorrect username or password")
                 return render(request, 'login2.html', {'form': form, 'signup': user_signup})
+            print(user, user.profile_image)
             request.session['user_id'] = user.id
             return render(request, 'new_home.html', {'form': form, 'user': user})
 
         elif user_signup.is_valid():
+            print('user sign in form is valid')
             user_signup.save()
-            form.email = user_signup.cleaned_data['email']
+            form = LoginForm(initial={
+                'email': user_signup.cleaned_data['email']
+            })
             return render(request, 'login2.html', {'form': form})
         else:
+            print('user sign in not valid')
             messages.error(request, "Please enter a Strong password")
             user_signup.first_name = user_signup.cleaned_data['first_name']
             user_signup.last_name = user_signup.cleaned_data['last_name']

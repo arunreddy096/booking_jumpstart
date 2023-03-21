@@ -10,6 +10,8 @@ class Customer(User):
         ordering = ['first_name']
         verbose_name_plural = 'customer'
 
+    profile_image = models.ImageField(upload_to='images/profile/', default='gojo.png')
+
     def __str__(self):
         return self.username
 

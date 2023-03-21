@@ -33,6 +33,10 @@ class RegistrationForm(UserCreationForm):
         fields = ['first_name', 'last_name', 'email', 'password1', 'password2']
         widgets = {
             # telling Django your password field in the mode is a password input on the template
+            'first_name': TextInput(attrs={
+                'required': True,
+                'class': 'name',
+            }),
             'email': EmailInput(attrs={
                 'required': True,
                 'class': 'email'
@@ -46,7 +50,7 @@ class RegistrationForm(UserCreationForm):
             }),
         }
         labels = {
-            'first_name': _('first name'),
+            'first_name': _('first name*'),
             'last_name': _('last name'),
             'email': _('email*'),
         }
@@ -62,6 +66,7 @@ class RegistrationForm(UserCreationForm):
             self.fields[fieldname].help_text = None
 
     def save(self, commit=True):
+        print('in save function')
         username = self.cleaned_data['first_name'] + '_' + self.cleaned_data['last_name']
         new_customer = Customer(
             username=username,
@@ -70,6 +75,7 @@ class RegistrationForm(UserCreationForm):
             email=self.cleaned_data['email'],
             password=make_password(self.cleaned_data['password1'])
         )
+        print(new_customer)
         new_customer.save()
 
 
