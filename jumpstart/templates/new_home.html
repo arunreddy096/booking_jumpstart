@@ -209,8 +209,7 @@
 
 {% block body_block %}
 
-<body>
-<div class="section animate">
+<div class="section animate" style="margin-top: 1px">
    <div class="middle">
       <img  src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.bynWjMNyDfHuJEtxj9gpgwHaFj%26pid%3DApi&f=1&ipt=0562643e4b360c6557f6b49ea8f1494d28c54b3dda44bf2f90ba6710fdfbb9f8&ipo=images" alt="High Ropes & Ziplines"/>
 
@@ -224,6 +223,7 @@
    </div>
    <div class="right tiles">
         <img  src="{% static 'images/image1.jpg' %}" alt="High Ropes & Ziplines"/>
+       <i class="fa-solid fa-hill-rockslide"></i>
         <img  src="{% static 'images/image1.jpg' %}" alt="High Ropes & Ziplines"/>
         <img  src="{% static 'images/image1.jpg' %}" alt="High Ropes & Ziplines"/>
         <img  src="{% static 'images/image1.jpg' %}" alt="High Ropes & Ziplines"/>
@@ -296,53 +296,70 @@
 
 </div>
 
-  <div class="w3-row-padding" id="about">
-    <div class="w3-col l4 12">
-      <h3>About</h3>
-      <h6>Welcome to Adventure Land! Your one-stop destination for all things fun and thrilling. We offer a wide range of activities and attractions that are sure to get your heart racing and your adrenaline pumping. Whether you're looking for high-flying thrills, bouncing fun, physical challenges, or immersive experiences, you'll find it all here at Adventure Land.</h6>
-    <p>We accept: <i class="fa fa-credit-card w3-large"></i> <i class="fa fa-cc-mastercard w3-large"></i> <i class="fa fa-cc-amex w3-large"></i> <i class="fa fa-cc-cc-visa w3-large"></i><i class="fa fa-cc-paypal w3-large"></i></p>
-    </div>
-    <div class="w3-col l8 12">
-      <!-- Image of location/map -->
-     <img src={% static 'images/aboutsideimge.png' %} class="w3-image w3-greyscale" style="width:100%;">
-    </div>
+<div class="w3-row-padding" id="about" style="background-color: indianred; margin-top: 10px">
+    <style>
+        i{
+            font-size: 25px;
+            padding-right: 5px;
+        }
+    </style>
+{#    <div class="w3-col l4 12">#}
+        <h3 class="w3-center">About</h3>
+        <h6>Welcome to Adventure Land! Your one-stop destination for all things fun and thrilling. We offer a wide range
+            of activities and attractions that are sure to get your heart racing and your adrenaline pumping. Whether
+            you're looking for high-flying thrills, bouncing fun, physical challenges, or immersive experiences, you'll
+            find it all here at Jumpstart.</h6>
+        <p>We accept:
+            <i class="fa-solid fa-credit-card"></i>
+            <i class="fa-brands fa-cc-mastercard"></i>
+            <i class="fa-brands fa-cc-amex"></i>
+            <i class="fa-brands fa-cc-visa"></i>
+            <i class="fa-brands fa-cc-paypal"></i>
+            <i class="fa-brands fa-google-pay"></i>
+            <i class="fa-brands fa-cc-apple-pay"></i>
+        </p>
+{#    </div>#}
+{#    <div class="w3-col l8 12">#}
+{#      <!-- Image of location/map -->#}
+{#     <img src={% static 'images/aboutsideimge.png' %} class="w3-image w3-greyscale" style="width:100%;">#}
+{#    </div>#}
   </div>
 
-  <div class="w3-row-padding w3-large w3-center" style="margin:32px 0">
-    <div class="w3-third"><i class="fa fa-map-marker w3-text-red"></i> 423 Some adr, Chicago, US</div>
-    <div class="w3-third"><i class="fa fa-phone w3-text-red"></i> Phone: +00 151515</div>
-    <div class="w3-third"><i class="fa fa-envelope w3-text-red"></i> Email: mail@mail.com</div>
-  </div>
-
-  <div class="w3-panel w3-red w3-leftbar w3-padding-32">
-    <h6><i class="fa fa-info w3-deep-orange w3-padding w3-margin-right"></i> On demand, we can offer playstation, babycall, children care, dog equipment, etc.</h6>
-  </div>
+{#  <div class="w3-panel w3-red w3-leftbar w3-padding-32">#}
+{#    <h6><i class="fa fa-info w3-deep-orange w3-padding w3-margin-right"></i> On demand, we can offer playstation, babycall, children care, dog equipment, etc.</h6>#}
+{#  </div>#}
 
 
-  <div class="w3-container w3-padding-32 w3-black w3-opacity w3-card w3-hover-opacity-off" style="margin:32px 0;">
-    <h2>Get the best offers first!</h2>
-    <p>Join our newsletter.</p>
-    <label>E-mail</label>
-    <input class="w3-input w3-border" type="text" placeholder="Your Email address">
-    <button type="button" class="w3-button w3-red w3-margin-top">Subscribe</button>
-  </div>
+{#  <div class="w3-container w3-padding-32 w3-black w3-opacity w3-card w3-hover-opacity-off" style="margin:32px 0;">#}
+{#    <h2>Get the best offers first!</h2>#}
+{#    <p>Join our newsletter.</p>#}
+{#    <label>E-mail</label>#}
+{#    <input class="w3-input w3-border" type="text" placeholder="Your Email address">#}
+{#    <button type="button" class="w3-button w3-red w3-margin-top">Subscribe</button>#}
+{#  </div>#}
 
-  <div class="w3-container" id="contact">
+<div class="w3-container" id="contact" style="background-color: gray; margin-top: 10px">
     <h2>Contact</h2>
     <p>If you have any questions, do not hesitate to ask them.</p>
-    <i class="fa fa-map-marker w3-text-red" style="width:30px"></i> Chicago, US<br>
-    <i class="fa fa-phone w3-text-red" style="width:30px"></i> Phone: +00 151515<br>
-    <i class="fa fa-envelope w3-text-red" style="width:30px"> </i> Email: mail@mail.com<br>
+    <i class="fa-solid fa-map-location-dot" style="width:30px"></i> Windsor, ON &nbsp&nbsp&nbsp&nbsp
+    <i class="fa-solid fa-phone" style="width:30px"></i> +1 8976784371 &nbsp&nbsp&nbsp&nbsp
+    <i class="fa-solid fa-envelope" style="width:30px"></i> help@jumpstart.com &nbsp&nbsp&nbsp&nbsp
     <form action="/action_page.php" target="_blank">
-      <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Name" required name="Name"></p>
-      <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Email" required name="Email"></p>
-      <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Message" required name="Message"></p>
-      <p><button class="w3-button w3-black w3-padding-large" type="submit">SEND MESSAGE</button></p>
+        <p style="display: inline-block; vertical-align: top; padding-right: 20px"><input
+                class="w3-input w3-padding-16 w3-border" type="text" placeholder="Email" required name="Email"
+                style="width: 230px; border-radius: 20px"></p>
+        <p style="display: inline-block; vertical-align: top"><input class="w3-input w3-padding-16 w3-border"
+                                                                     type="text" placeholder="Message" required
+                                                                     name="Message"
+                                                                     style="width: 230px; border-radius: 20px">
+        </p>
+        <button class="w3-button w3-black w3-padding-large" type="submit"
+                style="display: inline-block; vertical-align: top;width: 230px; border-radius: 20px; margin-left:20px; margin-top: 20px">
+            SEND MESSAGE
+        </button>
     </form>
-  </div>
-
-<!-- End page content -->
 </div>
 
-</body>
+<!-- End page content -->
+
 {% endblock %}

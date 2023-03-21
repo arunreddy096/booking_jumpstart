@@ -2,6 +2,7 @@ from django.forms import ModelForm, TextInput, EmailInput, PasswordInput, forms
 from .models import Customer, Booking
 from django import forms
 from django.contrib.auth.hashers import make_password
+from django.utils.translation import gettext_lazy as _
 
 from django.contrib.auth.forms import UserCreationForm
 
@@ -13,12 +14,16 @@ class LoginForm(ModelForm):
         widgets = {
             # telling Django your password field in the mode is a password input on the template
             'email': EmailInput(attrs={
-                'placeholder': 'enter a valid email',
+                'required': True,
+                'class': 'email_login'
             }),
             'password': PasswordInput(attrs={
-                'placeholder': 'enter your password',
-                'required': True
+                'required': True,
             })
+        }
+        labels = {
+            'email': _('Email'),
+            'password': _('Password')
         }
 
 
@@ -28,25 +33,32 @@ class RegistrationForm(UserCreationForm):
         fields = ['first_name', 'last_name', 'email', 'password1', 'password2']
         widgets = {
             # telling Django your password field in the mode is a password input on the template
-            'first_name': TextInput(attrs={
-                'placeholder': 'enter your firstname',
-            }),
-            'last_name': TextInput(attrs={
-                'placeholder': 'enter your lastname',
-            }),
             'email': EmailInput(attrs={
-                'placeholder': 'enter your email',
+                'required': True,
+                'class': 'email'
             }),
+            'password1': PasswordInput(attrs={
+                'required': True,
+                'class': 'pass'
+            }),
+            'password2': PasswordInput(attrs={
+                'required': True,
+            }),
+        }
+        labels = {
+            'first_name': _('first name'),
+            'last_name': _('last name'),
+            'email': _('email*'),
         }
 
     def __init__(self, *args, **kwargs):
         super(RegistrationForm, self).__init__(*args, **kwargs)
         self.fields['password1'].widget = PasswordInput(
-            attrs={'placeholder': 'enter your password'})
+            attrs={'class': 'pass'})
         self.fields['password2'].widget = PasswordInput(
-            attrs={'placeholder': 're-enter your password'})
+            attrs={'class': 'passConfirm'})
 
-        for fieldname in ['first_name', 'last_name', 'email', 'password1', 'password2']:
+        for fieldname in ['first_name', 'last_name', 'email']:
             self.fields[fieldname].help_text = None
 
     def save(self, commit=True):

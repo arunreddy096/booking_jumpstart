@@ -18,7 +18,7 @@ class LoginSignup(View):
         user_session = LoginForm()
         user_signup = RegistrationForm()
         context = {'form': user_session, 'signup': user_signup}
-        return render(request, 'login.html', context)
+        return render(request, 'login2.html', context)
 
     def post(self, request):
         form = LoginForm(request.POST)
@@ -28,21 +28,21 @@ class LoginSignup(View):
             if user is None:
                 user_signup = RegistrationForm()
                 messages.error(request, "Incorrect username or password")
-                return render(request, 'login.html', {'form': form, 'signup': user_signup})
+                return render(request, 'login2.html', {'form': form, 'signup': user_signup})
             request.session['user_id'] = user.id
             return render(request, 'new_home.html', {'form': form, 'user': user})
 
         elif user_signup.is_valid():
             user_signup.save()
             form.email = user_signup.cleaned_data['email']
-            return render(request, 'login.html', {'form': form})
+            return render(request, 'login2.html', {'form': form})
         else:
             messages.error(request, "Please enter a Strong password")
             user_signup.first_name = user_signup.cleaned_data['first_name']
             user_signup.last_name = user_signup.cleaned_data['last_name']
             user_signup.email = user_signup.cleaned_data['email']
             context = {'form': LoginForm(), 'signup': user_signup}
-            return render(request, 'login.html', context)
+            return render(request, 'login2.html', context)
 
 
 class Welcome(View):

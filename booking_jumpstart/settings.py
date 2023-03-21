@@ -48,6 +48,9 @@ INSTALLED_APPS = [
 
     # scss compressor
     'compressor',
+
+    #fontawesome
+    'fontawesomefree',
 ]
 
 MIDDLEWARE = [
@@ -167,7 +170,7 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-SITE_ID = 2
+SITE_ID = 3
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/login'
 
