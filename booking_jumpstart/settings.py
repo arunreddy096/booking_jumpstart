@@ -31,13 +31,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jumpstart.apps.JumpstartConfig',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'jumpstart.apps.JumpstartConfig',
+
     'django.contrib.sites',
 
     # social auth
@@ -49,8 +51,9 @@ INSTALLED_APPS = [
     # scss compressor
     'compressor',
 
-    #fontawesome
+    # fontawesome
     'fontawesomefree',
+
 ]
 
 MIDDLEWARE = [
@@ -182,6 +185,18 @@ ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_EMAIL_REQUIRED = True
 
 MEDIA_ROOT = os.path.abspath(os.path.join(BASE_DIR, 'jumpstart'))
-print(f"{BASE_DIR}\n{MEDIA_ROOT}")
 MEDIA_URL = '/images/'
+
+# send grid api = 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
+SENDGRID_API_KEY = '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'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'apikey'
+EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
+DEFAULT_FROM_EMAIL = 'harshbharath.n@gmail.com'
+
 

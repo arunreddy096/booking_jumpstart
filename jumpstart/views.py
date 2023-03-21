@@ -1,13 +1,22 @@
 from allauth.account.views import email
 from django.contrib.auth.decorators import login_required
+from django.core.mail import EmailMultiAlternatives
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
+from django.template.loader import render_to_string
 from django.urls import reverse
+from django.utils.html import strip_tags
+from django.utils.http import urlsafe_base64_encode
 from django.views import View
 from django.contrib import messages
 from django.contrib.auth import authenticate
-from .forms import LoginForm, RegistrationForm, Forgot, BookingForm
+from .forms import LoginForm, RegistrationForm, Forgot, BookingForm, PasswordResetForm
 from .models import Booking, Customer, User
+
+
+from django.conf import settings
+from django.utils.encoding import force_bytes
+from django.contrib.auth.tokens import default_token_generator
 
 
 # Create your views here.
@@ -61,7 +70,7 @@ class ForgotPassword(View):
         user_forgot = Forgot()
         reset = None
         context = {'form': user_forgot, 'reset': reset}
-        return render(request, 'forgot_password.html', context)
+        return render(request, 'registration/password_reset_form.html', context)
 
     def post(self, request):
         form = Forgot(request.POST)
@@ -106,3 +115,51 @@ class CreateBookingView(View):
             return render(request, 'bookingpage.html', {'user': user})
             # return redirect('jumpstart/bookingpage.html', message, )
         return render(request, self.template_name, {'form': form})
+
+class SendPass(View):
+    def get(self, request):
+        form = PasswordResetForm()
+        return render(request, 'registration/password_reset_form.html', {'form': form,})
+
+    def post(self, request):
+        form = PasswordResetForm(request.POST)
+        if form.is_valid():
+            user = authenticate(email=form.cleaned_data['email'])
+            print(user)
+            print('validating email submitted', user, user.pk)
+            subject = 'Password Reset Requested'
+            email_template_name = 'registration/password_reset_email.html'
+            html_email_template_name = 'registration/password_reset_email.html'
+            from_email = settings.DEFAULT_FROM_EMAIL
+            to_email = user.email
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
+            token = default_token_generator.make_token(user)
+            reset_url = reverse('password_reset_confirm', kwargs={'uidb64': uid, 'token': token})
+            print(reset_url)
+            context = {
+                'email': to_email,
+                'domain': self.request.META['HTTP_HOST'],
+                'site_name': 'Jumpstart',
+                'uid': uid,
+                'user': user,
+                'token': token,
+                'reset_url': self.request.build_absolute_uri(reset_url),
+                'protocol': 'https' if self.request.is_secure() else 'http',
+            }
+            email = render_to_string(email_template_name, context)
+            html_email = render_to_string(html_email_template_name, context)
+
+            # Create the email message
+            msg = EmailMultiAlternatives(
+                subject=subject,
+                body=strip_tags(email),
+                from_email=from_email,
+                to=[to_email],
+            )
+            # Attach the HTML version of the email
+            msg.attach_alternative(html_email, 'text/html')
+
+            # Send the email using the SMTP backend
+            msg.send()
+
+            return redirect('password_reset_done')

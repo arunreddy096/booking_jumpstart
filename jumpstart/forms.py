@@ -1,10 +1,24 @@
 from django.forms import ModelForm, TextInput, EmailInput, PasswordInput, forms
+from django.utils.html import strip_tags
+
 from .models import Customer, Booking
 from django import forms
 from django.contrib.auth.hashers import make_password
 from django.utils.translation import gettext_lazy as _
 
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, PasswordResetForm
+
+from django.urls import reverse_lazy
+from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView
+from django.core.mail import send_mail, EmailMultiAlternatives
+from django.template.loader import render_to_string
+from django.utils.http import urlsafe_base64_encode
+from django.utils.encoding import force_bytes
+from django.contrib.auth.tokens import default_token_generator
+from django.conf import settings
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail, Email, Personalization, Content
+
 
 
 class LoginForm(ModelForm):
@@ -101,6 +115,21 @@ class Forgot(UserCreationForm):
 
     def clean(self):
         pass
+
+
+class ResetPassword(PasswordResetForm):
+    def __init__(self, *args, **kwargs):
+        super(ResetPassword, self).__init__(*args, **kwargs)
+
+    email = forms.CharField(widget=forms.EmailInput(attrs={
+        'class': 'form-control',
+        'type': 'email',
+        'placeholder': 'enter email id'
+    }))
+
+    template_name = 'registration/password_reset_form.html'
+    form_class = PasswordResetForm
+    success_url = reverse_lazy('password_reset_done')
 
 
 class BookingForm(ModelForm):
