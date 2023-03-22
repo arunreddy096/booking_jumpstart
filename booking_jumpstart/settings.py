@@ -53,7 +53,6 @@ INSTALLED_APPS = [
 
     # fontawesome
     'fontawesomefree',
-
 ]
 
 MIDDLEWARE = [
@@ -187,8 +186,8 @@ ACCOUNT_EMAIL_REQUIRED = True
 MEDIA_ROOT = os.path.abspath(os.path.join(BASE_DIR, 'jumpstart'))
 MEDIA_URL = '/images/'
 
-# send grid api = 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
-SENDGRID_API_KEY = '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'
+# send grid api
+SENDGRID_API_KEY = os.environ.get('SENDGRID_API_KEY', 'default_value')
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"

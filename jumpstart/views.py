@@ -10,6 +10,8 @@ from django.utils.http import urlsafe_base64_encode
 from django.views import View
 from django.contrib import messages
 from django.contrib.auth import authenticate
+from sendgrid import SendGridAPIClient, Mail
+
 from .forms import LoginForm, RegistrationForm, Forgot, BookingForm, PasswordResetForm
 from .models import Booking, Customer, User
 
@@ -160,6 +162,18 @@ class SendPass(View):
             msg.attach_alternative(html_email, 'text/html')
 
             # Send the email using the SMTP backend
-            msg.send()
+            # msg.send()
+
+            try:
+                sendgrid_client = SendGridAPIClient(api_key=settings.SENDGRID_API_KEY)
+                sendgrid_message = Mail(
+                    from_email=from_email,
+                    to_emails=[to_email],
+                    subject=subject,
+                    html_content=html_email)
+                response = sendgrid_client.send(sendgrid_message)
+                print(response.status_code)
+            except Exception as e:
+                print(e.message)
 
             return redirect('password_reset_done')

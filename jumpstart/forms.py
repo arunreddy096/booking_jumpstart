@@ -1,3 +1,4 @@
+from django.contrib.auth import authenticate
 from django.forms import ModelForm, TextInput, EmailInput, PasswordInput, forms
 from django.utils.html import strip_tags
 
@@ -18,6 +19,8 @@ from django.contrib.auth.tokens import default_token_generator
 from django.conf import settings
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail, Email, Personalization, Content
+
+from django.urls import reverse
 
 
 

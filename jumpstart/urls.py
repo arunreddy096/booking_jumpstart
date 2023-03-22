@@ -4,7 +4,7 @@ from .views import CreateBookingView
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as reset_views
-from .forms import ResetPassword
+from .views import SendPass
 
 urlpatterns = [
     path('login/', views.LoginSignup.as_view(), name='login'),
@@ -14,8 +14,7 @@ urlpatterns = [
 
     # reset password
     path('password_reset/',
-         # reset_views.PasswordResetView.as_view(template_name='registration/password_reset_email.html',
-         #                                       form_class=ResetPassword),
+         # reset_views.PasswordResetView.as_view(template_name='registration/password_reset_form.html'),
          # name='password_reset'),
          views.SendPass.as_view(), name='password_reset'),
     path('reset/<uidb64>/<token>/',
