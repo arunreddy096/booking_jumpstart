@@ -31,6 +31,7 @@ class LoginSignup(View):
         context = {'form': user_session, 'signup': user_signup}
         return render(request, 'login2.html', context)
 
+
     def post(self, request):
         form = LoginForm(request.POST)
         user_signup = RegistrationForm(request.POST)
@@ -177,3 +178,31 @@ class SendPass(View):
                 print(e.message)
 
             return redirect('password_reset_done')
+
+
+
+# def delete_account(request):
+#     print('atleaset coming here', request)
+#     if request.method == 'POST':
+#         print('here at deleting')
+#         # Delete the user account
+#         # request.user.delete()
+#         print(request.user.email, request.user.username)
+#         messages.success(request, 'Your account has been deleted.')
+#         # return redirect('home')
+#         return render(request, 'login2.html',)
+#
+#     return render(request, 'profile.html')
+
+
+class Profile(View):
+
+    def get(self, request):
+        return render(request, 'profile.html')
+
+    def post(self, request):
+        print('on post delete: ',request.session['user_id'])
+        messages.success(request, 'Your account has been deleted.')
+        # return redirect('home')
+        return render(request, 'login2.html',)
+

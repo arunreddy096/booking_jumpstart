@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate
+from django.contrib.sites.shortcuts import get_current_site
 from django.forms import ModelForm, TextInput, EmailInput, PasswordInput, forms
 from django.utils.html import strip_tags
 
@@ -20,6 +21,7 @@ from django.conf import settings
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail, Email, Personalization, Content
 
+from django.core.mail import EmailMessage
 from django.urls import reverse
 
 
@@ -133,6 +135,114 @@ class ResetPassword(PasswordResetForm):
     template_name = 'registration/password_reset_form.html'
     form_class = PasswordResetForm
     success_url = reverse_lazy('password_reset_done')
+
+
+class CustomPasswordResetForm(PasswordResetForm):
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'}))
+    # def save(self, domain_override=None,
+    #          subject_template_name=None,
+    #          email_template_name='registration/password_reset_email.html',
+    #          use_https=False, token_generator=None,
+    #          from_email=None, request=None, html_email_template_name='registration/password_reset_email.html'):
+
+    def save(self, domain_override=None, subject_template_name=None,
+             email_template_name='registration/password_reset_email.html',
+             use_https=False, token_generator=None, from_email=None, request=None, **kwargs):
+        """
+        Generate a one-use only link for resetting password and send it to the
+        user.
+        """
+        email = self.cleaned_data["email"]
+        user = Customer.objects.filter(email=email).first()
+        if not user:
+            return False
+
+        if not domain_override:
+            current_site = get_current_site(request)
+            site_name = current_site.name
+            domain = current_site.domain
+        else:
+            site_name = domain = domain_override
+        subject = 'Password Reset Requested'
+        email_template_name = 'registration/password_reset_email.html'
+        html_email_template_name = 'registration/password_reset_email.html'
+        from_email = settings.DEFAULT_FROM_EMAIL
+        to_email = user.email
+        uid = urlsafe_base64_encode(force_bytes(user.pk))
+        token = default_token_generator.make_token(user)
+        reset_url = reverse('password_reset_confirm', kwargs={'uidb64': uid, 'token': token})
+        # context = {
+        #     'email': email,
+        #     'domain': domain,
+        #     'site_name': site_name,
+        #     'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+        #     'user': user,
+        #     'token': token_generator.make_token(user),
+        #     'protocol': 'https' if use_https else 'http',
+        # }
+        context = {
+            'email': to_email,
+            'domain': domain,
+            'site_name': 'Jumpstart',
+            'uid': uid,
+            'user': user,
+            'token': token,
+            'reset_url': reset_url,
+            'protocol': 'https' if use_https else 'http',
+        }
+        email = render_to_string(email_template_name, context)
+        html_email = render_to_string(html_email_template_name, context)
+
+        # Create the email message
+        msg = EmailMultiAlternatives(
+            subject=subject,
+            body=strip_tags(email),
+            from_email=from_email,
+            to=[to_email],
+        )
+        # Attach the HTML version of the email
+        msg.attach_alternative(html_email, 'text/html')
+
+        # Send the email using the SMTP backend
+        msg.send()
+        #
+        # try:
+        #     sendgrid_client = SendGridAPIClient(api_key=settings.SENDGRID_API_KEY)
+        #     sendgrid_message = Mail(
+        #         from_email=from_email,
+        #         to_emails=[to_email],
+        #         subject=subject,
+        #         html_content=html_email)
+        #     response = sendgrid_client.send(sendgrid_message)
+        #     print(response.status_code)
+        # except Exception as e:
+        #     print(e)
+
+        # subject = render_to_string(subject_template_name, context)
+        # # Email subject *must not* contain newlines
+        # subject = ''.join(subject.splitlines())
+        # email_body = render_to_string(email_template_name, context)
+        # email_message = EmailMessage(
+        #     subject=subject,
+        #     body=email_body,
+        #     from_email=from_email,
+        #     to=[email],
+        #     headers={'Reply-To': from_email}
+        # )
+        # email_message.content_subtype = "html"
+        # email_message.send()
+        #
+        return super().save(
+            domain_override=domain_override,
+            subject_template_name=subject_template_name,
+            email_template_name=email_template_name,
+            use_https=use_https,
+            token_generator=token_generator,
+            from_email=from_email,
+            request=request,
+            **kwargs
+        )
+
 
 
 class BookingForm(ModelForm):

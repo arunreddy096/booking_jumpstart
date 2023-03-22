@@ -77,7 +77,7 @@
         <a href="{% url 'welcome' %}" class="w3-bar-item w3-button w3-right w3-light-grey w3-mobile">
             <i class="fa-sharp fa-solid fa-right-to-bracket fa-flip-both" style="font-size: 15px"></i>
             logout</a>
-        <a href="{% url 'welcome' %}"
+        <a href="{% url 'delete_account' %}"
            class="w3-bar-item w3-button w3-right w3-light-grey w3-mobile">
             Welcome {{ user.username }}</a>
         <img class="w3-light-grey w3-right" src="{{ user.profile_image.url }}" style="width:35px; height:35px; margin-top: 5px; border-radius: 10px" alt="My Image">
