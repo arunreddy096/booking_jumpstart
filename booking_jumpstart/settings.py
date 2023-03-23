@@ -53,6 +53,7 @@ INSTALLED_APPS = [
 
     # fontawesome
     'fontawesomefree',
+
 ]
 
 MIDDLEWARE = [
@@ -174,7 +175,7 @@ SOCIALACCOUNT_PROVIDERS = {
 
 SITE_ID = 3
 LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/login'
+LOGOUT_REDIRECT_URL = 'logout'
 
 # Additional configuration settings
 SOCIALACCOUNT_LOGIN_ON_GET = True
@@ -187,10 +188,11 @@ MEDIA_ROOT = os.path.abspath(os.path.join(BASE_DIR, 'jumpstart'))
 MEDIA_URL = '/images/'
 
 # send grid api
-SENDGRID_API_KEY = os.environ.get('SENDGRID_API_KEY', 'default_value')
+SENDGRID_API_KEY = os.environ.get('SENDGRID_API_KEY')
+# print('env var: ', SENDGRID_API_KEY)
+
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True

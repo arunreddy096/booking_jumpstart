@@ -1,23 +1,23 @@
-{% extends 'base.html' %}
-{% load static %}
-{% load compress %}
-<!DOCTYPE html>
-< lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css'>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>newhome</title>
-    {% compress css %}
-    <link type="text/x-scss" href="{% static 'scss/new_home.scss' %}" rel="stylesheet" media="screen">
-    {% endcompress %}
-    <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-    <script type="text/javascript" src="{% static 'js/new_home.js' %}"></script>
-</head>
+{#{% extends 'base.html' %}#}
+{#{% load static %}#}
+{#{% load compress %}#}
+{#<!DOCTYPE html>#}
+{#< lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">#}
+{#    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css'>#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1">#}
+{#    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">#}
+{#    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">#}
+{#    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">#}
+{#    <title>newhome</title>#}
+{#    {% compress css %}#}
+{#    <link type="text/x-scss" href="{% static 'scss/new_home.scss' %}" rel="stylesheet" media="screen">#}
+{#    {% endcompress %}#}
+{#    <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>#}
+{#    <script type="text/javascript" src="{% static 'js/new_home.js' %}"></script>#}
+{#</head>#}
 {#<body>#}
 {#<div class="w3-bar w3-white w3-large">#}
 {#  <a href="#" class="w3-bar-item w3-button w3-red w3-mobile"><i class="fa fa-bed w3-margin-right"></i>Logo</a>#}
@@ -40,19 +40,234 @@
 {#    {% endif %}#}
 {#  <a href="{% url 'login' %}" class="w3-bar-item w3-button w3-right w3-light-grey w3-mobile">Login/Signup</a>#}
 {#</div>#}
+{##}
+{#{% block body_block %}#}
+{##}
+{#{% block content %}#}
+{#  <h1>Create Booking</h1>#}
+{#  <form method="post">#}
+{#    {% csrf_token %}#}
+{#    {{ form.as_p }}#}
+{#    <button type="submit">Create</button>#}
+{#  </form>#}
+{#{% endblock %}#}
+{##}
+{#{% endblock %}#}
 
-{% block body_block %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ticket Booking</title>
+    {#    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css"#}
+    {#          integrity="sha512-B0IoWbGK35oz0a9MprPps+YoPc/D+/Y/OjK3q7y2upr26+VGrW6T2TbV19ceJ81gT8ebjWzJv/WLdVRry6gCw=="#}
+    {#          crossorigin="anonymous" referrerpolicy="no-referrer"/>#}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="your_logo.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
+            Your Company Name
+        </a>
+    </div>
+</nav>
+{#<div class="container mt-5">#}
+{#    <div class="row">#}
+{#        <div class="col-md-8">#}
+{#            <h2>Ticket Booking</h2>#}
+{#            <form action="" method="post">#}
+{#                {% csrf_token %}#}
+{#                <div class="mb-3">#}
+{#                    <label for="reserve-date" class="form-label">Reserve Date</label>#}
+{#                    <input type="date" class="form-control" id="reserve-date" name="reserve_date" required>#}
+{#                </div>#}
+{#                <div class="mb-3">#}
+{#                    <label for="address" class="form-label">Address</label>#}
+{#                    <textarea class="form-control" id="address" name="address" rows="3" required></textarea>#}
+{#                </div>#}
+{#                <div class="mb-3">#}
+{#                    <label for="phone" class="form-label">Phone Number</label>#}
+{#                    <input type="tel" class="form-control" id="phone" name="phone" required>#}
+{#                </div>#}
+{#                <div class="mb-3">#}
+{#                    <label for="adult-tickets" class="form-label">Adult Tickets</label>#}
+{#                    <input type="number" class="form-control" id="adult-tickets" name="adult_tickets" min="0"#}
+{#                           required>#}
+{#                </div>#}
+{#                <div class="mb-3">#}
+{#                    <label for="child-tickets" class="form-label">Child Tickets</label>#}
+{#                    <input type="number" class="form-control" id="child-tickets" name="child_tickets" min="0"#}
+{#                           required>#}
+{#                </div>#}
+{#                <div class="mb-3">#}
+{#                    <label for="special-adult-tickets" class="form-label">Special Adult Tickets</label>#}
+{#                    <input type="number" class="form-control" id="special-adult-tickets"#}
+{#                           name="special_adult_tickets" min="0" required>#}
+{#                </div>#}
+{#                <div class="mb-3">#}
+{#                    <label for="special-child-tickets" class="form-label">Special Child Tickets</label>#}
+{#                    <input type="number" class="form-control" id="special-child-tickets"#}
+{#                           name="special_child_tickets" min="0" required>#}
+{#                </div>#}
+{#                <div class="form-check mb-3">#}
+{#                    <input class="form-check-input" type="checkbox" id="student" name="student">#}
+{#                    <label class="form-check-label" for="student">#}
+{#                        Student#}
+{#                    </label>#}
+{#                </div>#}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <form method="post" class="form-horizontal">
+                {% csrf_token %}
+                <div class='input-group date' id='datetimepicker1'>
+    <input type='text' name="reserve_date" class="form-control" required/>
+    <span class="input-group-addon">
+        <span class="glyphicon glyphicon-calendar"></span>
+    </span>
+</div>
+                <div class="form-group">
+                    <label class="control-label col-md-4">Reserve Date:</label>
+                    <div class="col-md-8">
+                        <div class='input-group date' id='datetimepicker1'>
+                            <input type='text' name="reserve_date" class="form-control" required/>
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-4">Address:</label>
+                    <div class="col-md-8">
+                        <input type="text" name="address" class="form-control" required/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-4">Phone Number:</label>
+                    <div class="col-md-8">
+                        <input type="tel" name="phone_number" class="form-control" pattern="[0-9]{10}" required/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-4">Adult Ticket Count:</label>
+                    <div class="col-md-8">
+                        <input type="number" name="adult_ticket_count" min="0" class="form-control" required/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-4">Child Ticket Count:</label>
+                    <div class="col-md-8">
+                        <input type="number" name="child_ticket_count" min="0" class="form-control" required/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-4">Special Adult Ticket Count:</label>
+                    <div class="col-md-8">
+                        <input type="number" name="special_adult_ticket_count" min="0" class="form-control" required/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-4">Special Child Ticket Count:</label>
+                    <div class="col-md-8">
+                        <input type="number" name="special_child_ticket_count" min="0" class="form-control" required/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-4 col-md-8">
+                        <div class="checkbox">
+                            <label><input type="checkbox" name="is_student"> Student</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group university-name-group" style="display:none;">
+                    <label class="control-label col-md-4">University Name:</label>
+                    <div class="col-md-8">
+                        <select name="university_name" class="form-control">
+                            <option value="">Select University</option>
+                            <option value="University of Toronto">University of Toronto</option>
+                            <option value="York University">York University</option>
+                            <option value="Ryerson University">Ryerson University</option>
+                            <option value="University of Waterloo">University of Waterloo</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-4">Total Price:</label>
+                    <div class="col-md-8">
+                        <input type="text" name="total_price" class="form-control" readonly required/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-4 col-md-8">
+                        <button type="submit" class="btn btn-primary">Create Ticket</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-4">
+            <h4>Ticket Prices:</h4>
+            <ul>
+                <li>Adult Ticket: $10</li>
+                <li>Child Ticket: $5</li>
+                <li>Special Adult Ticket: $15</li>
+                <li>Special Child Ticket: $7</li>
+                <li>Student Discount: $2 off each ticket</li>
+            </ul>
+            <h4>Notice:</h4>
+            <p>Please note that the tickets are non-refundable and non-transferable. All sales are final. Also, please
+                follow all COVID-19 related precautions such as wearing masks and maintaining social distancing.</p>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker1').datetimepicker({
+            format: 'YYYY-MM-DD'
+        });
+    });
+    $(document).ready(function () {
+        $('input[type=checkbox][name=is_student]').change(function () {
+            if (this.checked) {
+                $('.university-name-group').show();
+            } else {
+                $('.university-name-group').hide();
+            }
+        });
+        $('input[type=number]').change(function () {
+            var adultPrice = 10;
+            var childPrice = 5;
+            var specialAdultPrice = 15;
+            var specialChildPrice = 7;
+            var studentDiscount = 2;
+            var adultTicketCount = parseInt($('input[name=adult_ticket_count]').val());
+            var childTicketCount = parseInt($('input[name=child_ticket_count]').val());
+            var specialAdultTicketCount = parseInt($('input[name=special_adult_ticket_count]').val());
+            var specialChildTicketCount = parseInt($('input[name=special_child_ticket_count]').val());
+            var totalPrice = (adultTicketCount * adultPrice) + (childTicketCount * childPrice) + (specialAdultTicketCount * specialAdultPrice) + (specialChildTicketCount * specialChildPrice);
+            if ($('input[type=checkbox][name=is_student]').prop('checked')) {
+                totalPrice -= studentDiscount * (adultTicketCount + childTicketCount + specialAdultTicketCount + specialChildTicketCount);
+            }
+            $('input[name=total_price]').val(totalPrice);
+        });
+    });
+        $(function () {
+        $('#datetimepicker1').datetimepicker({
+            format: 'YYYY-MM-DD',
+            minDate: moment().add(1, 'day')
+        });
+    });
+</script>
+</body>
+</html>
 
-{% block content %}
-  <h1>Create Booking</h1>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Create</button>
-  </form>
-{% endblock %}
-
-{% endblock %}
 
 
 
