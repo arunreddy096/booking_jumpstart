@@ -27,6 +27,7 @@
             border-radius: 50%;
             object-fit: cover;
             margin-bottom: 1rem;
+            border: 3px solid black;
         }
 
         /* Style the options section */
@@ -71,16 +72,31 @@
             color: white;
             border: none;
         }
+        .table-bordered {
+  background-color: cornflowerblue; /* replace #fff with your desired color */
+}
+        .table-bordered td {
+  background-color: #fff; /* replace #fff with your desired color */
+}
     </style>
 </head>
 
-<body>
-<div class="d-flex align-items-center justify-content-center" style="background-color: #2e2e2e; height: 10vh;">
-    <a href="{% url 'welcome' %}" style="text-decoration: none">
-  <h1 style="color: darkorange"><i class="fa-brands fa-space-awesome fa-flip" style="color: darkorange"></i>
-      &nbspJumpstart</h1>
-    </a>
-</div>
+<body style="background-color: silver">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container d-flex align-items-center justify-content-center">
+        <h6 style="color: darkorange">
+        <a class="navbar-brand" href="{% url 'welcome' %}">
+            <i class="fa-brands fa-space-awesome fa-flip" style="color: darkorange"></i>
+            &nbspJumpstart</a>
+        </h6>
+    </div>
+</nav>
+{#<div class="d-flex align-items-center justify-content-center" style="background-color: #2e2e2e; height: 10vh;">#}
+{#    <a href="{% url 'welcome' %}" style="text-decoration: none">#}
+{#  <h1 style="color: darkorange"><i class="fa-brands fa-space-awesome fa-flip" style="color: darkorange"></i>#}
+{#      &nbspJumpstart</h1>#}
+{#    </a>#}
+{#</div>#}
 
 <div class="container" style="width: 770px; height: 600px">
     <!-- User profile section -->
@@ -88,7 +104,8 @@
         {#      <img src="https://via.placeholder.com/150" alt="User profile picture">#}
         <img src="{{ user.profile_image.url }}">
         <h2>{{ user.username }}</h2>
-        <p>{{ user.email }}</p>
+        <h6><i class="fa-solid fa-envelope"></i>&nbsp&nbsp{{ user.email }}</h6>
+        <hr/>
     </div>
 
     <!-- Options section -->

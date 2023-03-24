@@ -3,7 +3,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.forms import ModelForm, TextInput, EmailInput, PasswordInput
 from django.utils.html import strip_tags
 
-from .models import Customer, Booking
+from .models import Customer, Event, Ticket
 from django import forms
 from django.contrib.auth.hashers import make_password
 from django.utils.translation import gettext_lazy as _
@@ -16,6 +16,8 @@ from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
 from django.conf import settings
 from django.urls import reverse
+
+from .city_n_provinces_n_edu import CITY_CHOICES, PROVINCE_CHOICES, UNIVERSITY_CHOICES, EVENT_TIME_CHOICES
 
 
 class LoginForm(ModelForm):
@@ -90,25 +92,25 @@ class RegistrationForm(UserCreationForm):
         new_customer.save()
 
 
-class BookingForm(ModelForm):
-    class Meta:
-        model = Booking
-        fields = [
-
-            'reserveDate',
-            'address',
-            'phoneNumber',
-            'adultTicketCount',
-            'ChildTicketCount',
-            'FastTrackAdultTicketCount',
-            'FastTrackChildTicketCount',
-            'SeniorCitizenTicketCount',
-            'AdultCollegeIdOfferTicketCount',
-            'totalPrice',
-        ]
-        widgets = {
-            'reserveDate': forms.DateInput(attrs={'type': 'date'}),
-        }
+# class BookingForm(ModelForm):
+#     class Meta:
+#         model = Booking
+#         fields = [
+#
+#             'reserveDate',
+#             'address',
+#             'phoneNumber',
+#             'adultTicketCount',
+#             'ChildTicketCount',
+#             'FastTrackAdultTicketCount',
+#             'FastTrackChildTicketCount',
+#             'SeniorCitizenTicketCount',
+#             'AdultCollegeIdOfferTicketCount',
+#             'totalPrice',
+#         ]
+#         widgets = {
+#             'reserveDate': forms.DateInput(attrs={'type': 'date'}),
+#         }
 
 
 class CustomPasswordResetForm(PasswordResetForm):
@@ -138,7 +140,7 @@ class CustomPasswordResetForm(PasswordResetForm):
         reset_url = '{}://{}{}'.format(
             'https' if use_https else 'http',
             domain,
-            reverse('password_reset_confirm', kwargs={'uidb64': uid, 'token': token},)
+            reverse('password_reset_confirm', kwargs={'uidb64': uid, 'token': token}, )
         )
 
         print(reset_url)
@@ -193,3 +195,140 @@ class CustomSetPasswordForm(SetPasswordForm):
         }),
         help_text="Enter the same password as before, for verification.",
     )
+
+
+class TicketForm(forms.ModelForm):
+    class Meta:
+        model = Ticket
+        fields = ['event', 'reservation_type', 'reservation_date', 'address', 'city', 'province',
+                  'phone_number', 'ticket_id', 'transaction_id']
+        # widgets = {
+        #     'reservation_date': forms.TextInput(attrs={
+        #         'class': 'form-control flatpickr-input',
+        #         'id': 'booking-date'
+        #     }),
+        #     'event': forms.ModelChoiceField(queryset=Event.objects.filter(event_type='single'))
+        # }
+
+    EVENT_TYPE_CHOICES = [
+        ('single-event', 'Single Event'),
+        ('multi-event', 'Multi Event'),
+    ]
+
+    event_type = forms.ChoiceField(choices=EVENT_TYPE_CHOICES,
+                                   widget=forms.Select(
+                                       attrs={
+                                           'class': 'form-control',
+                                           'id': 'event-type',
+                                           'name': 'event-type',
+                                       }))
+    reservation_date = forms.DateField(widget=forms.TextInput(
+        attrs={
+            'class': 'form-control flatpickr-input',
+            'id': 'booking-date',
+        }))
+    event = forms.ModelChoiceField(
+        queryset=Event.objects.filter(event_type='single'),
+        to_field_name='name',
+        widget=forms.Select(attrs={
+            'class': 'form-control',
+            'id': 'event-name'
+        })
+    )
+    event_time = forms.ChoiceField(choices=EVENT_TIME_CHOICES,
+                                   widget=forms.Select(
+                                       attrs={
+                                           'class': 'form-control',
+                                           'id': 'event-time',
+                                       }))
+
+    is_student = forms.BooleanField(required=False,
+                                    widget=forms.CheckboxInput(attrs={
+                                        'class': 'form-check-input',
+                                        'id': 'student',
+                                    }))
+
+    university = forms.ChoiceField(choices=UNIVERSITY_CHOICES,
+                                   widget=forms.Select(
+                                     attrs={
+                                         'class': 'form-control',
+                                         'id': 'university',
+                                         'onchange': 'resizeUniversitySelect(this)'
+                                     }))
+    adult_tickets = forms.IntegerField(
+        widget=forms.NumberInput(
+            attrs={
+                'class': 'form-control',
+                'id': 'adult-tickets',
+            }))
+    children_tickets = forms.IntegerField(
+        widget=forms.NumberInput(
+            attrs={
+                'class': 'form-control',
+                'id': 'children-ticket'
+            }))
+    spl_adult_tickets = forms.IntegerField(
+        widget=forms.NumberInput(
+            attrs={
+                'class': 'form-control',
+                'id': 'special-adult-tickets',
+            }))
+    spl_children_tickets = forms.IntegerField(
+        widget=forms.NumberInput(
+            attrs={
+                'class': 'form-control',
+                'id': 'special-children-ticket'
+            }))
+
+    address = forms.CharField(max_length=200, widget=forms.TextInput(
+        attrs={
+            'class': 'form-control',
+            'id': 'address',
+        }))
+    city = forms.ChoiceField(choices=CITY_CHOICES,
+                             widget=forms.Select(
+                                 attrs={
+                                     'class': 'form-control',
+                                     'id': 'city',
+                                 }))
+    province = forms.ChoiceField(choices=PROVINCE_CHOICES,
+                                 widget=forms.Select(
+                                     attrs={
+                                         'class': 'form-control',
+                                         'id': 'province',
+                                     }))
+    phone_number = forms.CharField(max_length=20,
+                                   widget=forms.TextInput(
+                                       attrs={
+                                           'class': 'form-control',
+                                           'id': 'phone-number',
+                                       }))
+    total_price = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'disabled': True,
+                'id': 'total-price',
+            }))
+
+    # reservation_type = forms.ChoiceField(choices=Ticket.RESERVATION_CHOICES, widget=forms.RadioSelect())
+    # reservation_time = forms.TimeField(widget=forms.TimeInput(format='%I:%M %p', attrs={'class': 'form-control'}))
+    # address = forms.CharField(max_length=200, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    # city = forms.ChoiceField(choices=CITY_CHOICES, widget=forms.Select(attrs={'class': 'form-control'}))
+    # province = forms.ChoiceField(choices=PROVINCE_CHOICES, widget=forms.Select(attrs={'class': 'form-control'}))
+    # phone_number = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    # ticket_id = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    # transaction_id = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    # university = forms.ChoiceField(choices=UNIVERSITY_CHOICES, required=False,
+    #                                widget=forms.Select(attrs={'class': 'form-control student'}))
+    #
+    # adult_tickets = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control multi-event'}))
+    # children_tickets = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control multi-event'}))
+    # special_adult_tickets = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control multi-event'}))
+    # special_children_tickets = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control multi-event'}))
+
+    # class Meta:
+    #     model = Ticket
+    #     fields = ['event', 'reservation_type', 'reservation_date', 'reservation_time', 'address', 'city', 'province',
+    #               'phone_number', 'ticket_id', 'transaction_id', 'university', 'adult_tickets', 'children_tickets',
+    #               'special_adult_tickets', 'special_children_tickets']

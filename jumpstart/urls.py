@@ -8,9 +8,9 @@ from .forms import CustomPasswordResetForm
 # app_name = 'jumpstart'
 urlpatterns = [
     path('login/', views.LoginSignup.as_view(), name='login'),
-    path('logout/', views.Logout.as_view(), name='logout'),
+    path('logout/', views.UserLogout.as_view(), name='logout'),
     path('', views.Welcome.as_view(), name='welcome'),
-    path('booking/create/', views.CreateBookingView.as_view(), name='create_booking'),
+    path('booking/create/', views.CustomerBooking.as_view(), name='create_booking'),
 
     path('password_reset/',
          reset_views.PasswordResetView.as_view(form_class=CustomPasswordResetForm),

@@ -7,7 +7,7 @@ from django.views import View
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 
-from .forms import LoginForm, RegistrationForm, BookingForm
+from .forms import LoginForm, RegistrationForm, TicketForm
 from .models import Booking, Customer, User
 
 
@@ -67,29 +67,29 @@ class Welcome(View):
             return render(request, 'new_home.html', {})
 
 
-class CreateBookingView(View):
-    form_class = BookingForm
-    template_name = 'bookingpage.html'
-
-    # @login_required()
-    def get(self, request, *args, **kwargs):
-        user_id = request.session.get('user_id')
-        user = User.objects.get(id=user_id)
-        form = self.form_class()
-        return render(request, self.template_name, {'form': form, 'user': user})
-
-    @login_required()
-    def post(self, request, *args, **kwargs):
-        user_id = request.session.get('user_id')
-        user = User.objects.get(id=user_id)
-        form = self.form_class(request.POST)
-        if form.is_valid():
-            form.save()
-            message = "booking successful"
-            print(user_id)
-            return render(request, 'bookingpage.html', {'user': user})
-            # return redirect('jumpstart/bookingpage.html', message, )
-        return render(request, self.template_name, {'form': form})
+# class CreateBookingView(View):
+#     form_class = BookingForm
+#     template_name = 'bookingpage.html'
+#
+#     # @login_required()
+#     def get(self, request, *args, **kwargs):
+#         user_id = request.session.get('user_id')
+#         user = User.objects.get(id=user_id)
+#         form = self.form_class()
+#         return render(request, self.template_name, {'form': form, 'user': user})
+#
+#     @login_required()
+#     def post(self, request, *args, **kwargs):
+#         user_id = request.session.get('user_id')
+#         user = User.objects.get(id=user_id)
+#         form = self.form_class(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             message = "booking successful"
+#             print(user_id)
+#             return render(request, 'bookingpage.html', {'user': user})
+#             # return redirect('jumpstart/bookingpage.html', message, )
+#         return render(request, self.template_name, {'form': form})
 
 
 class Profile(View):
@@ -106,7 +106,16 @@ class Profile(View):
         return render(request, 'login2.html', )
 
 
-class Logout(View):
+class UserLogout(View):
     def get(self, request):
         logout(request)
         return HttpResponseRedirect(reverse('welcome'))
+
+
+class CustomerBooking(View):
+
+    def get(self, request):
+        user_id = request.session.get('_auth_user_id')
+        user = Customer.objects.get(id=user_id)
+        form = TicketForm()
+        return render(request, 'booking2.html', {'form': form})

@@ -4,305 +4,159 @@
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css'>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>newhome</title>
-    {% compress css %}
-    <link type="text/x-scss" href="{% static 'scss/new_home.scss' %}" rel="stylesheet" media="screen">
-    {% endcompress %}
-    <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-    <script type="text/javascript" src="{% static 'js/new_home.js' %}"></script>
+{#    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">#}
+{#    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css'>#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1">#}
+{#    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">#}
+{#    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">#}
+{#    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">#}
+{#    <title>newhome</title>#}
+{#    {% compress css %}#}
+{#        <link type="text/x-scss" href="{% static 'scss/new_home.scss' %}" rel="stylesheet" media="screen">#}
+{#    {% endcompress %}#}
+{#<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">#}
+{#    <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>#}
+{#    <script type="text/javascript" src="{% static 'js/new_home.js' %}"></script>#}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
-{#<body>#}
-{#<!-- partial:index.partial.html -->#}
-{#<!--<div class="header" id="top">-->#}
-{#<!--   <h1>Scroll Down</h1>-->#}
-{#<!--   <i class="fa fa-angle-down animated bounce"></i>-->#}
-{#<!--</div>-->#}
-{#<!-- Navigation Bar -->#}
-{#<div class="w3-bar w3-white w3-large">#}
-{#  <a href="#" class="w3-bar-item w3-button w3-red w3-mobile"><i class="fa fa-bed w3-margin-right"></i>Logo</a>#}
-{##}
-{#    {% if user.is_authenticated %}#}
-{#        <a href="{% url 'create_booking' %}" class="w3-bar-item w3-button w3-mobile">Book</a>#}
-{#    {% else %}#}
-{#        <a href="{% url 'login' %}" class="w3-bar-item w3-button w3-mobile">Book</a>#}
-{#    {% endif %}#}
-{##}
-{#  <a href="#about" class="w3-bar-item w3-button w3-mobile">About</a>#}
-{#  <a href="#contact" class="w3-bar-item w3-button w3-mobile">Contact</a>#}
-{##}
-{#    {% if user.is_authenticated %}#}
-{#        <a href="{% url 'welcome' %}" class="w3-bar-item w3-button w3-right w3-light-grey w3-mobile">logout</a>#}
-{#        <a href="{% url 'welcome' %}" class="w3-bar-item w3-button w3-right w3-light-grey w3-mobile">Welcome {{user.username}}</a>#}
-{#    {% else %}#}
-{#       <a href="{% url 'login' %}" class="w3-bar-item w3-button w3-right w3-light-grey w3-mobile">login</a>#}
-{#    {% endif %}#}
-{#</div>#}
-{##}
-{##}
-{##}
-{#<div class="section animate">#}
-{#   <div class="middle">#}
-{#      <img  src="{% static 'images/image1.jpg' %}" alt="High Ropes & Ziplines"/>#}
-{##}
-{#       </div>#}
-{#   <div class="left title">#}
-{#      <div class="content">#}
-{#         <h2>High Ropes & Ziplines:</h2>#}
-{#         <p>Get ready to soar through the air on our thrilling High Ropes & Zipline Course! Climb up to dizzying heights, balance on wobbly bridges, and feel the rush of wind as you zip from platform to platform. Our experienced instructors will make sure you are safe and secure, so you can enjoy the thrill of the ride.</p>#}
-{#         <a href="#" class="btn-primary">Learn more</a>#}
-{#      </div>#}
-{#   </div>#}
-{#   <div class="right tiles">#}
-{#        <img  src="{% static 'images/image1.jpg' %}" alt="High Ropes & Ziplines"/>#}
-{#        <img  src="{% static 'images/image1.jpg' %}" alt="High Ropes & Ziplines"/>#}
-{#        <img  src="{% static 'images/image1.jpg' %}" alt="High Ropes & Ziplines"/>#}
-{#        <img  src="{% static 'images/image1.jpg' %}" alt="High Ropes & Ziplines"/>#}
-{##}
-{#          </div>#}
-{#</div>#}
-{##}
-{#<div class="section">#}
-{#   <div class="middle">#}
-{#       <img  src="{% static 'images/image2.png' %}" alt="Trampoline Park"/>#}
-{#  </div>#}
-{#   <div class="right title">#}
-{#      <div class="content">#}
-{#         <h2>Trampoline Park:</h2>#}
-{#         <p>Take flight at our state-of-the-art Trampoline Park! With a variety of different trampolines, a foam pit, and a basketball dunk area, you'll have a blast bouncing, flipping, and soaring. Whether you're a seasoned trampoline pro or a beginner, you'll find plenty of opportunities to have fun.</p>#}
-{#        <a href="#" class="btn-primary">Learn more</a>#}
-{#      </div>#}
-{#   </div>#}
-{##}
-{#   <div class="left tiles">#}
-{##}
-{#       <img  src="{% static 'images/image2.png' %}" alt="Trampoline Park"/>#}
-{#       <img  src="{% static 'images/image2.png' %}" alt="Trampoline Park"/>#}
-{#       <img  src="{% static 'images/image2.png' %}" alt="Trampoline Park"/>#}
-{#       <img  src="{% static 'images/image2.png' %}" alt="Trampoline Park"/>#}
-{#   </div>#}
-{##}
-{#</div>#}
-{##}
-{#<div class="section">#}
-{#   <div class="middle">#}
-{#       <img  src="{% static 'images/image3.png' %}" alt="Trampoline Park"/>#}
-{#   </div>#}
-{#   <div class="left title">#}
-{#      <div class="content">#}
-{#         <h2>Warrior Course</h2>#}
-{#      <p>Are you ready to test your strength, endurance, and determination? Our Warrior Course is a challenging obstacle course that will put you to the test. Climb, crawl, and swing your way through a series of obstacles, and see if you have what it takes to complete the course.</p>#}
-{#       <a href="#" class="btn-primary">Learn more</a>#}
-{#      </div>#}
-{#   </div>#}
-{##}
-{#   <div class="right tiles">#}
-{##}
-{#       <img  src="{% static 'images/image3.png' %}" alt="Trampoline Park"/>#}
-{#       <img  src="{% static 'images/image3.png' %}" alt="Trampoline Park"/>#}
-{#       <img  src="{% static 'images/image3.png' %}" alt="Trampoline Park"/>#}
-{#       <img  src="{% static 'images/image3.png' %}" alt="Trampoline Park"/>#}
-{#   </div>#}
-{##}
-{#</div>#}
-{##}
-{#<div class="section">#}
-{#   <div class="middle">#}
-{#       <img  src="{% static 'images/image4.png' %}" alt="Escape Rooms"/>#}
-{#   </div>#}
-{#   <div class="right title">#}
-{#      <div class="content">#}
-{#         <h2>Escape Rooms</h2>#}
-{#      <p>Put your problem-solving skills to the test in one of our challenging Escape Rooms. With immersive themes, exciting puzzles, and a race against the clock, you'll be fully absorbed in the experience as you work to escape the room.</p>#}
-{#       <a href="#" class="btn-primary">Learn more</a>#}
-{#      </div>#}
-{#   </div>#}
-{##}
-{#   <div class="left tiles">#}
-{#       <img  src="{% static 'images/image4.png' %}" alt="Escape Rooms"/>#}
-{#       <img  src="{% static 'images/image4.png' %}" alt="Escape Rooms"/>#}
-{#       <img  src="{% static 'images/image4.png' %}" alt="Escape Rooms"/>#}
-{#       <img  src="{% static 'images/image4.png' %}" alt="Escape Rooms"/>#}
-{#   </div>#}
-{##}
-{#</div>#}
-{##}
-{#  <div class="w3-row-padding" id="about">#}
-{#    <div class="w3-col l4 12">#}
-{#      <h3>About</h3>#}
-{#      <h6>Welcome to Adventure Land! Your one-stop destination for all things fun and thrilling. We offer a wide range of activities and attractions that are sure to get your heart racing and your adrenaline pumping. Whether you're looking for high-flying thrills, bouncing fun, physical challenges, or immersive experiences, you'll find it all here at Adventure Land.</h6>#}
-{#    <p>We accept: <i class="fa fa-credit-card w3-large"></i> <i class="fa fa-cc-mastercard w3-large"></i> <i class="fa fa-cc-amex w3-large"></i> <i class="fa fa-cc-cc-visa w3-large"></i><i class="fa fa-cc-paypal w3-large"></i></p>#}
-{#    </div>#}
-{#    <div class="w3-col l8 12">#}
-{#      <!-- Image of location/map -->#}
-{#     <img src={% static 'images/aboutsideimge.png' %} class="w3-image w3-greyscale" style="width:100%;">#}
-{#    </div>#}
-{#  </div>#}
-{##}
-{#  <div class="w3-row-padding w3-large w3-center" style="margin:32px 0">#}
-{#    <div class="w3-third"><i class="fa fa-map-marker w3-text-red"></i> 423 Some adr, Chicago, US</div>#}
-{#    <div class="w3-third"><i class="fa fa-phone w3-text-red"></i> Phone: +00 151515</div>#}
-{#    <div class="w3-third"><i class="fa fa-envelope w3-text-red"></i> Email: mail@mail.com</div>#}
-{#  </div>#}
-{##}
-{#  <div class="w3-panel w3-red w3-leftbar w3-padding-32">#}
-{#    <h6><i class="fa fa-info w3-deep-orange w3-padding w3-margin-right"></i> On demand, we can offer playstation, babycall, children care, dog equipment, etc.</h6>#}
-{#  </div>#}
-{##}
-{##}
-{#  <div class="w3-container w3-padding-32 w3-black w3-opacity w3-card w3-hover-opacity-off" style="margin:32px 0;">#}
-{#    <h2>Get the best offers first!</h2>#}
-{#    <p>Join our newsletter.</p>#}
-{#    <label>E-mail</label>#}
-{#    <input class="w3-input w3-border" type="text" placeholder="Your Email address">#}
-{#    <button type="button" class="w3-button w3-red w3-margin-top">Subscribe</button>#}
-{#  </div>#}
-{##}
-{#  <div class="w3-container" id="contact">#}
-{#    <h2>Contact</h2>#}
-{#    <p>If you have any questions, do not hesitate to ask them.</p>#}
-{#    <i class="fa fa-map-marker w3-text-red" style="width:30px"></i> Chicago, US<br>#}
-{#    <i class="fa fa-phone w3-text-red" style="width:30px"></i> Phone: +00 151515<br>#}
-{#    <i class="fa fa-envelope w3-text-red" style="width:30px"> </i> Email: mail@mail.com<br>#}
-{#    <form action="/action_page.php" target="_blank">#}
-{#      <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Name" required name="Name"></p>#}
-{#      <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Email" required name="Email"></p>#}
-{#      <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Message" required name="Message"></p>#}
-{#      <p><button class="w3-button w3-black w3-padding-large" type="submit">SEND MESSAGE</button></p>#}
-{#    </form>#}
-{#  </div>#}
-{##}
-{#<!-- End page content -->#}
-{#</div>#}
-{##}
-{#<!-- Footer -->#}
-{#<footer class="w3-padding-32 w3-black w3-center w3-margin-top">#}
-{#  <h5>Find Us On</h5>#}
-{#  <div class="w3-xlarge w3-padding-16">#}
-{#    <i class="fa fa-facebook-official w3-hover-opacity"></i>#}
-{#    <i class="fa fa-instagram w3-hover-opacity"></i>#}
-{#    <i class="fa fa-snapchat w3-hover-opacity"></i>#}
-{#    <i class="fa fa-pinterest-p w3-hover-opacity"></i>#}
-{#    <i class="fa fa-twitter w3-hover-opacity"></i>#}
-{#    <i class="fa fa-linkedin w3-hover-opacity"></i>#}
-{#  </div>#}
-{#  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank" class="w3-hover-text-green">w3.css</a></p>#}
-{#</footer>#}
-{##}
-{#<div class="footer">#}
-{#   <a href="#top" class="scrollTo"><i class="fa fa-angle-up animated bounce"></i></a>#}
-{#   <h1>Scroll Up</h1>#}
-{#</div>#}
-{#<!-- partial -->#}
-{#  <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script><script  src="./script.js"></script>#}
-{##}
-{#</body>#}
-{#</html>#}
-
-
-
-
 {% block body_block %}
 
-<div class="section animate" style="margin-top: 1px">
-   <div class="middle">
-      <img  src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.bynWjMNyDfHuJEtxj9gpgwHaFj%26pid%3DApi&f=1&ipt=0562643e4b360c6557f6b49ea8f1494d28c54b3dda44bf2f90ba6710fdfbb9f8&ipo=images" alt="High Ropes & Ziplines"/>
+    <div class="section animate" style="margin-top: 1px">
+        <div class="middle">
+            <img src="https://thefactorylondon.ca/uploads/2019/01/HighRopes-Inner1.jpg"
+                 alt="High Ropes & Ziplines"
+                 style="height:475px"
+            />
 
-       </div>
-   <div class="left title">
-      <div class="content">
-         <h2>High Ropes & Ziplines:</h2>
-         <p>Get ready to soar through the air on our thrilling High Ropes & Zipline Course! Climb up to dizzying heights, balance on wobbly bridges, and feel the rush of wind as you zip from platform to platform. Our experienced instructors will make sure you are safe and secure, so you can enjoy the thrill of the ride.</p>
-         <a href="#" class="btn-primary">Learn more</a>
-      </div>
-   </div>
-   <div class="right tiles">
-        <img  src="{% static '' %}" alt="High Ropes & Ziplines"/>
-        <img  src="{% static 'images/homepage/img_1.png' %}" alt="High Ropes & Ziplines"/>
-        <img  src="{% static 'images/image1.jpg' %}" alt="High Ropes & Ziplines"/>
-        <img  src="{% static 'images/image1.jpg' %}" alt="High Ropes & Ziplines"/>
+        </div>
+        <div class="left title">
+            <div class="content">
+                <h2>High Ropes & Ziplines:</h2>
+                <p>Get ready to soar through the air on our thrilling High Ropes & Zipline Course! Climb up to dizzying
+                    heights, balance on wobbly bridges, and feel the rush of wind as you zip from platform to platform.
+                    Our experienced instructors will make sure you are safe and secure, so you can enjoy the thrill of
+                    the ride.</p>
+                <a href="#" class="btn-primary">Learn more</a>
+            </div>
+        </div>
+        <div class="right tiles">
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.1Balg7vjGaWk2cdeUzDN-QHaEc%26pid%3DApi&f=1&ipt=828f1ecdde8670984b25fb43c4284168ec1fdf22be9c7dfa4274e4fa9d090068&ipo=images"
+                 alt="High Ropes & Ziplines"
+                 style="height: 237px"
+            />
+            <img src="{% static 'images/homepage/img_1.png' %}"
+                 alt="High Ropes & Ziplines"
+                 style="height: 237px"
+            />
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.H3dgVIwPS7mgOc7xG975QQHaE-%26pid%3DApi&f=1&ipt=b42c682b5bf1e529fdaa73ea9acbb4090a4b93019f953a3406fee6e34764c1bd&ipo=images"
+                 alt="High Ropes & Ziplines"
+                 style="height: 237px"
+            />
+            <img src="https://thefactorylondon.ca/uploads/2019/01/HighRopes-Overview.jpg" alt="High Ropes & Ziplines"/>
 
-          </div>
-</div>
+        </div>
+    </div>
 
-<div class="section">
-   <div class="middle">
-       <img  style= "width: 928px; height: 328px" src="../New%20Project.png" alt="Trampoline Park"/>
-  </div>
-   <div class="right title">
-      <div class="content">
-         <h2>Trampoline Park:</h2>
-         <p>Take flight at our state-of-the-art Trampoline Park! With a variety of different trampolines, a foam pit, and a basketball dunk area, you'll have a blast bouncing, flipping, and soaring. Whether you're a seasoned trampoline pro or a beginner, you'll find plenty of opportunities to have fun.</p>
-        <a href="#" class="btn-primary">Learn more</a>
-      </div>
-   </div>
+    <div class="section">
+        <div class="middle">
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.ss5qcqnjRARjZYU1LhE_0wHaIN%26pid%3DApi&f=1&ipt=6a6856f9f526ea8be939118b16760b30cdeba347c0c115df3dcd3c026f8bd0b7&ipo=images"
+                 alt="Trampoline Park"
+                 style="height:475px"
+            />
+        </div>
+        <div class="right title">
+            <div class="content">
+                <h2>Trampoline Park:</h2>
+                <p>Take flight at our state-of-the-art Trampoline Park! With a variety of different trampolines, a foam
+                    pit, and a basketball dunk area, you'll have a blast bouncing, flipping, and soaring. Whether you're
+                    a seasoned trampoline pro or a beginner, you'll find plenty of opportunities to have fun.</p>
+                <a href="#" class="btn-primary">Learn more</a>
+            </div>
+        </div>
 
-   <div class="left tiles">
+        <div class="left tiles">
 
-       <img  src="{% static 'images/image2.png' %}" alt="Trampoline Park"/>
-       <img  src="{% static 'images/image2.png' %}" alt="Trampoline Park"/>
-       <img  src="{% static 'images/image2.png' %}" alt="Trampoline Park"/>
-       <img  src="{% static 'images/image2.png' %}" alt="Trampoline Park"/>
-   </div>
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP._nasLw1BC769bif_qNql8gHaE8%26pid%3DApi&f=1&ipt=50d66908338a5eaf92ae2d8aa90c24a25a1de7a849db3f8a45456307da0c4ba7&ipo=images"
+                 alt="Trampoline Park"
+                 style="height: 237px"
+            />
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.bkJrw8jVqiTebqcHANkVNAHaE8%26pid%3DApi&f=1&ipt=121aba66ad85ef0a0bb94e68235e143a06e0c8ce435f83c65f557a219b75a969&ipo=images"
+                 alt="Trampoline Park"
+                 style="height: 237px"
+            />
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.NiI5Iqo7EhOMS_TY3-uZOQHaFL%26pid%3DApi&f=1&ipt=8fdc06c814077a6fbf2a60404ea884e6ed2358c910bf74bcd73cd1d5e3b87fff&ipo=images"
+                 alt="Trampoline Park"
+                 style="height: 237px"
+            />
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.-9GhuYXA5Dx7bMR4cxzFSgHaEK%26pid%3DApi&f=1&ipt=4f3855f7ab3ac8558d5fb70cded625b3ec82da5f78e4e3ac437f6147dab53c03&ipo=images"
+                 alt="Trampoline Park"
+                 style="height: 237px"
+            />
+        </div>
 
-</div>
+    </div>
 
-<div class="section">
-   <div class="middle">
-       <img  src="{% static 'images/image3.png' %}" alt="Trampoline Park"/>
-   </div>
-   <div class="left title">
-      <div class="content">
-         <h2>Warrior Course</h2>
-      <p>Are you ready to test your strength, endurance, and determination? Our Warrior Course is a challenging obstacle course that will put you to the test. Climb, crawl, and swing your way through a series of obstacles, and see if you have what it takes to complete the course.</p>
-       <a href="#" class="btn-primary">Learn more</a>
-      </div>
-   </div>
+    <div class="section">
+        <div class="middle">
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.RKpw-CV7VxlYDNx1CpaDvAHaE8%26pid%3DApi&f=1&ipt=1d7b4c72686824334f7e9a777f795294542c154207d6bcacae69e71cfe80f701&ipo=images" alt="Trampoline Park"/>
+        </div>
+        <div class="left title">
+            <div class="content">
+                <h2>Warrior Course</h2>
+                <p>Are you ready to test your strength, endurance, and determination? Our Warrior Course is a
+                    challenging obstacle course that will put you to the test. Climb, crawl, and swing your way through
+                    a series of obstacles, and see if you have what it takes to complete the course.</p>
+                <a href="#" class="btn-primary">Learn more</a>
+            </div>
+        </div>
 
-   <div class="right tiles">
+        <div class="right tiles">
 
-       <img  src="{% static 'images/image3.png' %}" alt="Trampoline Park"/>
-       <img  src="{% static 'images/image3.png' %}" alt="Trampoline Park"/>
-       <img  src="{% static 'images/image3.png' %}" alt="Trampoline Park"/>
-       <img  src="{% static 'images/image3.png' %}" alt="Trampoline Park"/>
-   </div>
+            <img src="{% static 'images/image3.png' %}" alt="Trampoline Park"/>
+            <img src="{% static 'images/image3.png' %}" alt="Trampoline Park"/>
+            <img src="{% static 'images/image3.png' %}" alt="Trampoline Park"/>
+            <img src="{% static 'images/image3.png' %}" alt="Trampoline Park"/>
+        </div>
 
-</div>
+    </div>
 
-<div class="section">
-   <div class="middle">
-       <img  src="{% static 'images/image4.png' %}" alt="Escape Rooms"/>
-   </div>
-   <div class="right title">
-      <div class="content">
-         <h2>Escape Rooms</h2>
-      <p>Put your problem-solving skills to the test in one of our challenging Escape Rooms. With immersive themes, exciting puzzles, and a race against the clock, you'll be fully absorbed in the experience as you work to escape the room.</p>
-       <a href="#" class="btn-primary">Learn more</a>
-      </div>
-   </div>
+    <div class="section">
+        <div class="middle">
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.explicit.bing.net%2Fth%3Fid%3DOIP.IEBj1hzvOImUbG5Vwi90mAHaE7%26pid%3DApi&f=1&ipt=b4faee79ba7e943ab6f7c1f0b2d2e541b3e424da2eaf2a8d56f4b2605c05fbb3&ipo=images"
+                 alt="Escape Rooms"
+                 style="height:475px"
+            />
+        </div>
+        <div class="right title">
+            <div class="content">
+                <h2>Escape Rooms</h2>
+                <p>Put your problem-solving skills to the test in one of our challenging Escape Rooms. With immersive
+                    themes, exciting puzzles, and a race against the clock, you'll be fully absorbed in the experience
+                    as you work to escape the room.</p>
+                <a href="#" class="btn-primary">Learn more</a>
+            </div>
+        </div>
 
-   <div class="left tiles">
-       <img  src="{% static 'images/image4.png' %}" alt="Escape Rooms"/>
-       <img  src="{% static 'images/image4.png' %}" alt="Escape Rooms"/>
-       <img  src="{% static 'images/image4.png' %}" alt="Escape Rooms"/>
-       <img  src="{% static 'images/image4.png' %}" alt="Escape Rooms"/>
-   </div>
+        <div class="left tiles">
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.Nyh3ifi7jwh_VKaUsqs8jgHaE7%26pid%3DApi&f=1&ipt=e673c063b38636d7f5e25c48cbd0f599a9fbe2562d96d1d5bdbfc9e7e93002c0&ipo=images" alt="Escape Rooms"/>
+            <img src="{% static 'images/image4.png' %}" alt="Escape Rooms"/>
+            <img src="{% static 'images/image4.png' %}" alt="Escape Rooms"/>
+            <img src="{% static 'images/image4.png' %}" alt="Escape Rooms"/>
+        </div>
 
-</div>
+    </div>
 
-<div class="w3-row-padding" id="about" style="background-color: indianred; margin-top: 10px">
-    <style>
-        i{
-            font-size: 25px;
-            padding-right: 5px;
-        }
-    </style>
-{#    <div class="w3-col l4 12">#}
+    <div class="w3-row-padding" id="about" style="background-color: indianred; margin-top: 10px">
+        <style>
+            i {
+                font-size: 25px;
+                padding-right: 5px;
+            }
+        </style>
+        {#    <div class="w3-col l4 12">#}
         <h3 class="w3-center">About</h3>
         <h6>Welcome to Adventure Land! Your one-stop destination for all things fun and thrilling. We offer a wide range
             of activities and attractions that are sure to get your heart racing and your adrenaline pumping. Whether
@@ -317,48 +171,52 @@
             <i class="fa-brands fa-google-pay"></i>
             <i class="fa-brands fa-cc-apple-pay"></i>
         </p>
-{#    </div>#}
-{#    <div class="w3-col l8 12">#}
-{#      <!-- Image of location/map -->#}
-{#     <img src={% static 'images/aboutsideimge.png' %} class="w3-image w3-greyscale" style="width:100%;">#}
-{#    </div>#}
-  </div>
+        {#    </div>#}
+        {#    <div class="w3-col l8 12">#}
+        {#      <!-- Image of location/map -->#}
+        {#     <img src={% static 'images/aboutsideimge.png' %} class="w3-image w3-greyscale" style="width:100%;">#}
+        {#    </div>#}
+    </div>
 
-{#  <div class="w3-panel w3-red w3-leftbar w3-padding-32">#}
-{#    <h6><i class="fa fa-info w3-deep-orange w3-padding w3-margin-right"></i> On demand, we can offer playstation, babycall, children care, dog equipment, etc.</h6>#}
-{#  </div>#}
+    {#  <div class="w3-panel w3-red w3-leftbar w3-padding-32">#}
+    {#    <h6><i class="fa fa-info w3-deep-orange w3-padding w3-margin-right"></i> On demand, we can offer playstation, babycall, children care, dog equipment, etc.</h6>#}
+    {#  </div>#}
 
 
-{#  <div class="w3-container w3-padding-32 w3-black w3-opacity w3-card w3-hover-opacity-off" style="margin:32px 0;">#}
-{#    <h2>Get the best offers first!</h2>#}
-{#    <p>Join our newsletter.</p>#}
-{#    <label>E-mail</label>#}
-{#    <input class="w3-input w3-border" type="text" placeholder="Your Email address">#}
-{#    <button type="button" class="w3-button w3-red w3-margin-top">Subscribe</button>#}
-{#  </div>#}
+    {#  <div class="w3-container w3-padding-32 w3-black w3-opacity w3-card w3-hover-opacity-off" style="margin:32px 0;">#}
+    {#    <h2>Get the best offers first!</h2>#}
+    {#    <p>Join our newsletter.</p>#}
+    {#    <label>E-mail</label>#}
+    {#    <input class="w3-input w3-border" type="text" placeholder="Your Email address">#}
+    {#    <button type="button" class="w3-button w3-red w3-margin-top">Subscribe</button>#}
+    {#  </div>#}
 
-<div class="w3-container" id="contact" style="background-color: gray; margin-top: 10px">
-    <h2>Contact</h2>
-    <p>If you have any questions, do not hesitate to ask them.</p>
-    <i class="fa-solid fa-map-location-dot" style="width:30px"></i> Windsor, ON &nbsp&nbsp&nbsp&nbsp
-    <i class="fa-solid fa-phone" style="width:30px"></i> +1 8976784371 &nbsp&nbsp&nbsp&nbsp
-    <i class="fa-solid fa-envelope" style="width:30px"></i> help@jumpstart.com &nbsp&nbsp&nbsp&nbsp
-    <form action="/action_page.php" target="_blank">
-        <p style="display: inline-block; vertical-align: top; padding-right: 20px"><input
-                class="w3-input w3-padding-16 w3-border" type="text" placeholder="Email" required name="Email"
-                style="width: 230px; border-radius: 20px"></p>
-        <p style="display: inline-block; vertical-align: top"><input class="w3-input w3-padding-16 w3-border"
-                                                                     type="text" placeholder="Message" required
-                                                                     name="Message"
-                                                                     style="width: 230px; border-radius: 20px">
-        </p>
-        <button class="w3-button w3-black w3-padding-large" type="submit"
-                style="display: inline-block; vertical-align: top;width: 230px; border-radius: 20px; margin-left:20px; margin-top: 20px">
-            SEND MESSAGE
-        </button>
-    </form>
-</div>
 
-<!-- End page content -->
+
+
+
+    <div class="w3-container" id="contact" style="background-color: gray; margin-top: 10px">
+        <h2>Contact</h2>
+        <p>If you have any questions, do not hesitate to ask them.</p>
+        <i class="fa-solid fa-map-location-dot" style="width:30px"></i> Windsor, ON &nbsp&nbsp&nbsp&nbsp
+        <i class="fa-solid fa-phone" style="width:30px"></i> +1 8976784371 &nbsp&nbsp&nbsp&nbsp
+        <i class="fa-solid fa-envelope" style="width:30px"></i> help@jumpstart.com &nbsp&nbsp&nbsp&nbsp
+        <form action="/action_page.php" target="_blank">
+            <p style="display: inline-block; vertical-align: top; padding-right: 20px"><input
+                    class="w3-input w3-padding-16 w3-border" type="text" placeholder="Email" required name="Email"
+                    style="width: 230px; border-radius: 20px"></p>
+            <p style="display: inline-block; vertical-align: top"><input class="w3-input w3-padding-16 w3-border"
+                                                                         type="text" placeholder="Message" required
+                                                                         name="Message"
+                                                                         style="width: 230px; border-radius: 20px">
+            </p>
+            <button class="w3-button w3-black w3-padding-large" type="submit"
+                    style="display: inline-block; vertical-align: top;width: 230px; border-radius: 20px; margin-left:20px; margin-top: 20px">
+                SEND MESSAGE
+            </button>
+        </form>
+    </div>
+
+    <!-- End page content -->
 
 {% endblock %}
