@@ -1,6 +1,6 @@
 import csv
 import os
-
+from pprint import pprint
 
 csv_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'csv/canada_cities.csv')
 
@@ -16,7 +16,9 @@ with open(csv_file_path) as csvfile:
         provinces[province_id] = province_name
 
     PROVINCE_CHOICES = sorted([(k, v) for k, v in provinces.items()])
-    CITY_CHOICES = sorted(CITY_CHOICES)
+    CITY_CHOICES = sorted(set(CITY_CHOICES))
+
+    # pprint(CITY_CHOICES)
 
 UNIVERSITY_CHOICES = [
     ('Algoma University', 'Algoma University'),

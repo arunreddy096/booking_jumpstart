@@ -1,6 +1,8 @@
+import random, string
+from pprint import pprint
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse, reverse_lazy
 
 from django.views import View
@@ -8,7 +10,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 
 from .forms import LoginForm, RegistrationForm, TicketForm
-from .models import Booking, Customer, User
+from .models import Customer, User, Ticket
 
 
 # Create your views here.
@@ -59,7 +61,7 @@ class Welcome(View):
         # print(user_id)
         if user_id is not None:
             # print(user_id, type(user_id), request.session.get('_auth_user_id'))
-            user = Customer.objects.get(id=user_id)
+            user = get_object_or_404(Customer, id=user_id)
             # user = User.objects.get(id=request.session.get('user_id'))
             print(user, type(user))
             return render(request, 'new_home.html', {'user': user})
@@ -67,41 +69,19 @@ class Welcome(View):
             return render(request, 'new_home.html', {})
 
 
-# class CreateBookingView(View):
-#     form_class = BookingForm
-#     template_name = 'bookingpage.html'
-#
-#     # @login_required()
-#     def get(self, request, *args, **kwargs):
-#         user_id = request.session.get('user_id')
-#         user = User.objects.get(id=user_id)
-#         form = self.form_class()
-#         return render(request, self.template_name, {'form': form, 'user': user})
-#
-#     @login_required()
-#     def post(self, request, *args, **kwargs):
-#         user_id = request.session.get('user_id')
-#         user = User.objects.get(id=user_id)
-#         form = self.form_class(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             message = "booking successful"
-#             print(user_id)
-#             return render(request, 'bookingpage.html', {'user': user})
-#             # return redirect('jumpstart/bookingpage.html', message, )
-#         return render(request, self.template_name, {'form': form})
-
-
 class Profile(View):
 
     def get(self, request):
         user_id = request.session.get('_auth_user_id')
-        user = Customer.objects.get(id=user_id)
+        user = get_object_or_404(Customer, id=user_id)
         return render(request, 'profile.html', {'user': user})
 
     def post(self, request):
+        user_id = request.session.get('_auth_user_id')
+        user = get_object_or_404(Customer, id=user_id)
         print('on post delete: ', request.session['user_id'])
         messages.success(request, 'Your account has been deleted.')
+        user.delete()
         # return redirect('home')
         return render(request, 'login2.html', )
 
@@ -116,6 +96,61 @@ class CustomerBooking(View):
 
     def get(self, request):
         user_id = request.session.get('_auth_user_id')
-        user = Customer.objects.get(id=user_id)
+        user = get_object_or_404(Customer, id=user_id)
         form = TicketForm()
-        return render(request, 'booking2.html', {'form': form})
+        return render(request, 'booking2.html', {'form': form, 'user':user})
+
+    def post(self, request):
+        print(f'booking post received')
+        form = TicketForm(request.POST)
+        user_id = request.session.get('_auth_user_id')
+        user = get_object_or_404(Customer, id=user_id)
+        if form.is_valid():
+            print('valid form')
+            form.save(commit=False)
+            event_type = form.cleaned_data['event_type']
+            customer = user
+            reserved_event = form.cleaned_data['event']
+            reservation_date = form.cleaned_data['reservation_date']
+            reservation_time = form.cleaned_data['reservation_time']
+            is_student = form.cleaned_data['is_student']
+            university = form.cleaned_data['university']
+            adult_tickets = form.cleaned_data['adult_tickets']
+            children_tickets = form.cleaned_data['children_tickets']
+            spl_adult_tickets = form.cleaned_data['spl_adult_tickets']
+            spl_children_tickets = form.cleaned_data['spl_children_tickets']
+            total_price = float(form.cleaned_data['total_price'].replace('$',''))
+            address = form.cleaned_data['address']
+            city = form.cleaned_data['city']
+            province = form.cleaned_data['province']
+            phone_number = form.cleaned_data['phone_number']
+            ticket_id = "T_" + "".join(random.choices(string.ascii_letters + string.digits, k=4))
+            transaction_id = "TX_" + "".join(random.choices(string.ascii_letters + string.digits, k=14))
+            pprint([(x,y) for x,y in form.cleaned_data.items()])
+            new_ticket = Ticket(
+                reserved_event=reserved_event,
+                customer=customer,
+                event_type=event_type,
+                reservation_date=reservation_date,
+                reservation_time=reservation_time,
+                is_student=is_student,
+                university=university,
+                adult_tickets=adult_tickets,
+                children_tickets=children_tickets,
+                spl_adult_tickets=spl_adult_tickets,
+                spl_children_tickets=spl_children_tickets,
+                total_price=total_price,
+                address=address,
+                city=city,
+                province=province,
+                phone_number=phone_number,
+                ticket_id=ticket_id,
+                transaction_id=transaction_id,
+            )
+            new_ticket.save()
+            return render(request, 'profile.html', {'user': user})
+        else:
+            print('invalid form')
+            print(form.errors, )
+            return render(request, 'booking2.html', {'form': form, 'user': user})
+

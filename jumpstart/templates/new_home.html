@@ -22,6 +22,12 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
+{% block about_n_contact %}
+        <a href="#about" class="w3-bar-item w3-button w3-mobile">
+        <i class="fa-solid fa-circle-info" style="font-size: 15px"></i>About</a>
+    <a href="#contact" class="w3-bar-item w3-button w3-mobile">
+        <i class="fa-solid fa-address-card" style="font-size: 15px"></i>Contact</a>
+{% endblock %}
 {% block body_block %}
 
     <div class="section animate" style="margin-top: 1px">

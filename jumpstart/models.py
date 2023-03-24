@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from .city_n_provinces_n_edu import CITY_CHOICES, PROVINCE_CHOICES, UNIVERSITY_CHOICES, EVENT_TIME_CHOICES
 
 
 # Create your models here.
@@ -16,30 +17,12 @@ class Customer(User):
         return self.username
 
 
-class Booking(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    bookingDate = models.DateField(auto_now=True)
-    reserveDate = models.DateField()
-    address = models.CharField(max_length=100)
-    phoneNumber = models.CharField(max_length=20)
-    totalPrice = models.PositiveIntegerField(default=0)
-    adultTicketCount = models.PositiveIntegerField(default=0)
-    ChildTicketCount = models.PositiveIntegerField(default=0)
-    FastTrackAdultTicketCount = models.PositiveIntegerField(default=0)
-    FastTrackChildTicketCount = models.PositiveIntegerField(default=0)
-    SeniorCitizenTicketCount = models.PositiveIntegerField(default=0)
-    AdultCollegeIdOfferTicketCount = models.PositiveIntegerField(default=0)
-
-    def __str__(self):
-        return f'{self.customer.first_name} your booking is successful on {self.reserveDate}'
-
-
 class Event(models.Model):
     SINGLE_EVENT = 'single'
     MULTI_EVENT = 'multi'
     EVENT_TYPE_CHOICES = [
-        (SINGLE_EVENT, 'Single Event'),
-        (MULTI_EVENT, 'Multi Event'),
+        (SINGLE_EVENT, 'single-event'),
+        (MULTI_EVENT, 'multi-event'),
     ]
     name = models.CharField(max_length=100)
     event_type = models.CharField(max_length=10, choices=EVENT_TYPE_CHOICES)
@@ -54,22 +37,28 @@ class Event(models.Model):
 
 class Ticket(models.Model):
     RESERVATION_CHOICES = [
-        ('S', 'Single Event'),
-        ('M', 'Multi Event')
+        ('single-event', 'Single Event'),
+        ('multi-event', 'Multi Event')
     ]
-    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    reserved_event = models.ForeignKey(Event, on_delete=models.CASCADE)
     customer = models.ForeignKey(User, on_delete=models.CASCADE)
-    reservation_type = models.CharField(max_length=1, choices=RESERVATION_CHOICES)
+    event_type = models.CharField(max_length=12, choices=RESERVATION_CHOICES)
     reservation_date = models.DateField()
-    reservation_time = models.TimeField()
-    price = models.DecimalField(max_digits=6, decimal_places=2)
+    reservation_time = models.CharField(max_length=12, choices=EVENT_TIME_CHOICES)
+    is_student = models.BooleanField(default=False)
+    university = models.CharField(max_length=50, choices=UNIVERSITY_CHOICES, default='University of Windsor')
+    adult_tickets = models.IntegerField(default=0)
+    children_tickets = models.IntegerField(default=0)
+    spl_adult_tickets = models.IntegerField(default=0)
+    spl_children_tickets = models.IntegerField(default=0)
+    total_price = models.DecimalField(max_digits=6, decimal_places=2)
     address = models.CharField(max_length=200)
-    city = models.CharField(max_length=100)
-    province = models.CharField(max_length=50)
-    phone_number = models.CharField(max_length=20)
+    city = models.CharField(max_length=100, choices=CITY_CHOICES)
+    province = models.CharField(max_length=50, choices=PROVINCE_CHOICES)
+    phone_number = models.CharField(max_length=10)
     ticket_id = models.CharField(max_length=20)
     transaction_id = models.CharField(max_length=50)
 
     def __str__(self):
-        return f"{self.event} - {self.ticket_id}"
+        return f"{self.reserved_event} - {self.ticket_id}"
 

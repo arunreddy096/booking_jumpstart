@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Customer, Booking, Event, Ticket
+from .models import Customer, Event, Ticket
 
 
 class EventsAdmin(admin.ModelAdmin):
@@ -7,8 +7,12 @@ class EventsAdmin(admin.ModelAdmin):
     ordering = ['name']
 
 
+class TicketAdmin(admin.ModelAdmin):
+    list_display = ['ticket_id', 'customer', 'reservation_date']
+    ordering = ['reservation_date']
+
+
 # Register your models here.
 admin.site.register(Customer)
-admin.site.register(Booking)
 admin.site.register(Event, EventsAdmin)
-admin.site.register(Ticket)
+admin.site.register(Ticket, TicketAdmin)

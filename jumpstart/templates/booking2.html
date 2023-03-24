@@ -8,33 +8,67 @@
     <title>Jumpstart Booking Page</title>
     {#        <!-- Bootstrap CSS -->#}
     {#    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">#}
-    <link href="{% static 'css/new_booking.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css">
-    {##}
 
+    <link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    {##}
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="{% static 'css/new_booking.css' %}" rel="stylesheet" type="text/css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 
 </head>
-<body style="background-color: silver">
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container d-flex align-items-center justify-content-center">
-        <h6 style="color: darkorange">
-        <a class="navbar-brand" href="{% url 'welcome' %}">
-            <i class="fa-brands fa-space-awesome fa-flip" style="color: darkorange"></i>
-            &nbspJumpstart</a>
-        </h6>
-    </div>
-</nav>
-<div class="container" style="margin-top: 100px">
-    <div class="row">
+<body style="background-color: lightyellow">
+{#<nav class="navbar navbar-expand-lg navbar-dark bg-dark">#}
+{#    <div class="container d-flex align-items-center justify-content-center">#}
+{#        <h6 style="color: darkorange">#}
+{#        <a class="navbar-brand" href="{% url 'welcome' %}">#}
+{#            <i class="fa-brands fa-space-awesome fa-flip" style="color: darkorange"></i>#}
+{#            &nbspJumpstart</a>#}
+{#        </h6>#}
+{#    </div>#}
+{#</nav>#}
+<div class="w3-bar w3-red w3-large">
+    <a href="{% url 'welcome' %}" class="w3-bar-item w3-button w3-red w3-mobile"
+       style="text-decoration: none">
+              <i class="fa-solid fa-tricycle w3-margin-right"></i>
+        <i class="fa-brands fa-space-awesome fa-flip"></i>&nbsp
+
+        Jumpstart
+    </a>
+            <a href="{% url 'create_booking' %}" class="w3-bar-item w3-button w3-mobile" style="text-decoration: none">
+            <i class="fa-solid fa-ticket" style="font-size: 15px"></i>
+            Book</a>
+    <a href="{% url 'logout' %}" class="w3-bar-item w3-button w3-right w3-mobile" style="text-decoration: none">
+            <i class="fa-sharp fa-solid fa-right-to-bracket fa-flip-both" style="font-size: 15px;"></i>
+            logout</a>
+    <a href="{% url 'view_profile' %}"
+           class="w3-bar-item w3-button w3-right w3-red w3-mobile"
+    style="text-decoration: none">
+
+            {{ user.username }}</a>
+        <img class="w3-light-grey w3-right" src="{{ user.profile_image.url }}" style="width:35px; height:35px; margin-top: 5px; border-radius: 10px" alt="My Image">
+</div>
+<div class="container" style="margin-top: 20px">
+    <h1>Book Your ticket here</h1>
+    {% if form.errors %}
+        <div class="alert alert-danger">
+            {% for error in form.phone_number.errors %}
+                <h6><i class="fa-solid fa-triangle-exclamation fa-shake"></i>
+                    &nbsp&nbsp{{ error }}</h6>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+<div class="container" style="margin-top: 20px">
+<div class="form-group">
+    <div class="row" style="background-color: lightslategray; border-radius: 20px; padding: 20px; width:1110px">
         <div class="col-md-8">
-            <form id="booking-form">{% csrf_token %}
+            <form id="booking-form" method="POST">{% csrf_token %}
                 <div class="form-group">
                     {{ form.event_type.label_tag }}
                     {{ form.event_type }}
@@ -47,9 +81,13 @@
                     {{ form.event.label_tag }}
                     {{ form.event }}
                 </div>
-                <div class="single-event form-group">
-                    {{ form.event_time.label_tag }}
-                    {{ form.event_time }}
+                <div class="multi-event form-group">
+                    {{ form.event_multi.label_tag }}
+                    {{ form.event_multi }}
+                </div>
+                <div class="form-group">
+                    {{ form.reservation_time.label_tag }}
+                    {{ form.reservation_time }}
                 </div>
                 <div class="single-event form-group">
                     <div class="form-check">
@@ -91,8 +129,18 @@
                     {{ form.province }}
                 </div>
                 <div class="form-group">
+                    {{ form.phone_number.label_tag }}
+                    {{ form.phone_number }}
+                </div>
+                <div class="form-group">
                     {{ form.total_price.label_tag }}
                     {{ form.total_price }}
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-4 col-md-8">
+                        <input class="btn btn-primary" style="margin-top: 30px" type="submit" value="Submit">
+{#                        <button type="submit" class="btn btn-primary">Create Ticket</button>#}
+                    </div>
                 </div>
             </form>
         </div>
@@ -136,6 +184,46 @@
                 </ul>
             </div>
         </div>
+{#        <div class="col-4">#}
+{#            <div class="event-list">#}
+{#                <h5>Multi Event</h5>#}
+{#                <ul>#}
+{#                    <li class="event">#}
+{#                        Event 1#}
+{#                        <span class="price">$50</span>#}
+{#                        <span class="people">(2 Adults, 1 Child)</span>#}
+{#                    </li>#}
+{#                    <li class="event">#}
+{#                        Event 2#}
+{#                        <span class="price">$75</span>#}
+{#                        <span class="people">(3 Adults, 2 Children)</span>#}
+{#                    </li>#}
+{#                    <li class="event">#}
+{#                        Event 3#}
+{#                        <span class="price">$100</span>#}
+{#                        <span class="people">(2 Adults, 3 Children)</span>#}
+{#                    </li>#}
+{#                </ul>#}
+{#                <h5>Single Event</h5>#}
+{#                <ul>#}
+{#                    <li class="event">#}
+{#                        Event 4#}
+{#                        <span class="price">$25</span>#}
+{#                        <span class="people">(1 Adult, 1 Child)</span>#}
+{#                    </li>#}
+{#                    <li class="event">#}
+{#                        Event 5#}
+{#                        <span class="price">$35</span>#}
+{#                        <span class="people">(2 Adults, 2 Children)</span>#}
+{#                    </li>#}
+{#                    <li class="event">#}
+{#                        Event 6#}
+{#                        <span class="price">$50</span>#}
+{#                        <span class="people">(4 Adults, 2 Children)</span>#}
+{#                    </li>#}
+{#                </ul>#}
+{#            </div>#}
+{#        </div>#}
     </div>
 </div>
 
