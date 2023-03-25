@@ -1,29 +1,29 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300,900);
-/* line 28, jumpstart/static/scss/new_home.scss */
+/* line 28, jumpstart/static/scss/home_page.scss */
 body {
   font-family: 'Roboto', sans-serif; }
 
-/* line 32, jumpstart/static/scss/new_home.scss */
+/* line 32, jumpstart/static/scss/home_page.scss */
 .header, .footer {
   background: #2e2e2e;
   color: #fff;
   padding: 30px;
   text-align: center; }
-  /* line 39, jumpstart/static/scss/new_home.scss */
+  /* line 39, jumpstart/static/scss/home_page.scss */
   .header a, .footer a {
     color: #fff; }
   @media (min-width: 768px) {
-    /* line 32, jumpstart/static/scss/new_home.scss */
+    /* line 32, jumpstart/static/scss/home_page.scss */
     .header, .footer {
       padding: 100px 30px; } }
-  /* line 48, jumpstart/static/scss/new_home.scss */
+  /* line 48, jumpstart/static/scss/home_page.scss */
   .header h1, .footer h1 {
     font-size: 4em;
     font-weight: 300; }
-  /* line 53, jumpstart/static/scss/new_home.scss */
+  /* line 53, jumpstart/static/scss/home_page.scss */
   .header i.fa, .footer i.fa {
     font-size: 4em; }
-  /* line 57, jumpstart/static/scss/new_home.scss */
+  /* line 57, jumpstart/static/scss/home_page.scss */
   .header .bounce, .footer .bounce {
     -webkit-animation-name: bounce;
     animation-name: bounce;
@@ -31,18 +31,18 @@ body {
     transform-origin: center bottom;
     animation-iteration-count: infinite;
     -webkit-animation-iteration-count: infinite; }
-  /* line 66, jumpstart/static/scss/new_home.scss */
+  /* line 66, jumpstart/static/scss/home_page.scss */
   .header .animated, .footer .animated {
     -webkit-animation-duration: 2s;
     animation-duration: 2s;
     -webkit-animation-fill-mode: both;
     animation-fill-mode: both; }
 
-/* line 74, jumpstart/static/scss/new_home.scss */
+/* line 74, jumpstart/static/scss/home_page.scss */
 .section {
   width: 100%;
   position: relative; }
-  /* line 79, jumpstart/static/scss/new_home.scss */
+  /* line 79, jumpstart/static/scss/home_page.scss */
   .section .left, .section .middle, .section .right {
     width: 100%;
     display: block;
@@ -56,7 +56,7 @@ body {
     -webkit-transition: 0.3s ease-in-out all;
     transition: 0.3s ease-in-out all; }
     @media (min-width: 480px) {
-      /* line 91, jumpstart/static/scss/new_home.scss */
+      /* line 91, jumpstart/static/scss/home_page.scss */
       .section .left .content, .section .middle .content, .section .right .content {
         position: relative;
         top: 50%;
@@ -64,7 +64,7 @@ body {
         -ms-transform: translateY(-50%);
         transform: translateY(-50%); } }
     @media (min-width: 480px) {
-      /* line 79, jumpstart/static/scss/new_home.scss */
+      /* line 79, jumpstart/static/scss/home_page.scss */
       .section .left, .section .middle, .section .right {
         width: 50%;
         font-size: 0.9em;
@@ -73,49 +73,49 @@ body {
         float: left;
         position: absolute; } }
     @media (min-width: 768px) {
-      /* line 79, jumpstart/static/scss/new_home.scss */
+      /* line 79, jumpstart/static/scss/home_page.scss */
       .section .left, .section .middle, .section .right {
         width: 33.33333%;
         left: 33.33%;
         padding: 10px; } }
     @media (min-width: 992px) {
-      /* line 79, jumpstart/static/scss/new_home.scss */
+      /* line 79, jumpstart/static/scss/home_page.scss */
       .section .left, .section .middle, .section .right {
         padding: 30px;
         font-size: 1em; } }
-  /* line 119, jumpstart/static/scss/new_home.scss */
+  /* line 119, jumpstart/static/scss/home_page.scss */
   .section.animate .left {
     left: 0; }
     @media (min-width: 480px) {
-      /* line 119, jumpstart/static/scss/new_home.scss */
+      /* line 119, jumpstart/static/scss/home_page.scss */
       .section.animate .left {
         left: 50%; } }
     @media (min-width: 768px) {
-      /* line 119, jumpstart/static/scss/new_home.scss */
+      /* line 119, jumpstart/static/scss/home_page.scss */
       .section.animate .left {
         left: 0; } }
-  /* line 131, jumpstart/static/scss/new_home.scss */
+  /* line 131, jumpstart/static/scss/home_page.scss */
   .section.animate .right {
     left: 0; }
     @media (min-width: 480px) {
-      /* line 131, jumpstart/static/scss/new_home.scss */
+      /* line 131, jumpstart/static/scss/home_page.scss */
       .section.animate .right {
         left: 50%; } }
     @media (min-width: 768px) {
-      /* line 131, jumpstart/static/scss/new_home.scss */
+      /* line 131, jumpstart/static/scss/home_page.scss */
       .section.animate .right {
         left: 66.66%; } }
-  /* line 146, jumpstart/static/scss/new_home.scss */
+  /* line 146, jumpstart/static/scss/home_page.scss */
   .section .title {
     background: tomato; }
-    /* line 149, jumpstart/static/scss/new_home.scss */
+    /* line 149, jumpstart/static/scss/home_page.scss */
     .section .title h2 {
       margin-top: 0; }
-    /* line 153, jumpstart/static/scss/new_home.scss */
+    /* line 153, jumpstart/static/scss/home_page.scss */
     .section .title p {
       line-height: 1.55em;
       margin-bottom: 0.75em; }
-    /* line 158, jumpstart/static/scss/new_home.scss */
+    /* line 158, jumpstart/static/scss/home_page.scss */
     .section .title .btn-primary {
       color: #fff;
       background: #ff3814;
@@ -127,17 +127,17 @@ body {
       -o-transition: 0.3s ease-in-out all;
       -webkit-transition: 0.3s ease-in-out all;
       transition: 0.3s ease-in-out all; }
-      /* line 167, jumpstart/static/scss/new_home.scss */
+      /* line 167, jumpstart/static/scss/home_page.scss */
       .section .title .btn-primary:hover {
         background: #fa2600; }
-  /* line 174, jumpstart/static/scss/new_home.scss */
+  /* line 174, jumpstart/static/scss/home_page.scss */
   .section .tiles {
     padding: 0;
     background: #fff;
     clear: both;
     display: none;
     float: none; }
-    /* line 181, jumpstart/static/scss/new_home.scss */
+    /* line 181, jumpstart/static/scss/home_page.scss */
     .section .tiles img {
       width: 50%;
       float: left;
@@ -150,22 +150,22 @@ body {
       -webkit-filter: grayscale(100%);
       -moz-filter: grayscale(100%);
       -o-filter: grayscale(100%); }
-      /* line 190, jumpstart/static/scss/new_home.scss */
+      /* line 190, jumpstart/static/scss/home_page.scss */
       .section .tiles img:hover {
         opacity: 1;
         -webkit-filter: grayscale(0%);
         -moz-filter: grayscale(0%);
         -o-filter: grayscale(0%); }
     @media (min-width: 768px) {
-      /* line 174, jumpstart/static/scss/new_home.scss */
+      /* line 174, jumpstart/static/scss/home_page.scss */
       .section .tiles {
         display: block; } }
-  /* line 201, jumpstart/static/scss/new_home.scss */
+  /* line 201, jumpstart/static/scss/home_page.scss */
   .section .middle {
     background: slategray;
     z-index: 2;
     padding: 0; }
-    /* line 206, jumpstart/static/scss/new_home.scss */
+    /* line 206, jumpstart/static/scss/home_page.scss */
     .section .middle img {
       width: 100%;
       height: auto;

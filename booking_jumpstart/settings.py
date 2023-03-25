@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+
+from django.urls import reverse_lazy
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -26,8 +29,6 @@ SECRET_KEY = 'django-insecure-&e$==8!%m_vd^^ez@be@#*=heq@1puvat6-+s=4ci3*v#jd+0b
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
-TIME_ZONE = 'America/Toronto'
 
 # Application definition
 
@@ -126,7 +127,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'EST'
 
 USE_I18N = True
 
@@ -175,7 +176,7 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 SITE_ID = 3
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = reverse_lazy('welcome')
 LOGOUT_REDIRECT_URL = 'logout'
 
 # Additional configuration settings

@@ -1,0 +1,230 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load compress %}
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+{% block about_n_contact %}
+    <a href="#about" class="w3-bar-item w3-button w3-mobile">
+        <i class="fa-solid fa-circle-info" style="font-size: 15px"></i>About</a>
+    <a href="#contact" class="w3-bar-item w3-button w3-mobile">
+        <i class="fa-solid fa-address-card" style="font-size: 15px"></i>Contact</a>
+{% endblock %}
+{% block body_block %}
+
+    <div class="section animate" style="margin-top: 1px">
+        <div class="middle">
+            <img src="https://thefactorylondon.ca/uploads/2019/01/HighRopes-Inner1.jpg"
+                 alt="High Ropes & Ziplines"
+                 style="height:475px"
+            />
+
+        </div>
+        <div class="left title">
+            <div class="content">
+                <h2>High Ropes & Ziplines</h2>
+                <p>Get ready to soar through the air on our thrilling High Ropes & Zipline Course! Climb up to dizzying
+                    heights, balance on wobbly bridges, and feel the rush of wind as you zip from platform to platform.
+                    Our experienced instructors will make sure you are safe and secure, so you can enjoy the thrill of
+                    the ride.</p>
+                <a href="#" class="btn-primary">Learn more</a>
+            </div>
+        </div>
+        <div class="right tiles">
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.1Balg7vjGaWk2cdeUzDN-QHaEc%26pid%3DApi&f=1&ipt=828f1ecdde8670984b25fb43c4284168ec1fdf22be9c7dfa4274e4fa9d090068&ipo=images"
+                 alt="High Ropes & Ziplines"
+                 style="height: 237px"
+            />
+            <img src="{% static 'images/homepage/img_1.png' %}"
+                 alt="High Ropes & Ziplines"
+                 style="height: 237px"
+            />
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.H3dgVIwPS7mgOc7xG975QQHaE-%26pid%3DApi&f=1&ipt=b42c682b5bf1e529fdaa73ea9acbb4090a4b93019f953a3406fee6e34764c1bd&ipo=images"
+                 alt="High Ropes & Ziplines"
+                 style="height: 237px"
+            />
+            <img src="https://thefactorylondon.ca/uploads/2019/01/HighRopes-Overview.jpg" alt="High Ropes & Ziplines"/>
+
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="middle">
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.ss5qcqnjRARjZYU1LhE_0wHaIN%26pid%3DApi&f=1&ipt=6a6856f9f526ea8be939118b16760b30cdeba347c0c115df3dcd3c026f8bd0b7&ipo=images"
+                 alt="Trampoline Park"
+                 style="height:475px"
+            />
+        </div>
+        <div class="right title">
+            <div class="content">
+                <h2>Trampoline Park</h2>
+                <p>Take flight at our state-of-the-art Trampoline Park! With a variety of different trampolines, a foam
+                    pit, and a basketball dunk area, you'll have a blast bouncing, flipping, and soaring. Whether you're
+                    a seasoned trampoline pro or a beginner, you'll find plenty of opportunities to have fun.</p>
+                <a href="#" class="btn-primary">Learn more</a>
+            </div>
+        </div>
+
+        <div class="left tiles">
+
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP._nasLw1BC769bif_qNql8gHaE8%26pid%3DApi&f=1&ipt=50d66908338a5eaf92ae2d8aa90c24a25a1de7a849db3f8a45456307da0c4ba7&ipo=images"
+                 alt="Trampoline Park"
+                 style="height: 237px"
+            />
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.bkJrw8jVqiTebqcHANkVNAHaE8%26pid%3DApi&f=1&ipt=121aba66ad85ef0a0bb94e68235e143a06e0c8ce435f83c65f557a219b75a969&ipo=images"
+                 alt="Trampoline Park"
+                 style="height: 237px"
+            />
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.NiI5Iqo7EhOMS_TY3-uZOQHaFL%26pid%3DApi&f=1&ipt=8fdc06c814077a6fbf2a60404ea884e6ed2358c910bf74bcd73cd1d5e3b87fff&ipo=images"
+                 alt="Trampoline Park"
+                 style="height: 237px"
+            />
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.-9GhuYXA5Dx7bMR4cxzFSgHaEK%26pid%3DApi&f=1&ipt=4f3855f7ab3ac8558d5fb70cded625b3ec82da5f78e4e3ac437f6147dab53c03&ipo=images"
+                 alt="Trampoline Park"
+                 style="height: 237px"
+            />
+        </div>
+
+    </div>
+
+    <div class="section">
+        <div class="middle">
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.rQO0CsS1U6BkLQmsMCKbFAHaGX%26pid%3DApi&f=1&ipt=dab22105b0a6c18db7a6e110256d5ee019f926365ac2f00547462964b9eddc1e&ipo=images"
+                 alt="Indoor Soccer"
+                 style="height: 475px"
+            />
+        </div>
+        <div class="left title">
+            <div class="content">
+                <h2>Indoor Soccer</h2>
+                <p>Experience the thrill of adventure on the indoor soccer field at our adventure/indoor activity center. Whether you are an experienced player or a beginner, our expert trainers will guide you through every step of the game. With our state-of-the-art facilities and top-notch equipment, you'll enjoy an unparalleled experience. Come, join us for a thrilling game of indoor soccer and experience the adrenaline rush like never before!</p>
+                <a href="#" class="btn-primary">Learn more</a>
+            </div>
+        </div>
+
+        <div class="right tiles">
+
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.KNXSCY7n-WdQxQVeZK02FgHaE8%26pid%3DApi&f=1&ipt=0b8c42279a9c6c43793df39643d9d561ee70c849b061c8428a8b63a7bc645552&ipo=images"
+                 alt="Trampoline Park"
+                 style="height: 237px"
+            />
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.wrLArehiHYIVkFHrerLjxgHaE7%26pid%3DApi&f=1&ipt=26c702878bac770c4e9b83b0e7ed5b3fe9c5206e91b71070903cd2e6a0a4f8ec&ipo=images"
+                 alt="Trampoline Park"
+                 style="height: 237px"
+            />
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.bh0bqWlWXpEjdWFBindeQgHaE8%26pid%3DApi&f=1&ipt=5769bf3b86838efe388f817738ff37766b561fa53589d86710550e86da07b7da&ipo=images"
+                 alt="Trampoline Park"
+                 style="height: 237px"
+            />
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.Wyjo5QTCUQMQG1qJkAjKYAHaFj%26pid%3DApi&f=1&ipt=d88edba8ea60d53d57b67b2967cea9fe05133c37e16ca3e0cb9bb89539024c84&ipo=images"
+                 alt="Trampoline Park",
+                 style="height: 237px"
+
+            />
+        </div>
+
+    </div>
+
+    <div class="section">
+        <div class="middle">
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.explicit.bing.net%2Fth%3Fid%3DOIP.IEBj1hzvOImUbG5Vwi90mAHaE7%26pid%3DApi&f=1&ipt=b4faee79ba7e943ab6f7c1f0b2d2e541b3e424da2eaf2a8d56f4b2605c05fbb3&ipo=images"
+                 alt="Escape Rooms"
+                 style="height:475px"
+            />
+        </div>
+        <div class="right title">
+            <div class="content">
+                <h2>Escape Rooms</h2>
+                <p>Put your problem-solving skills to the test in one of our challenging Escape Rooms. With immersive
+                    themes, exciting puzzles, and a race against the clock, you'll be fully absorbed in the experience
+                    as you work to escape the room.</p>
+                <a href="#" class="btn-primary">Learn more</a>
+            </div>
+        </div>
+
+        <div class="left tiles">
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.Nyh3ifi7jwh_VKaUsqs8jgHaE7%26pid%3DApi&f=1&ipt=e673c063b38636d7f5e25c48cbd0f599a9fbe2562d96d1d5bdbfc9e7e93002c0&ipo=images"
+                 alt="Escape Rooms"/>
+            <img src="{% static 'images/image4.png' %}" alt="Escape Rooms"/>
+            <img src="{% static 'images/image4.png' %}" alt="Escape Rooms"/>
+            <img src="{% static 'images/image4.png' %}" alt="Escape Rooms"/>
+        </div>
+
+    </div>
+
+    <div class="w3-row-padding" id="about" style="background-color: indianred; margin-top: 10px">
+        <style>
+            i {
+                font-size: 25px;
+                padding-right: 5px;
+            }
+        </style>
+        {#    <div class="w3-col l4 12">#}
+        <h3 class="w3-center">About</h3>
+        <h6>Welcome to Adventure Land! Your one-stop destination for all things fun and thrilling. We offer a wide range
+            of activities and attractions that are sure to get your heart racing and your adrenaline pumping. Whether
+            you're looking for high-flying thrills, bouncing fun, physical challenges, or immersive experiences, you'll
+            find it all here at Jumpstart.</h6>
+        <p>We accept:
+            <i class="fa-solid fa-credit-card"></i>
+            <i class="fa-brands fa-cc-mastercard"></i>
+            <i class="fa-brands fa-cc-amex"></i>
+            <i class="fa-brands fa-cc-visa"></i>
+            <i class="fa-brands fa-cc-paypal"></i>
+            <i class="fa-brands fa-google-pay"></i>
+            <i class="fa-brands fa-cc-apple-pay"></i>
+        </p>
+        {#    </div>#}
+        {#    <div class="w3-col l8 12">#}
+        {#      <!-- Image of location/map -->#}
+        {#     <img src={% static 'images/aboutsideimge.png' %} class="w3-image w3-greyscale" style="width:100%;">#}
+        {#    </div>#}
+    </div>
+
+    {#  <div class="w3-panel w3-red w3-leftbar w3-padding-32">#}
+    {#    <h6><i class="fa fa-info w3-deep-orange w3-padding w3-margin-right"></i> On demand, we can offer playstation, babycall, children care, dog equipment, etc.</h6>#}
+    {#  </div>#}
+
+
+    {#  <div class="w3-container w3-padding-32 w3-black w3-opacity w3-card w3-hover-opacity-off" style="margin:32px 0;">#}
+    {#    <h2>Get the best offers first!</h2>#}
+    {#    <p>Join our newsletter.</p>#}
+    {#    <label>E-mail</label>#}
+    {#    <input class="w3-input w3-border" type="text" placeholder="Your Email address">#}
+    {#    <button type="button" class="w3-button w3-red w3-margin-top">Subscribe</button>#}
+    {#  </div>#}
+
+
+
+
+
+    <div class="w3-container" id="contact" style="background-color: gray; margin-top: 10px">
+        <h2>Contact</h2>
+        <p>If you have any questions, do not hesitate to ask them.</p>
+        <i class="fa-solid fa-map-location-dot" style="width:30px"></i> Windsor, ON &nbsp&nbsp&nbsp&nbsp
+        <i class="fa-solid fa-phone" style="width:30px"></i> +1 8976784371 &nbsp&nbsp&nbsp&nbsp
+        <i class="fa-solid fa-envelope" style="width:30px"></i> help@jumpstart.com &nbsp&nbsp&nbsp&nbsp
+        <form action="/action_page.php" target="_blank">
+            <p style="display: inline-block; vertical-align: top; padding-right: 20px"><input
+                    class="w3-input w3-padding-16 w3-border" type="text" placeholder="Email" required name="Email"
+                    style="width: 230px; border-radius: 20px"></p>
+            <p style="display: inline-block; vertical-align: top"><input class="w3-input w3-padding-16 w3-border"
+                                                                         type="text" placeholder="Message" required
+                                                                         name="Message"
+                                                                         style="width: 230px; border-radius: 20px">
+            </p>
+            <button class="w3-button w3-black w3-padding-large" type="submit"
+                    style="display: inline-block; vertical-align: top;width: 230px; border-radius: 20px; margin-left:20px; margin-top: 20px">
+                SEND MESSAGE
+            </button>
+        </form>
+    </div>
+
+    <!-- End page content -->
+
+{% endblock %}

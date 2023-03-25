@@ -1,0 +1,168 @@
+{% load static %}
+{% load socialaccount %}
+{% load compress %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
+    {% compress css %}
+        <link type="text/x-scss" href="{% static 'sass/login_page.sass' %}" rel="stylesheet" media="screen">
+    {% endcompress %}
+    <link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+{#<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>#}
+<script type="text/javascript" src="{% static 'js/login_page.js' %}"></script>
+</head>
+<body>
+<div class="w3-bar w3-red w3-large">
+    <a href="{% url 'welcome' %}" class="w3-bar-item w3-button w3-red w3-mobile"
+       style="text-decoration: none">
+              <i class="fa-solid fa-tricycle w3-margin-right"></i>
+        <i class="fa-brands fa-space-awesome fa-flip"></i>&nbsp
+
+        Jumpstart
+    </a>
+</div>
+
+<div class="container">
+    <section id="formHolder">
+
+        <div class="row">
+
+            <!-- Brand Box -->
+            <div class="col-sm-6 brand">
+                <a href="{% url 'welcome' %}" class="logo">
+                    <i class="fa-brands fa-space-awesome" style="color: #f95959"></i>
+{#                    &nbspJumpstart</a>#}
+                </a>
+
+                    <div class="heading">
+                {% if messages %}
+                    {% for message in messages %}
+                        <p style="color: #f95959">{{ message }}</p>
+                    {% endfor %}
+                {% else %}
+                        <h2>Welcome</h2>
+
+                {% endif %}
+                   </div>
+            </div>
+
+            <!-- Form Box -->
+            <div class="col-sm-6 form">
+
+                <!-- Login Form -->
+                <div class="login form-peice">
+                    <form class="login-form" method="POST"> {% csrf_token %}
+                        <div style="margin-bottom: 20px">
+                            <a href="{% provider_login_url 'google' %}" class="">
+                                <img src="https://cdn.cdnlogo.com/logos/g/35/google-icon.svg" width="30" height="30">
+                            </a>
+                        </div>
+                        <p>- or -</p>
+                        <div class="form-group">
+                            {% if not form.email.value %}
+                            {{ form.email.label_tag }}{% endif %}
+                            {{ form.email }}
+                            <span class="error"></span>
+                        </div>
+                        <div class="form-group">
+                            {{ form.password.label_tag }}
+                            {{ form.password }}
+                        </div>
+
+
+{#                        <div class="form-group">#}
+{#                            <label for="loginPassword">Password</label>#}
+{#                            <input type="password" name="loginPassword" id="loginPassword" required>#}
+{#                        </div>#}
+
+                        <div class="CTA">
+                            <input type="submit" value="Login">
+                            <a href="#" class="switch">Signup</a>
+                            <a href="{% url 'password_reset' %}"
+                               style="padding-left: 25px; font-size:12px; color:gray; text-decoration:none;"
+                               onmouseover="this.style.color='tomato'; this.style.textDecoration='underline'" ;
+                               onmouseout="this.style.color='gray'; this.style.textDecoration='none';">Forgot
+                                Password</a>
+                        </div>
+                    </form>
+                </div><!-- End Login Form -->
+
+
+                <!-- Signup Form -->
+                <div class="signup form-peice switched">
+                    <form class="signup-form" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+                        <div class="form-group">
+                            {{ signup.first_name.label_tag }}
+                            {{ signup.first_name }}
+                            <span class="error"></span>
+                        </div>
+                        <div class="form-group">
+                            {{ signup.last_name.label_tag }}
+                            {{ signup.last_name }}
+                        </div>
+                        <div class="form-group">
+                            {{ signup.email.label_tag }}
+                            {{ signup.email }}
+                            <span class="error"></span>
+                        </div>
+                        <div class="form-group">
+                            {{ signup.password1.label_tag }}
+                            {{ signup.password1 }}
+                            <span class="error"></span>
+                        </div>
+                        <div class="form-group">
+                            {{ signup.password2.label_tag }}
+                            {{ signup.password2 }}
+                            <span class="error"></span>
+                        </div>
+                            {{ signup.profile_image }}
+
+{#                        <p>{{ signup.profile_image }} Save your profile pic here</p>#}
+
+{#                        <div class="form-group">#}
+{#                            <label for="name">Full Name</label>#}
+{#                            <input type="text" name="username" id="name" class="name">#}
+{#                            <span class="error"></span>#}
+{#                        </div>#}
+{##}
+{#                        <div class="form-group">#}
+{#                            <label for="email">Email Adderss</label>#}
+{#                            <input type="email" name="emailAdress" id="email" class="email">#}
+{#                            <span class="error"></span>#}
+{#                        </div>#}
+{##}
+{#                        <div class="form-group">#}
+{#                            <label for="phone">Phone Number - <small>Optional</small></label>#}
+{#                            <input type="text" name="phone" id="phone">#}
+{#                        </div>#}
+{##}
+{#                        <div class="form-group">#}
+{#                            <label for="password">Password</label>#}
+{#                            <input type="password" name="password" id="password" class="pass">#}
+{#                            <span class="error"></span>#}
+{#                        </div>#}
+{##}
+{#                        <div class="form-group">#}
+{#                            <label for="passwordCon">Confirm Password</label>#}
+{#                            <input type="password" name="passwordCon" id="passwordCon" class="passConfirm">#}
+{#                            <span class="error"></span>#}
+{#                        </div>#}
+
+                        <div class="CTA">
+                            <input type="submit" value="Signup">
+                            <a href="#" class="switch">I have an account</a>
+                        </div>
+                    </form>
+                </div><!-- End Signup Form -->
+            </div>
+        </div>
+
+    </section>
+</div>
+</body>
+</html>

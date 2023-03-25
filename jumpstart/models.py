@@ -12,7 +12,8 @@ class Customer(User):
         ordering = ['first_name']
         verbose_name_plural = 'customer'
 
-    profile_image = models.ImageField(upload_to='images/profile/', default='gojo.png')
+    user = models.OneToOneField(User, parent_link=True, related_name='customer', on_delete=models.CASCADE, default=None)
+    profile_image = models.ImageField(upload_to='images/profile/', default='profile/gojo.png')
 
     def __str__(self):
         return self.username

@@ -1,10 +1,13 @@
 import random, string
 from pprint import pprint
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.hashers import make_password
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.utils import timezone
+from django.utils.decorators import method_decorator
 from django.utils.http import urlsafe_base64_encode
 
 from django.views import View
@@ -33,22 +36,23 @@ class LoginSignup(View):
         user_session = LoginForm()
         user_signup = RegistrationForm()
         context = {'form': user_session, 'signup': user_signup}
-        return render(request, 'login2.html', context)
+        return render(request, 'registration/login_page.html', context)
 
     def post(self, request):
         form = LoginForm(request.POST)
-        user_signup = RegistrationForm(request.POST)
+        user_signup = RegistrationForm(request.POST, request.FILES)
         if form.is_valid() and 'first_name' not in request.POST.keys():
             user = authenticate(email=form.cleaned_data['email'], password=form.cleaned_data['password'])
             if user is None:
                 user_signup = RegistrationForm()
                 messages.error(request, "Incorrect username or password")
-                return render(request, 'login2.html', {'form': form, 'signup': user_signup})
+                return render(request, 'registration/login_page.html', {'form': form, 'signup': user_signup})
             print(user, type(user))
-            request.session['user_id'] = user.id
+            # request.session['user_id'] = user.id
             login(request, user)
+            # request.session.save()
             return HttpResponseRedirect(reverse('welcome'))
-            # return render(request, 'new_home.html', {'form': form, 'user': user})
+            # return render(request, 'home_page.html', {'form': form, 'user': user})
 
         elif user_signup.is_valid():
             print('user sign in form is valid')
@@ -56,7 +60,7 @@ class LoginSignup(View):
             form = LoginForm(initial={
                 'email': user_signup.cleaned_data['email']
             })
-            return render(request, 'login2.html', {'form': form})
+            return render(request, 'registration/login_page.html', {'form': form})
         else:
             print('user sign in not valid')
             messages.error(request, "Please enter a Strong password")
@@ -64,40 +68,70 @@ class LoginSignup(View):
             user_signup.last_name = user_signup.cleaned_data['last_name']
             user_signup.email = user_signup.cleaned_data['email']
             context = {'form': LoginForm(), 'signup': user_signup}
-            return render(request, 'login2.html', context)
+            return render(request, 'registration/login_page.html', context)
 
 
 class Welcome(View):
     def get(self, request):
         user_id = request.session.get('_auth_user_id')
-        # print(user_id)
-        if user_id is not None:
+
+        # checking for social auth login directly
+        user = request.user
+        if user.is_authenticated:
+            print(f'Social authentication by {user.username}-{user.email}')
+            try:
+                user = Customer.objects.get(email=user.email)
+            except ObjectDoesNotExist:
+                print('Social auth user is not as a customer, making him as a customer')
+                try:
+                    new_customer = Customer(
+                        user=request.user,
+                        username=user.username,
+                        email=user.email,
+                        profile_image='images/profile/gojo.png',
+                        password=make_password("".join(random.choices(string.ascii_letters + string.digits, k=8)))
+                    )
+                    new_customer.save()
+                    print(f'Cusomter saved')
+                except Exception as e:
+                    print(f'Cusomter didnt saved {e}')
+                user = Customer.objects.get(email=user.email)
+
+            finally:
+                login(request, user, backend='jumpstart.backends.EmailAuthBackend')
+                # request.session['_auth_user_id'] = user.id
+                return render(request, 'home_page.html', {'user': user})
+        elif user_id is not None:
             # print(user_id, type(user_id), request.session.get('_auth_user_id'))
             user = get_object_or_404(Customer, id=user_id)
             # user = User.objects.get(id=request.session.get('user_id'))
             print(user, type(user))
-            return render(request, 'new_home.html', {'user': user})
+            return render(request, 'home_page.html', {'user': user})
         else:
-            return render(request, 'new_home.html', {})
+            return render(request, 'home_page.html', {})
 
-
+# @method_decorator(login_required(), name='dispatch')
 class Profile(View):
 
     def get(self, request):
+        print('in get profile')
         user_id = request.session.get('_auth_user_id')
         user = get_object_or_404(Customer, id=user_id)
         tickets = Ticket.objects.filter(customer=user).order_by('-transaction_timestamp')
         print(tickets)
-        return render(request, 'profile.html', {'user': user, 'tickets': tickets})
+        return render(request, 'profile_page.html', {'user': user, 'tickets': tickets})
 
     def post(self, request):
+        print('in post profile')
         user_id = request.session.get('_auth_user_id')
+        print(user_id)
         user = get_object_or_404(Customer, id=user_id)
-        print('on post delete: ', request.session['user_id'])
+        print('on post delete: ', user)
         messages.success(request, 'Your account has been deleted.')
+        logout(request)
         user.delete()
         # return redirect('home')
-        return render(request, 'login2.html', )
+        return render(request, 'registration/login_page.html', )
 
 
 class UserLogout(View):
@@ -111,10 +145,11 @@ class CustomerBooking(View):
     def get(self, request):
         user_id = request.session.get('_auth_user_id')
         user = get_object_or_404(Customer, id=user_id)
+        print('got' ,user, messages)
         form = TicketForm()
         events = Event.objects.all()
 
-        return render(request, 'booking2.html', {'form': form, 'user': user, 'events': events})
+        return render(request, 'booking_page.html', {'form': form, 'user': user, 'events': events})
 
     def post(self, request):
         print(f'booking post received')
@@ -173,23 +208,12 @@ class CustomerBooking(View):
             html_email_template_name = 'registration/booking_confirm.html'
             from_email = settings.DEFAULT_FROM_EMAIL
             print('from mail ', from_email)
-            domain_override = None
             to_email = user.email
-            if not domain_override:
-                current_site = get_current_site(request)
-                site_name = current_site.name
-                domain = current_site.domain
-            else:
-                site_name = domain = domain_override
-
             ticket = Ticket.objects.get(ticket_id=ticket_id)
-
             context = {
                 'email': to_email,
-                'domain': domain,
                 'site_name': 'Jumpstart',
                 'user': user,
-                'protocol': 'http',
                 'ticket': ticket
             }
             email = render_to_string(email_template_name, context)
@@ -212,5 +236,6 @@ class CustomerBooking(View):
             return render(request, 'booking_success.html')
         else:
             print('invalid form')
+            events = Event.objects.all()
             print(form.errors, )
-            return render(request, 'booking2.html', {'form': form, 'user': user})
+            return render(request, 'booking_page.html', {'form': form, 'user': user, 'events': events})

@@ -44,7 +44,7 @@ class LoginForm(ModelForm):
 class RegistrationForm(UserCreationForm):
     class Meta:
         model = Customer
-        fields = ['first_name', 'last_name', 'email', 'password1', 'password2']
+        fields = ['first_name', 'last_name', 'email', 'password1', 'password2', 'profile_image']
         widgets = {
             # telling Django your password field in the mode is a password input on the template
             'first_name': TextInput(attrs={
@@ -75,6 +75,7 @@ class RegistrationForm(UserCreationForm):
             attrs={'class': 'pass'})
         self.fields['password2'].widget = PasswordInput(
             attrs={'class': 'passConfirm'})
+        self.fields['profile_image'].widget.attrs['required'] = True
 
         for fieldname in ['first_name', 'last_name', 'email']:
             self.fields[fieldname].help_text = None
@@ -87,8 +88,10 @@ class RegistrationForm(UserCreationForm):
             first_name=self.cleaned_data['first_name'],
             last_name=self.cleaned_data['last_name'],
             email=self.cleaned_data['email'],
-            password=make_password(self.cleaned_data['password1'])
+            password=make_password(self.cleaned_data['password1']),
+            profile_image=self.cleaned_data['profile_image']
         )
+
         print(new_customer)
         new_customer.save()
 
@@ -281,4 +284,6 @@ class TicketForm(forms.ModelForm):
         phone_number = self.cleaned_data.get('phone_number')
         if not phone_number.isdigit():
             raise forms.ValidationError('Please enter only digits for phone number')
+        if len(phone_number) != 10:
+            raise forms.ValidationError('Phone number should be exactly 10 digits long')
         return phone_number

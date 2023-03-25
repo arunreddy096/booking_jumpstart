@@ -1,35 +1,35 @@
-/* line 14, jumpstart/static/sass/login2.sass */
+/* line 14, jumpstart/static/sass/login_page.sass */
 body {
   font-family: "Montserrat", sans-serif;
   background: #6ca69a;
   margin-top: 120px; }
 
-/* line 19, jumpstart/static/sass/login2.sass */
+/* line 19, jumpstart/static/sass/login_page.sass */
 .container {
   max-width: 900px;
   border-radius: 20px; }
 
-/* line 23, jumpstart/static/sass/login2.sass */
+/* line 23, jumpstart/static/sass/login_page.sass */
 a {
   display: inline-block;
   text-decoration: none; }
 
-/* line 27, jumpstart/static/sass/login2.sass */
+/* line 27, jumpstart/static/sass/login_page.sass */
 input {
   outline: none !important; }
 
-/* line 30, jumpstart/static/sass/login2.sass */
+/* line 30, jumpstart/static/sass/login_page.sass */
 h1 {
   text-align: center;
   text-transform: uppercase;
   margin-bottom: 40px;
   font-weight: 700; }
 
-/* line 36, jumpstart/static/sass/login2.sass */
+/* line 36, jumpstart/static/sass/login_page.sass */
 section#formHolder {
   padding: 50px 0; }
 
-/* line 42, jumpstart/static/sass/login2.sass */
+/* line 42, jumpstart/static/sass/login_page.sass */
 .brand {
   padding: 20px;
   background: url(https://goo.gl/A0ynht);
@@ -41,10 +41,10 @@ section#formHolder {
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
   transition: all 0.6s cubic-bezier(1, -0.375, 0.285, 0.995);
   z-index: 9999; }
-  /* line 54, jumpstart/static/sass/login2.sass */
+  /* line 54, jumpstart/static/sass/login_page.sass */
   .brand.active {
     width: 100%; }
-  /* line 57, jumpstart/static/sass/login2.sass */
+  /* line 57, jumpstart/static/sass/login_page.sass */
   .brand::before {
     content: '';
     display: block;
@@ -55,20 +55,20 @@ section#formHolder {
     left: 0;
     background: black;
     z-index: -1; }
-  /* line 67, jumpstart/static/sass/login2.sass */
+  /* line 67, jumpstart/static/sass/login_page.sass */
   .brand a.logo {
     color: #f95959;
     font-size: 20px;
     font-weight: 700;
     text-decoration: none;
     line-height: 1em; }
-    /* line 73, jumpstart/static/sass/login2.sass */
+    /* line 73, jumpstart/static/sass/login_page.sass */
     .brand a.logo span {
       font-size: 30px;
       color: #fff;
       transform: translateX(-5px);
       display: inline-block; }
-  /* line 79, jumpstart/static/sass/login2.sass */
+  /* line 79, jumpstart/static/sass/login_page.sass */
   .brand .heading {
     position: absolute;
     top: 50%;
@@ -76,18 +76,18 @@ section#formHolder {
     transform: translate(-50%, -50%);
     text-align: center;
     transition: all 0.6s; }
-    /* line 86, jumpstart/static/sass/login2.sass */
+    /* line 86, jumpstart/static/sass/login_page.sass */
     .brand .heading.active {
       top: 100px;
       left: 100px;
       transform: translate(0); }
-    /* line 91, jumpstart/static/sass/login2.sass */
+    /* line 91, jumpstart/static/sass/login_page.sass */
     .brand .heading h2 {
       font-size: 70px;
       font-weight: 700;
       text-transform: uppercase;
       margin-bottom: 0; }
-    /* line 96, jumpstart/static/sass/login2.sass */
+    /* line 96, jumpstart/static/sass/login_page.sass */
     .brand .heading p {
       font-size: 15px;
       font-weight: 300;
@@ -95,7 +95,7 @@ section#formHolder {
       letter-spacing: 2px;
       white-space: nowrap;
       font-family: "Raleway", sans-serif; }
-  /* line 104, jumpstart/static/sass/login2.sass */
+  /* line 104, jumpstart/static/sass/login_page.sass */
   .brand .success-msg {
     width: 100%;
     text-align: center;
@@ -104,12 +104,12 @@ section#formHolder {
     left: 50%;
     transform: translate(-50%, -50%);
     margin-top: 60px; }
-    /* line 113, jumpstart/static/sass/login2.sass */
+    /* line 113, jumpstart/static/sass/login_page.sass */
     .brand .success-msg p {
       font-size: 25px;
       font-weight: 400;
       font-family: "Raleway", sans-serif; }
-    /* line 118, jumpstart/static/sass/login2.sass */
+    /* line 118, jumpstart/static/sass/login_page.sass */
     .brand .success-msg a {
       font-size: 12px;
       text-transform: uppercase;
@@ -118,20 +118,20 @@ section#formHolder {
       text-decoration: none;
       color: #fff;
       border-radius: 30px; }
-    /* line 127, jumpstart/static/sass/login2.sass */
+    /* line 127, jumpstart/static/sass/login_page.sass */
     .brand .success-msg p, .brand .success-msg a {
       transition: all 0.9s;
       transform: translateY(20px);
       opacity: 0; }
-      /* line 132, jumpstart/static/sass/login2.sass */
+      /* line 132, jumpstart/static/sass/login_page.sass */
       .brand .success-msg p.active, .brand .success-msg a.active {
         transform: translateY(0);
         opacity: 1; }
 
-/* line 138, jumpstart/static/sass/login2.sass */
+/* line 138, jumpstart/static/sass/login_page.sass */
 .form {
   position: relative; }
-  /* line 141, jumpstart/static/sass/login2.sass */
+  /* line 141, jumpstart/static/sass/login_page.sass */
   .form .form-peice {
     background: #fff;
     min-height: 480px;
@@ -145,12 +145,12 @@ section#formHolder {
     left: -30%;
     width: 130%;
     overflow: hidden; }
-    /* line 154, jumpstart/static/sass/login2.sass */
+    /* line 154, jumpstart/static/sass/login_page.sass */
     .form .form-peice.switched {
       transform: translateX(-100%);
       width: 100%;
       left: 0; }
-  /* line 159, jumpstart/static/sass/login2.sass */
+  /* line 159, jumpstart/static/sass/login_page.sass */
   .form form {
     padding: 0 40px;
     margin: 0;
@@ -159,17 +159,17 @@ section#formHolder {
     top: 50%;
     left: 60%;
     transform: translate(-50%, -50%); }
-    /* line 169, jumpstart/static/sass/login2.sass */
+    /* line 169, jumpstart/static/sass/login_page.sass */
     .form form .form-group {
       margin-bottom: 5px;
       position: relative; }
-      /* line 173, jumpstart/static/sass/login2.sass */
+      /* line 173, jumpstart/static/sass/login_page.sass */
       .form form .form-group.hasError input {
         border-color: #f95959 !important; }
-      /* line 175, jumpstart/static/sass/login2.sass */
+      /* line 175, jumpstart/static/sass/login_page.sass */
       .form form .form-group.hasError label {
         color: #f95959 !important; }
-    /* line 178, jumpstart/static/sass/login2.sass */
+    /* line 178, jumpstart/static/sass/login_page.sass */
     .form form label {
       font-size: 12px;
       font-weight: 400;
@@ -179,15 +179,15 @@ section#formHolder {
       transition: all 0.4s;
       cursor: text;
       z-index: -1; }
-      /* line 187, jumpstart/static/sass/login2.sass */
+      /* line 187, jumpstart/static/sass/login_page.sass */
       .form form label.active {
         transform: translateY(10px);
         font-size: 10px; }
-      /* line 190, jumpstart/static/sass/login2.sass */
+      /* line 190, jumpstart/static/sass/login_page.sass */
       .form form label.fontSwitch {
         font-family: "Raleway", sans-serif !important;
         font-weight: 600; }
-    /* line 194, jumpstart/static/sass/login2.sass */
+    /* line 194, jumpstart/static/sass/login_page.sass */
     .form form input:not([type=submit]) {
       background: none;
       outline: none;
@@ -200,10 +200,10 @@ section#formHolder {
       font-size: 15px;
       font-family: "Montserrat", sans-serif;
       z-index: 1; }
-      /* line 206, jumpstart/static/sass/login2.sass */
+      /* line 206, jumpstart/static/sass/login_page.sass */
       .form form input:not([type=submit]).hasError {
         border-color: #f95959; }
-    /* line 209, jumpstart/static/sass/login2.sass */
+    /* line 209, jumpstart/static/sass/login_page.sass */
     .form form span.error {
       color: #f95959;
       font-family: "Montserrat", sans-serif;
@@ -212,13 +212,13 @@ section#formHolder {
       bottom: -20px;
       right: 0;
       display: none; }
-    /* line 218, jumpstart/static/sass/login2.sass */
+    /* line 218, jumpstart/static/sass/login_page.sass */
     .form form input[type=password] {
       color: #f95959; }
-    /* line 221, jumpstart/static/sass/login2.sass */
+    /* line 221, jumpstart/static/sass/login_page.sass */
     .form form .CTA {
       margin-top: 30px; }
-      /* line 223, jumpstart/static/sass/login2.sass */
+      /* line 223, jumpstart/static/sass/login_page.sass */
       .form form .CTA input {
         font-size: 12px;
         text-transform: uppercase;
@@ -229,7 +229,7 @@ section#formHolder {
         margin-right: 20px;
         border: none;
         font-family: "Montserrat", sans-serif; }
-      /* line 234, jumpstart/static/sass/login2.sass */
+      /* line 234, jumpstart/static/sass/login_page.sass */
       .form form .CTA a.switch {
         font-size: 13px;
         font-weight: 400;
@@ -237,78 +237,78 @@ section#formHolder {
         color: #bbbbbb;
         text-decoration: underline;
         transition: all 0.3s; }
-        /* line 241, jumpstart/static/sass/login2.sass */
+        /* line 241, jumpstart/static/sass/login_page.sass */
         .form form .CTA a.switch:hover {
           color: #f95959; }
 
-/* line 245, jumpstart/static/sass/login2.sass */
+/* line 245, jumpstart/static/sass/login_page.sass */
 footer {
   text-align: center; }
-  /* line 247, jumpstart/static/sass/login2.sass */
+  /* line 247, jumpstart/static/sass/login_page.sass */
   footer p {
     color: #777; }
-    /* line 249, jumpstart/static/sass/login2.sass */
+    /* line 249, jumpstart/static/sass/login_page.sass */
     footer p a, footer p a:focus {
       color: #b8b09f;
       transition: all .3s;
       text-decoration: none !important; }
-      /* line 253, jumpstart/static/sass/login2.sass */
+      /* line 253, jumpstart/static/sass/login_page.sass */
       footer p a:hover, footer p a:focus:hover {
         color: #f95959; }
 
 @media (max-width: 768px) {
-  /* line 259, jumpstart/static/sass/login2.sass */
+  /* line 259, jumpstart/static/sass/login_page.sass */
   .container {
     overflow: hidden; }
-  /* line 261, jumpstart/static/sass/login2.sass */
+  /* line 261, jumpstart/static/sass/login_page.sass */
   section#formHolder {
     padding: 0; }
-    /* line 263, jumpstart/static/sass/login2.sass */
+    /* line 263, jumpstart/static/sass/login_page.sass */
     section#formHolder div.brand {
       min-height: 200px !important; }
-      /* line 265, jumpstart/static/sass/login2.sass */
+      /* line 265, jumpstart/static/sass/login_page.sass */
       section#formHolder div.brand.active {
         min-height: 100vh !important; }
-      /* line 268, jumpstart/static/sass/login2.sass */
+      /* line 268, jumpstart/static/sass/login_page.sass */
       section#formHolder div.brand .heading.active {
         top: 200px;
         left: 50%;
         transform: translate(-50%, -50%); }
-      /* line 274, jumpstart/static/sass/login2.sass */
+      /* line 274, jumpstart/static/sass/login_page.sass */
       section#formHolder div.brand .success-msg p {
         font-size: 16px; }
-      /* line 276, jumpstart/static/sass/login2.sass */
+      /* line 276, jumpstart/static/sass/login_page.sass */
       section#formHolder div.brand .success-msg a {
         padding: 5px 30px;
         font-size: 10px; }
-    /* line 281, jumpstart/static/sass/login2.sass */
+    /* line 281, jumpstart/static/sass/login_page.sass */
     section#formHolder .form {
       width: 80vw;
       min-height: 500px;
       margin-left: 10vw; }
-      /* line 285, jumpstart/static/sass/login2.sass */
+      /* line 285, jumpstart/static/sass/login_page.sass */
       section#formHolder .form .form-peice {
         margin: 0;
         top: 0;
         left: 0;
         width: 100% !important;
         transition: all .5s ease-in-out; }
-        /* line 292, jumpstart/static/sass/login2.sass */
+        /* line 292, jumpstart/static/sass/login_page.sass */
         section#formHolder .form .form-peice.switched {
           transform: translateY(-100%);
           width: 100%;
           left: 0; }
-        /* line 296, jumpstart/static/sass/login2.sass */
+        /* line 296, jumpstart/static/sass/login_page.sass */
         section#formHolder .form .form-peice > form {
           width: 100% !important;
           padding: 60px;
           left: 50%; } }
 
 @media (max-width: 480px) {
-  /* line 302, jumpstart/static/sass/login2.sass */
+  /* line 302, jumpstart/static/sass/login_page.sass */
   section#formHolder .form {
     width: 100vw;
     margin-left: 0; }
-  /* line 306, jumpstart/static/sass/login2.sass */
+  /* line 306, jumpstart/static/sass/login_page.sass */
   h2 {
     font-size: 50px !important; } }
