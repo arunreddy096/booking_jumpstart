@@ -105,7 +105,7 @@
 {#    </a>#}
 {#</div>#}
 
-<div class="container" style="width: 770px; height: 600px">
+<div class="container" style="width: 1270px; height: 600px">
     <!-- User profile section -->
     <div class="user-profile">
         {#      <img src="https://via.placeholder.com/150" alt="User profile picture">#}
@@ -125,67 +125,50 @@
     </div>
 
     <!-- Orders section -->
-    {#    <section id="orders" class="orders">#}
-    {#      <h3>Recent Orders</h3>#}
-    {#      <table class="table">#}
-    {#        <thead>#}
-    {#          <tr>#}
-    {#            <th>Order ID</th>#}
-    {#            <th>Ordered Date</th>#}
-    {#            <th>Description</th>#}
-    {#          </tr>#}
-    {#        </thead>#}
-    {#        <tbody>#}
-    {#          <tr>#}
-    {#            <td>001</td>#}
-    {#            <td>2023-03-21</td>#}
-    <!-- Orders section -->
     <div id="orders" class="orders">
         <h3>Recent Orders</h3>
-        <table class="table table-bordered">
+        <table class="table table-hover table-bordered">
             <thead>
             <tr>
-                <th>Order ID</th>
-                <th>Ordered Date</th>
-                <th>Description</th>
+                <th>Ticket ID</th>
+                <th>Transaction Time </th>
+                <th>Type of Event</th>
+                <th>Event Booked</th>
+                <th>Reservation Date</th>
+                <th>Reserved slot</th>
+                <th>Total Price</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>123456</td>
-                <td>2023-03-20</td>
-                <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
-            </tr>
-            <tr>
-                <td>789012</td>
-                <td>2023-03-18</td>
-                <td>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</td>
-            </tr>
-            <tr>
-                <td>345678</td>
-                <td>2023-03-15</td>
-                <td>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat.
-                </td>
-            </tr>
+            {% for ticket in tickets %}
+                <tr>
+                    <td>{{ ticket.ticket_id }}</td>
+                    <td>{{ ticket.transaction_timestamp }}</td>
+                    <td>{{ ticket.event_type }}</td>
+                    <td>{{ ticket.reserved_event }}</td>
+                    <td>{{ ticket.reservation_date }}</td>
+                    <td>{{ ticket.reservation_time }}</td>
+                    <td>${{ ticket.total_price }}</td>
+                </tr>
+            {% endfor %}
             </tbody>
         </table>
     </div>
-    <!-- Update section -->
-    <div id="update" class="update">
-        <h3>Update Profile</h3>
-        <form>
-            <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
-                <input type="text" class="form-control" id="username" value="John Doe">
-            </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" value="johndoe@example.com">
-            </div>
-            <button type="submit" class="btn btn-primary">Update</button>
-        </form>
-    </div>
+{#    <!-- Update section -->#}
+{#    <div id="update" class="update">#}
+{#        <h3>Update Profile</h3>#}
+{#        <form>#}
+{#            <div class="mb-3">#}
+{#                <label for="username" class="form-label">Username</label>#}
+{#                <input type="text" class="form-control" id="username" value="John Doe">#}
+{#            </div>#}
+{#            <div class="mb-3">#}
+{#                <label for="email" class="form-label">Email</label>#}
+{#                <input type="email" class="form-control" id="email" value="johndoe@example.com">#}
+{#            </div>#}
+{#            <button type="submit" class="btn btn-primary">Update</button>#}
+{#        </form>#}
+{#    </div>#}
     <!-- Delete section -->
     <form id="delete-form" method="POST" action="">
         {% csrf_token %}
@@ -207,7 +190,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <p>Are you sure you want to delete your account? This action cannot be undone 121.</p>
+                            <p>Are you sure you want to delete your account? This action cannot be undone.</p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, Cancel</button>

@@ -23,15 +23,6 @@
 
 </head>
 <body style="background-color: lightyellow">
-{#<nav class="navbar navbar-expand-lg navbar-dark bg-dark">#}
-{#    <div class="container d-flex align-items-center justify-content-center">#}
-{#        <h6 style="color: darkorange">#}
-{#        <a class="navbar-brand" href="{% url 'welcome' %}">#}
-{#            <i class="fa-brands fa-space-awesome fa-flip" style="color: darkorange"></i>#}
-{#            &nbspJumpstart</a>#}
-{#        </h6>#}
-{#    </div>#}
-{#</nav>#}
 <div class="w3-bar w3-red w3-large">
     <a href="{% url 'welcome' %}" class="w3-bar-item w3-button w3-red w3-mobile"
        style="text-decoration: none">
@@ -54,7 +45,8 @@
         <img class="w3-light-grey w3-right" src="{{ user.profile_image.url }}" style="width:35px; height:35px; margin-top: 5px; border-radius: 10px" alt="My Image">
 </div>
 <div class="container" style="margin-top: 20px">
-    <h1>Book Your ticket here</h1>
+     <h1>Book Your ticket here</h1>
+
     {% if form.errors %}
         <div class="alert alert-danger">
             {% for error in form.phone_number.errors %}
@@ -64,10 +56,11 @@
         </div>
     {% endif %}
 </div>
+{% if not messages %}
 <div class="container" style="margin-top: 20px">
 <div class="form-group">
     <div class="row" style="background-color: lightslategray; border-radius: 20px; padding: 20px; width:1110px">
-        <div class="col-md-8">
+        <div class="col-md-8" style="margin-top: 30px">
             <form id="booking-form" method="POST">{% csrf_token %}
                 <div class="form-group">
                     {{ form.event_type.label_tag }}
@@ -96,6 +89,9 @@
                             I am a student</label>
                     </div>
                 </div>
+                <p class="single-event form-group student" style="color: darkred">
+                    <i class="fa-solid fa-circle-info fa-beat-fade"></i>&nbsp
+                    If Student, individual should have a valid Student ID</p>
                 <div class="single-event form-group student">
                     {{ form.university.label_tag }}
                     {{ form.university }}
@@ -144,88 +140,55 @@
                 </div>
             </form>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 d-flex align-items-center justify-content-center">
             <div class="event-list">
-                <h5>Multi Event</h5>
-                <ul>
-                    <li class="event">
-                        Event 1
-                        <span class="price">$50</span>
-                        <span class="people">(2 Adults, 1 Child)</span>
-                    </li>
-                    <li class="event">
-                        Event 2
-                        <span class="price">$75</span>
-                        <span class="people">(3 Adults, 2 Children)</span>
-                    </li>
-                    <li class="event">
-                        Event 3
-                        <span class="price">$100</span>
-                        <span class="people">(2 Adults, 3 Children)</span>
-                    </li>
-                </ul>
-                <h5>Single Event</h5>
-                <ul>
-                    <li class="event">
-                        Event 4
-                        <span class="price">$25</span>
-                        <span class="people">(1 Adult, 1 Child)</span>
-                    </li>
-                    <li class="event">
-                        Event 5
-                        <span class="price">$35</span>
-                        <span class="people">(2 Adults, 2 Children)</span>
-                    </li>
-                    <li class="event">
-                        Event 6
-                        <span class="price">$50</span>
-                        <span class="people">(4 Adults, 2 Children)</span>
-                    </li>
-                </ul>
+                <h4 class="d-flex justify-content-center">
+                    <i class="fa-solid fa-circle-info fa-xl"></i>
+                </h4>
+                <br/><hr/>
+                <h4 class="d-flex justify-content-center">
+                    <i class="fa-regular fa-people-group">&nbsp</i>Multi events
+                </h4>
+                {% for event in events %}
+                    {% if 'multi' in event.event_type %}
+                        <ol>{{ event.name }}&nbsp&nbsp-&nbsp
+                        <strong>${{ event.price }}</strong>
+                        </ol>
+                    {% endif %}
+                {% endfor %}<br/>
+                <h4 class="d-flex justify-content-center">
+                    <i class="fa-solid fa-person-walking"></i>&nbspSingle events
+                </h4>
+                {% for event in events %}
+                    {% if 'multi' not in event.event_type %}
+                        <ol>{{ event.name }}&nbsp&nbsp-&nbsp
+                        <strong>${{ event.price }}</strong>
+                        </ol>
+                    {% endif %}
+                {% endfor %}<p>[ ticket price: +$10 ]</p><br/><hr/>
+                <h4 class="d-flex justify-content-center">
+                    <i class="fa-solid fa-user"></i>&nbspIndividual prices
+                </h4>
+                <ol>Adult ticket&nbsp&nbsp-&nbsp
+                        <strong>$35</strong>
+                </ol>
+                <ol>Children ticket&nbsp&nbsp-&nbsp
+                        <strong>$15</strong>
+                </ol>
+                <ol>Special Adult ticket&nbsp&nbsp-&nbsp
+                        <strong>$45</strong>
+                </ol>
+                <ol>Special Children ticket&nbsp&nbsp-&nbsp
+                        <strong>$20</strong>
+                </ol>
+                <ol>Student Discount&nbsp&nbsp-&nbsp
+                        <strong>-$10</strong>
+                </ol>
             </div>
         </div>
-{#        <div class="col-4">#}
-{#            <div class="event-list">#}
-{#                <h5>Multi Event</h5>#}
-{#                <ul>#}
-{#                    <li class="event">#}
-{#                        Event 1#}
-{#                        <span class="price">$50</span>#}
-{#                        <span class="people">(2 Adults, 1 Child)</span>#}
-{#                    </li>#}
-{#                    <li class="event">#}
-{#                        Event 2#}
-{#                        <span class="price">$75</span>#}
-{#                        <span class="people">(3 Adults, 2 Children)</span>#}
-{#                    </li>#}
-{#                    <li class="event">#}
-{#                        Event 3#}
-{#                        <span class="price">$100</span>#}
-{#                        <span class="people">(2 Adults, 3 Children)</span>#}
-{#                    </li>#}
-{#                </ul>#}
-{#                <h5>Single Event</h5>#}
-{#                <ul>#}
-{#                    <li class="event">#}
-{#                        Event 4#}
-{#                        <span class="price">$25</span>#}
-{#                        <span class="people">(1 Adult, 1 Child)</span>#}
-{#                    </li>#}
-{#                    <li class="event">#}
-{#                        Event 5#}
-{#                        <span class="price">$35</span>#}
-{#                        <span class="people">(2 Adults, 2 Children)</span>#}
-{#                    </li>#}
-{#                    <li class="event">#}
-{#                        Event 6#}
-{#                        <span class="price">$50</span>#}
-{#                        <span class="people">(4 Adults, 2 Children)</span>#}
-{#                    </li>#}
-{#                </ul>#}
-{#            </div>#}
-{#        </div>#}
     </div>
 </div>
+{% endif %}
 
 <!-- Add these scripts for proper functionality -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>

@@ -4,13 +4,25 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse, reverse_lazy
+from django.utils import timezone
+from django.utils.http import urlsafe_base64_encode
 
 from django.views import View
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 
 from .forms import LoginForm, RegistrationForm, TicketForm
-from .models import Customer, User, Ticket
+from .models import Customer, User, Ticket, Event
+
+# email imports
+from django.conf import settings
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
+from django.utils.http import urlsafe_base64_encode
+from django.utils.encoding import force_bytes
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.html import strip_tags
+from django.contrib.sites.shortcuts import get_current_site
 
 
 # Create your views here.
@@ -32,7 +44,7 @@ class LoginSignup(View):
                 user_signup = RegistrationForm()
                 messages.error(request, "Incorrect username or password")
                 return render(request, 'login2.html', {'form': form, 'signup': user_signup})
-            print(user, user.profile_image, type(user))
+            print(user, type(user))
             request.session['user_id'] = user.id
             login(request, user)
             return HttpResponseRedirect(reverse('welcome'))
@@ -74,7 +86,9 @@ class Profile(View):
     def get(self, request):
         user_id = request.session.get('_auth_user_id')
         user = get_object_or_404(Customer, id=user_id)
-        return render(request, 'profile.html', {'user': user})
+        tickets = Ticket.objects.filter(customer=user).order_by('-transaction_timestamp')
+        print(tickets)
+        return render(request, 'profile.html', {'user': user, 'tickets': tickets})
 
     def post(self, request):
         user_id = request.session.get('_auth_user_id')
@@ -98,7 +112,9 @@ class CustomerBooking(View):
         user_id = request.session.get('_auth_user_id')
         user = get_object_or_404(Customer, id=user_id)
         form = TicketForm()
-        return render(request, 'booking2.html', {'form': form, 'user':user})
+        events = Event.objects.all()
+
+        return render(request, 'booking2.html', {'form': form, 'user': user, 'events': events})
 
     def post(self, request):
         print(f'booking post received')
@@ -111,6 +127,8 @@ class CustomerBooking(View):
             event_type = form.cleaned_data['event_type']
             customer = user
             reserved_event = form.cleaned_data['event']
+            if reserved_event is None:
+                reserved_event = form.cleaned_data['event_multi']
             reservation_date = form.cleaned_data['reservation_date']
             reservation_time = form.cleaned_data['reservation_time']
             is_student = form.cleaned_data['is_student']
@@ -119,14 +137,14 @@ class CustomerBooking(View):
             children_tickets = form.cleaned_data['children_tickets']
             spl_adult_tickets = form.cleaned_data['spl_adult_tickets']
             spl_children_tickets = form.cleaned_data['spl_children_tickets']
-            total_price = float(form.cleaned_data['total_price'].replace('$',''))
+            total_price = float(form.cleaned_data['total_price'].replace('$', ''))
             address = form.cleaned_data['address']
             city = form.cleaned_data['city']
             province = form.cleaned_data['province']
             phone_number = form.cleaned_data['phone_number']
             ticket_id = "T_" + "".join(random.choices(string.ascii_letters + string.digits, k=4))
             transaction_id = "TX_" + "".join(random.choices(string.ascii_letters + string.digits, k=14))
-            pprint([(x,y) for x,y in form.cleaned_data.items()])
+            pprint([(x, y) for x, y in form.cleaned_data.items()])
             new_ticket = Ticket(
                 reserved_event=reserved_event,
                 customer=customer,
@@ -146,11 +164,53 @@ class CustomerBooking(View):
                 phone_number=phone_number,
                 ticket_id=ticket_id,
                 transaction_id=transaction_id,
+                transaction_timestamp=timezone.now()
             )
             new_ticket.save()
-            return render(request, 'profile.html', {'user': user})
+
+            subject = 'DO NOT REPLY - Jumpstart - Reservation'
+            email_template_name = 'registration/booking_confirm.html'
+            html_email_template_name = 'registration/booking_confirm.html'
+            from_email = settings.DEFAULT_FROM_EMAIL
+            print('from mail ', from_email)
+            domain_override = None
+            to_email = user.email
+            if not domain_override:
+                current_site = get_current_site(request)
+                site_name = current_site.name
+                domain = current_site.domain
+            else:
+                site_name = domain = domain_override
+
+            ticket = Ticket.objects.get(ticket_id=ticket_id)
+
+            context = {
+                'email': to_email,
+                'domain': domain,
+                'site_name': 'Jumpstart',
+                'user': user,
+                'protocol': 'http',
+                'ticket': ticket
+            }
+            email = render_to_string(email_template_name, context)
+            html_email = render_to_string(html_email_template_name, context)
+
+            # Create the email message
+            msg = EmailMultiAlternatives(
+                subject=subject,
+                body=strip_tags(email),
+                from_email=from_email,
+                to=[to_email],
+            )
+            # Attach the HTML version of the email
+            msg.attach_alternative(html_email, 'text/html')
+
+            # Send the email using the SMTP backend
+            msg.send()
+
+            messages.success(request, 'Booking Successful and Email is sent')
+            return render(request, 'booking_success.html')
         else:
             print('invalid form')
             print(form.errors, )
             return render(request, 'booking2.html', {'form': form, 'user': user})
-

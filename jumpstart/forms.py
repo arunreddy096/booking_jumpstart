@@ -181,7 +181,7 @@ class CustomSetPasswordForm(SetPasswordForm):
 class TicketForm(forms.ModelForm):
     class Meta:
         model = Ticket
-        exclude = ['reserved_event', 'ticket_id', 'transaction_id', 'customer', 'total_price']
+        exclude = ['reserved_event', 'ticket_id', 'transaction_id', 'customer', 'total_price', 'transaction_timestamp']
 
         widgets = {
             'event_type': forms.Select(attrs={
@@ -214,7 +214,7 @@ class TicketForm(forms.ModelForm):
             }),
             'children_tickets': forms.NumberInput(attrs={
                 'class': 'form-control',
-                'id': 'children-ticket',
+                'id': 'children-tickets',
             }),
             'spl_adult_tickets': forms.NumberInput(attrs={
                 'class': 'form-control',
@@ -222,7 +222,7 @@ class TicketForm(forms.ModelForm):
             }),
             'spl_children_tickets': forms.NumberInput(attrs={
                 'class': 'form-control',
-                'id': 'special-children-ticket',
+                'id': 'special-children-tickets',
             }),
             'address': forms.TextInput(attrs={
                 'class': 'form-control',
@@ -257,7 +257,7 @@ class TicketForm(forms.ModelForm):
                                    to_field_name='name',
                                    widget=forms.Select(attrs={
                                        'class': 'form-control',
-                                       'id': 'event-name'
+                                       'id': 'event-name-single'
                                    })
                                    )
     event_multi = forms.ModelChoiceField(required=False,
@@ -266,7 +266,7 @@ class TicketForm(forms.ModelForm):
                                          to_field_name='name',
                                          widget=forms.Select(attrs={
                                              'class': 'form-control',
-                                             'id': 'event-name'
+                                             'id': 'event-name-multi'
                                          }))
     total_price = forms.CharField(
         widget=forms.TextInput(

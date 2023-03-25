@@ -8,8 +8,8 @@ class EventsAdmin(admin.ModelAdmin):
 
 
 class TicketAdmin(admin.ModelAdmin):
-    list_display = ['ticket_id', 'customer', 'reservation_date']
-    ordering = ['reservation_date']
+    list_display = ['ticket_id', 'customer', 'transaction_timestamp']
+    ordering = ['-transaction_timestamp']
 
 
 # Register your models here.

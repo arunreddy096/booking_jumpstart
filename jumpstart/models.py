@@ -1,7 +1,8 @@
+import datetime
 from django.db import models
 from django.contrib.auth.models import User
 from .city_n_provinces_n_edu import CITY_CHOICES, PROVINCE_CHOICES, UNIVERSITY_CHOICES, EVENT_TIME_CHOICES
-
+from django.utils import timezone
 
 # Create your models here.
 
@@ -58,6 +59,7 @@ class Ticket(models.Model):
     phone_number = models.CharField(max_length=10)
     ticket_id = models.CharField(max_length=20)
     transaction_id = models.CharField(max_length=50)
+    transaction_timestamp = models.DateTimeField(default=timezone.now())
 
     def __str__(self):
         return f"{self.reserved_event} - {self.ticket_id}"
