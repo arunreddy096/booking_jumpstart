@@ -14,7 +14,7 @@
         <i class="fa-solid fa-circle-info" style="font-size: 15px"></i>About</a>
     <a href="#contact" class="w3-bar-item w3-button w3-mobile">
         <i class="fa-solid fa-address-card" style="font-size: 15px"></i>Contact</a>
-    <a href="{% url 'search' %}" class="w3-bar-item w3-button w3-mobile">
+    <a href="{% url 'search' '00' %}" class="w3-bar-item w3-button w3-mobile">
         <i class="fa-solid fa-magnifying-glass" style="font-size: 15px"></i>Search</a>
 {% endblock %}
 {% block body_block %}
@@ -34,7 +34,7 @@
                     heights, balance on wobbly bridges, and feel the rush of wind as you zip from platform to platform.
                     Our experienced instructors will make sure you are safe and secure, so you can enjoy the thrill of
                     the ride.</p>
-                <a href="#" class="btn-primary">Learn more</a>
+                <a href="{% url 'search' '01' %}" class="btn-primary">Learn more</a>
             </div>
         </div>
         <div class="right tiles">
@@ -68,7 +68,7 @@
                 <p>Take flight at our state-of-the-art Trampoline Park! With a variety of different trampolines, a foam
                     pit, and a basketball dunk area, you'll have a blast bouncing, flipping, and soaring. Whether you're
                     a seasoned trampoline pro or a beginner, you'll find plenty of opportunities to have fun.</p>
-                <a href="#" class="btn-primary">Learn more</a>
+                <a href="{% url 'search' '02' %}" class="btn-primary">Learn more</a>
             </div>
         </div>
 
@@ -105,7 +105,7 @@
             <div class="content">
                 <h2>Indoor Soccer</h2>
                 <p>Experience the thrill of adventure on the indoor soccer field at our adventure/indoor activity center. Whether you are an experienced player or a beginner, our expert trainers will guide you through every step of the game. With our state-of-the-art facilities and top-notch equipment, you'll enjoy an unparalleled experience. Come, join us for a thrilling game of indoor soccer and experience the adrenaline rush like never before!</p>
-                <a href="#" class="btn-primary">Learn more</a>
+                <a href="{% url 'search' '08' %}" class="btn-primary">Learn more</a>
             </div>
         </div>
 
@@ -145,16 +145,135 @@
                 <p>Put your problem-solving skills to the test in one of our challenging Escape Rooms. With immersive
                     themes, exciting puzzles, and a race against the clock, you'll be fully absorbed in the experience
                     as you work to escape the room.</p>
-                <a href="#" class="btn-primary">Learn more</a>
+                <a href="{% url 'search' '03' %}" class="btn-primary">Learn more</a>
             </div>
         </div>
 
         <div class="left tiles">
             <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.Nyh3ifi7jwh_VKaUsqs8jgHaE7%26pid%3DApi&f=1&ipt=e673c063b38636d7f5e25c48cbd0f599a9fbe2562d96d1d5bdbfc9e7e93002c0&ipo=images"
-                 alt="Escape Rooms"/>
-            <img src="{% static 'images/image4.png' %}" alt="Escape Rooms"/>
-            <img src="{% static 'images/image4.png' %}" alt="Escape Rooms"/>
-            <img src="{% static 'images/image4.png' %}" alt="Escape Rooms"/>
+                 alt="Escape Rooms" style="height: 237px"/>
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.Gntju8xjzedd1n633gK4EQHaE8%26pid%3DApi&f=1&ipt=f4ad0489763df5d414349256a5fe23caa11d5b465c52897a1a5ca924be460c52&ipo=images"
+                 alt="Escape Rooms" style="height: 237px"/>
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.IbWOGV1pw-M-a-ai_LK9yQHaFj%26pid%3DApi&f=1&ipt=713c60456dcec63f115724818d13cc95fd3a0ca637af1a03af089df6b18357b7&ipo=images"
+                 alt="Escape Rooms" style="height: 237px"/>
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.C56kq5b5Z3KflwxVi7MglAHaE7%26pid%3DApi&f=1&ipt=4fb19a876590f9113f0d6b03234c05e862f7772eff7027a558e5fe1226a26cc3&ipo=images"
+                 alt="Escape Rooms" style="height: 237px"/>
+        </div>
+
+    </div>
+
+        <div class="section">
+        <div class="middle">
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.4hDPmr5W2ZalLnj85Ep1-AHaHa%26pid%3DApi&f=1&ipt=f90d66b332d34407033bc522b2ebc159113a26f5d9607280b0dced5ec59fcdc7&ipo=images"
+                 alt="Escape Rooms"
+                 style="height:475px"
+            />
+        </div>
+            <div class="left title">
+                <div class="content">
+                    <h2>Archery Tag</h2>
+                    <p>Archery tag is a thrilling adventure activity that combines the thrill of archery with the
+                        excitement of dodgeball. Participants use special foam-tipped arrows and bows to shoot at their
+                        opponents, while also dodging incoming arrows. It's a great way to test your speed, agility, and
+                        accuracy while having fun with friends and family. Come experience the ultimate adrenaline rush
+                        with Archery tag!</p>
+                    <a href="{% url 'search' '07' %}" class="btn-primary">Learn more</a>
+                </div>
+            </div>
+
+            <div class="right tiles">
+                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.fdgxl0UpvqxD8VG-NinbvQHaHa%26pid%3DApi&f=1&ipt=8585e9211ab94d3574709e3395ffe45edb82fdef9643b9a52438a601795d0a93&ipo=images"
+                     alt="Escape Rooms" style="height: 237px"/>
+                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.RL--QKDJfKm4n27nUck4nwHaE4%26pid%3DApi&f=1&ipt=c37482e635f2814049a19b29463630516726bd13c54db114cf6fa2c067e796e6&ipo=images"
+                     alt="Escape Rooms" style="height: 237px"/>
+                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.QeWvS-vNS5csViCtar8LoQHaE8%26pid%3DApi&f=1&ipt=5171934d8898774d0278db987a67fce367f781945b17dda38f37586bbb7fc9a9&ipo=images"
+                     alt="Escape Rooms" style="height: 237px"/>
+                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.sQxN2UqxI0jZJABXEvyvuQHaFj%26pid%3DApi&f=1&ipt=f66a93069c58512ae47e2844b34ca29d1600faa926f8a186199dfc7e2f767aff&ipo=images"
+                     alt="Escape Rooms" style="height: 237px"/>
+            </div>
+
+    </div>
+
+    <div class="section">
+        <div class="middle">
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.dPRfuDzWUdkZnarh3pSMgwHaFj%26pid%3DApi&f=1&ipt=b71bdaf77de22d03e2ff60a23c914438e308258fa3030ba70df0da6fc33d96ce&ipo=images"
+                 alt="Escape Rooms"
+                 style="height:475px"
+            />
+        </div>
+        <div class="right title">
+            <div class="content">
+                <h2>Rock Climbing</h2>
+                <p>Get ready to scale new heights and conquer your fears with our exciting rock climbing experience! Whether you're a seasoned climber or a beginner, our state-of-the-art climbing walls and expert instructors are here to help you reach your full potential. With breathtaking views and an exhilarating atmosphere, rock climbing is the perfect way to challenge yourself and have fun with friends and family. Come and experience the thrill of climbing with us today!</p>
+                <a href="{% url 'search' '05' %}" class="btn-primary">Learn more</a>
+            </div>
+        </div>
+
+        <div class="left tiles">
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.ybU_O6UcvwBZVzTGmzevuQHaJ4%26pid%3DApi&f=1&ipt=18c69160a858b668dccef53e42694d611b744a0090c139a13a2ecda5fbbefc38&ipo=images"
+                 alt="Escape Rooms" style="height: 237px"/>
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.UNpw_5x3yZqIYuq-244u8AHaE8%26pid%3DApi&f=1&ipt=6f02104ae3908572a3c08d10a0c29c048f4ef6c959bb0b109a39577fdd72a49c&ipo=images"
+                 alt="Escape Rooms" style="height: 237px"/>
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.YLvR3FV0hgnON2F3KLkFZgHaEK%26pid%3DApi&f=1&ipt=83326dbb4008f130c7f84ef06e65aa012e9641328179e52d1113af106478e691&ipo=images"
+                 alt="Escape Rooms" style="height: 237px"/>
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.FB86iQDwMAABR0A4aSzndQHaE7%26pid%3DApi&f=1&ipt=f382e0e679b8afaf8a00fd2cd4dd13e6aeae605a857b40608c852991d4f9b529&ipo=images"
+                 alt="Escape Rooms" style="height: 237px"/>
+        </div>
+
+    </div>
+
+            <div class="section">
+        <div class="middle">
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.msNqCtU2sSKpz4ncIImsJAHaFj%26pid%3DApi&f=1&ipt=5ab5873adbb2840ebb35effffa01b0db08f9b118e3847d2f8bdd609dd67e3f84&ipo=images"
+                 alt="Escape Rooms"
+                 style="height:475px"
+            />
+        </div>
+            <div class="left title">
+                <div class="content">
+                    <h2>Arcade Corner</h2>
+                    <p>Step into a world of fun and excitement at our arcade! From classic games to modern favorites, our collection of arcade games will keep you entertained for hours. Challenge your friends to a game of air hockey, or try your hand at our high-tech virtual reality games. With something for everyone, our arcade is the perfect destination for an unforgettable adventure!</p>
+                    <a href="{% url 'search' '04' %}" class="btn-primary">Learn more</a>
+                </div>
+            </div>
+
+            <div class="right tiles">
+                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.eWqSlpiP7vRQSzsB3OeGXgHaFj%26pid%3DApi&f=1&ipt=374dfcff80d40b60fd1c60e80729bffaa3b30b57e9aa66a6336c54333efeb0dd&ipo=images"
+                     alt="Escape Rooms" style="height: 237px"/>
+                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.2NYcl_3u_ILVQw1KjhrDdgHaE7%26pid%3DApi&f=1&ipt=420536659df1735e8306b91341a5592ed175033ced4946c81ac8acc3741a772f&ipo=images"
+                     alt="Escape Rooms" style="height: 237px"/>
+                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.VxdNqOYviXCuHqYGZOw3AwHaE8%26pid%3DApi&f=1&ipt=49aa65484d58a332851e6b64564f0e8366765dd6c8651b04aaf47695fb3f1012&ipo=images"
+                     alt="Escape Rooms" style="height: 237px"/>
+                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.jmY-BfQIqRdaTKCmw4TfbgHaEt%26pid%3DApi&f=1&ipt=0fb02272922bb16b9d317db3c687fa487df6690574c0f37d22c7e1ad2dacb85f&ipo=images"
+                     alt="Escape Rooms" style="height: 237px"/>
+            </div>
+
+    </div>
+
+        <div class="section">
+        <div class="middle">
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.4jmNV7pj7xTS60QDKN_WxQHaFq%26pid%3DApi&f=1&ipt=ad7e504ff6dce65a63fe3e2ccea7823f27ed4b28b522b673e717b5db77e01855&ipo=images"
+                 alt="Escape Rooms"
+                 style="height:475px"
+            />
+        </div>
+        <div class="right title">
+            <div class="content">
+                <h2>Axe Throwing</h2>
+                <p>Looking for a thrilling and unique activity that combines skill and adrenaline? Look no further than Axe Throwing! At our facility, you'll learn to wield a real axe under the guidance of our expert instructors. It's the perfect way to blow off steam with friends or colleagues, and our safe and controlled environment ensures that everyone can have fun without worry. Come experience the rush of hitting your target and feel like a true lumberjack!</p>
+                <a href="{% url 'search' '06' %}" class="btn-primary">Learn more</a>
+            </div>
+        </div>
+
+        <div class="left tiles">
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.5jL1yqy_wl5w4WWLY6QQLQHaE7%26pid%3DApi&f=1&ipt=b5c1c45ab51f01af0c8796c93e398ef36b6eded43b1d4da117605e50c49ff34e&ipo=images"
+                 alt="Escape Rooms" style="height: 237px"/>
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.gflDCpx7WAikfWut-rnB0QHaE7%26pid%3DApi&f=1&ipt=20bf03a32a9748738bf85d018e4ef10a8c8d32c2046eefec6f1ff7435cb731a8&ipo=images"
+                 alt="Escape Rooms" style="height: 237px"/>
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.u4hn9y9gBbdF-9LoBsMUKgHaE8%26pid%3DApi&f=1&ipt=f8a6716597eb4f85e06331c601010f1c7d2f6b26372cebc64c97b1c8d3521df5&ipo=images"
+                 alt="Escape Rooms" style="height: 237px"/>
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.1QrM0EaBgyiOQ_-xX1gyXwHaFj%26pid%3DApi&f=1&ipt=e2bee739123bce78a39ea7ea151423f977a1602489ca062cf8028a27e3975d01&ipo=images"
+                 alt="Escape Rooms" style="height: 237px"/>
         </div>
 
     </div>
@@ -181,27 +300,7 @@
             <i class="fa-brands fa-google-pay"></i>
             <i class="fa-brands fa-cc-apple-pay"></i>
         </p>
-        {#    </div>#}
-        {#    <div class="w3-col l8 12">#}
-        {#      <!-- Image of location/map -->#}
-        {#     <img src={% static 'images/aboutsideimge.png' %} class="w3-image w3-greyscale" style="width:100%;">#}
-        {#    </div>#}
     </div>
-
-    {#  <div class="w3-panel w3-red w3-leftbar w3-padding-32">#}
-    {#    <h6><i class="fa fa-info w3-deep-orange w3-padding w3-margin-right"></i> On demand, we can offer playstation, babycall, children care, dog equipment, etc.</h6>#}
-    {#  </div>#}
-
-
-    {#  <div class="w3-container w3-padding-32 w3-black w3-opacity w3-card w3-hover-opacity-off" style="margin:32px 0;">#}
-    {#    <h2>Get the best offers first!</h2>#}
-    {#    <p>Join our newsletter.</p>#}
-    {#    <label>E-mail</label>#}
-    {#    <input class="w3-input w3-border" type="text" placeholder="Your Email address">#}
-    {#    <button type="button" class="w3-button w3-red w3-margin-top">Subscribe</button>#}
-    {#  </div>#}
-
-
 
 
 
@@ -210,21 +309,7 @@
         <p>If you have any questions, do not hesitate to ask them.</p>
         <i class="fa-solid fa-map-location-dot" style="width:30px"></i> Windsor, ON &nbsp&nbsp&nbsp&nbsp
         <i class="fa-solid fa-phone" style="width:30px"></i> +1 8976784371 &nbsp&nbsp&nbsp&nbsp
-        <i class="fa-solid fa-envelope" style="width:30px"></i> help@jumpstart.com &nbsp&nbsp&nbsp&nbsp
-        <form action="/action_page.php" target="_blank">
-            <p style="display: inline-block; vertical-align: top; padding-right: 20px"><input
-                    class="w3-input w3-padding-16 w3-border" type="text" placeholder="Email" required name="Email"
-                    style="width: 230px; border-radius: 20px"></p>
-            <p style="display: inline-block; vertical-align: top"><input class="w3-input w3-padding-16 w3-border"
-                                                                         type="text" placeholder="Message" required
-                                                                         name="Message"
-                                                                         style="width: 230px; border-radius: 20px">
-            </p>
-            <button class="w3-button w3-black w3-padding-large" type="submit"
-                    style="display: inline-block; vertical-align: top;width: 230px; border-radius: 20px; margin-left:20px; margin-top: 20px">
-                SEND MESSAGE
-            </button>
-        </form>
+        <i class="fa-solid fa-envelope" style="width:30px; margin-bottom: 20px"></i> help@jumpstart.com &nbsp&nbsp&nbsp&nbsp
     </div>
 
     <!-- End page content -->

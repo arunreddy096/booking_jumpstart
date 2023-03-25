@@ -258,14 +258,14 @@ class CustomerBooking(View):
 
 class Search(View):
 
-    def get(self, request):
-        # query = request.GET.get('query')
-        # events = Event.objects.filter(
-        #     Q(name__icontains=query)
-        # )
-        return render(request, 'search.html')
+    def get(self, request, id):
 
-    def post(self, request):
+        results = Event.objects.filter(
+            Q(id__icontains=id)
+        )
+        return render(request, 'search.html', {'results': results})
+
+    def post(self, request, id):
         # print('in search post')
         query = request.POST.get('q')
         # print(query)

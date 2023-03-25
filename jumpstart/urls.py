@@ -24,7 +24,7 @@ urlpatterns = [
     path('reset/done/', reset_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
 
     path('view_profile/', views.Profile.as_view(), name='view_profile'),
-    path('search/', views.Search.as_view(), name='search'),
+    path('search/<int:id>', views.Search.as_view(), name='search'),
 
 ]
 
