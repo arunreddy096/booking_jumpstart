@@ -156,6 +156,7 @@ class CustomerBooking(View):
         form = TicketForm(request.POST)
         user_id = request.session.get('_auth_user_id')
         user = get_object_or_404(Customer, id=user_id)
+        events = Event.objects.all()
         if form.is_valid():
             print('valid form')
             form.save(commit=False)
@@ -180,6 +181,19 @@ class CustomerBooking(View):
             ticket_id = "T_" + "".join(random.choices(string.ascii_letters + string.digits, k=4))
             transaction_id = "TX_" + "".join(random.choices(string.ascii_letters + string.digits, k=14))
             pprint([(x, y) for x, y in form.cleaned_data.items()])
+
+            print(f'form validated: checking other validaitons:\n{reserved_event}\n{reservation_time}\n{reservation_date}')
+            get_details_from_db = Ticket.objects.filter(
+                event_type=event_type,
+                reserved_event=reserved_event,
+                reservation_time=reservation_time,
+                reservation_date=reservation_date
+            )
+            if get_details_from_db.count() >= 5:
+                messages.error(request,
+                               f"{reserved_event} event booked full for this slot {reservation_time} on \
+                               {reservation_date}. Please choose another slot!")
+                return render(request, 'booking_page.html', {'form': form, 'user': user, 'events': events})
             new_ticket = Ticket(
                 reserved_event=reserved_event,
                 customer=customer,
@@ -236,6 +250,6 @@ class CustomerBooking(View):
             return render(request, 'booking_success.html')
         else:
             print('invalid form')
-            events = Event.objects.all()
+
             print(form.errors, )
             return render(request, 'booking_page.html', {'form': form, 'user': user, 'events': events})

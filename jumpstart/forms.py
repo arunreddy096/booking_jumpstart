@@ -287,4 +287,3 @@ class TicketForm(forms.ModelForm):
         if len(phone_number) != 10:
             raise forms.ValidationError('Phone number should be exactly 10 digits long')
         return phone_number
-
