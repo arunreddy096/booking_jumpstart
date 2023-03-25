@@ -48,10 +48,10 @@ $(document).ready(function() {
                 total += 30;
             }
 
-            total += adultTickets * 35;
-            total += childrenTickets * 15;
-            total += specialAdultTickets * 45;
-            total += specialChildrenTickets * 20;
+            total += adultTickets;
+            total += childrenTickets;
+            total += specialAdultTickets;
+            total += specialChildrenTickets;
 
         } else {
             var eventName = $('#event-name-single').val();
@@ -59,7 +59,7 @@ $(document).ready(function() {
 
             var eventTime = $('#event-time').val();
             var isStudent = $('#student').is(':checked');
-            total += 10;
+            // total += 10;
 
             if (eventName === 'Arcade Corner') {
                 total += 25;
