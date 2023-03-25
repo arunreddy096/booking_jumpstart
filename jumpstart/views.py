@@ -3,6 +3,7 @@ from pprint import pprint
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse, reverse_lazy
@@ -253,3 +254,16 @@ class CustomerBooking(View):
 
             print(form.errors, )
             return render(request, 'booking_page.html', {'form': form, 'user': user, 'events': events})
+
+
+class Search(View):
+
+    def get(self, request):
+        # query = request.GET.get('query')
+        # events = Event.objects.filter(
+        #     Q(name__icontains=query)
+        # )
+        query = request.GET.get('q')
+        results = Event.objects.filter(Q(field__icontains=query))
+        return render(request, 'search.html', {'events': results, 'query': query})
+

@@ -42,12 +42,12 @@
                     <div class="heading">
                 {% if messages %}
                     {% for message in messages %}
-                        <p style="color: #f95959">{{ message }}</p>
+                        {% if 'SUCCESSFULLY' in message %}
+                            <p style="color: #f95959">{{ message }}</p>
+                        {% endif %}
                     {% endfor %}
-                {% else %}
-                        <h2>Welcome</h2>
-
                 {% endif %}
+                        <h2>Welcome</h2>
                    </div>
             </div>
 
