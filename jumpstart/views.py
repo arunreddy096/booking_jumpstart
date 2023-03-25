@@ -263,7 +263,19 @@ class Search(View):
         # events = Event.objects.filter(
         #     Q(name__icontains=query)
         # )
-        query = request.GET.get('q')
-        results = Event.objects.filter(Q(field__icontains=query))
-        return render(request, 'search.html', {'events': results, 'query': query})
+        return render(request, 'search.html')
+
+    def post(self, request):
+        # print('in search post')
+        query = request.POST.get('q')
+        # print(query)
+        results = Event.objects.filter(
+            Q(additional_info__icontains=query) |
+            Q(name__icontains=query) |
+            Q(event_type__icontains=query) |
+            Q(timings__icontains=query)
+        )
+        # print(results)
+        return render(request, 'search.html', {'results': results, 'query': query})
+
 
