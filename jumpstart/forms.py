@@ -283,13 +283,13 @@ class TicketForm(forms.ModelForm):
     def clean_adult_tickets(self):
         adult_tickets = self.cleaned_data.get('adult_tickets')
         if adult_tickets < 0:
-            raise forms.ValidationError('Please a positive number for adult tickets')
+            raise forms.ValidationError('Please enter a positive number for adult tickets')
         return adult_tickets
 
     def clean_children_tickets(self):
         children_tickets = self.cleaned_data.get('children_tickets')
         if children_tickets < 0:
-            raise forms.ValidationError('Please a positive number for children tickets')
+            raise forms.ValidationError('Please enter a positive number for children tickets')
         return children_tickets
 
 

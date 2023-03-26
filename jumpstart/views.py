@@ -198,9 +198,9 @@ class CustomerBooking(View):
             phone_number = form.cleaned_data['phone_number']
             ticket_id = "T_" + "".join(random.choices(string.ascii_letters + string.digits, k=4))
             transaction_id = "TX_" + "".join(random.choices(string.ascii_letters + string.digits, k=14))
-            pprint([(x, y) for x, y in form.cleaned_data.items()])
-
-            print(f'form validated: checking other validaitons:\n{reserved_event}\n{reservation_time}\n{reservation_date}')
+            # pprint([(x, y) for x, y in form.cleaned_data.items()])
+            #
+            # print(f'form validated: checking other validaitons:\n{reserved_event}\n{reservation_time}\n{reservation_date}')
             # checking each event capacity for that time
             get_details_from_db = Ticket.objects.filter(
                 event_type=event_type,
