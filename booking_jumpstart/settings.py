@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+
     'jumpstart.apps.JumpstartConfig',
 
     'django.contrib.admin',
@@ -176,7 +177,7 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 SITE_ID = 3
-LOGIN_REDIRECT_URL = reverse_lazy('welcome')
+LOGIN_REDIRECT_URL = reverse_lazy('jumpstart:welcome')
 LOGOUT_REDIRECT_URL = 'logout'
 
 # Additional configuration settings

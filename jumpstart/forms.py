@@ -13,7 +13,7 @@ from django.forms import ModelForm, TextInput, EmailInput, PasswordInput
 from django import forms
 
 # URL Handling and Settings
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.conf import settings
 
 # Models
@@ -129,7 +129,7 @@ class CustomPasswordResetForm(PasswordResetForm):
         reset_url = '{}://{}{}'.format(
             'https' if use_https else 'http',
             domain,
-            reverse('password_reset_confirm', kwargs={'uidb64': uid, 'token': token}, )
+            reverse_lazy('jumpstart:password_reset_confirm', kwargs={'uidb64': uid, 'token': token}, )
         )
 
         print(reset_url)
