@@ -1,9 +1,8 @@
 from django.contrib.auth.backends import ModelBackend
-from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.hashers import check_password
-from .models import Customer, User
-from django.shortcuts import get_object_or_404
+from .models import User
+
 
 class EmailAuth(ModelBackend):
     def authenticate(self, request, email=None, password=None, **kwargs):

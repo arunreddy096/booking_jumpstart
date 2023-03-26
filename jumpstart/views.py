@@ -1,35 +1,34 @@
-import random, string
+# python imports
+import random
+import string
 import re
 from pprint import pprint
-from django.contrib.auth.decorators import login_required
+
+# Django imports
 from django.contrib.auth.hashers import make_password
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.utils import timezone
-from django.utils.decorators import method_decorator
-from django.utils.http import urlsafe_base64_encode
-
 from django.views import View
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.views.generic import UpdateView
 
+# form imports
 from .forms import LoginForm, RegistrationForm, TicketForm, UpdateForm
-from .models import Customer, User, Ticket, Event
 
-# email imports
+# model imports
+from .models import Customer, Ticket, Event
+
+
+# Django email imports
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
-from django.utils.http import urlsafe_base64_encode
-from django.utils.encoding import force_bytes
-from django.contrib.auth.tokens import default_token_generator
 from django.utils.html import strip_tags
-from django.contrib.sites.shortcuts import get_current_site
 
 
 # Create your views here.
@@ -55,7 +54,7 @@ class LoginSignup(View):
             # request.session['user_id'] = user.id
             login(request, user)
             # request.session.save()
-            return HttpResponseRedirect(reverse('welcome'))
+            return HttpResponseRedirect(reverse('jumpstart:welcome'))
             # return render(request, 'home_page.html', {'form': form, 'user': user})
 
         elif user_signup.is_valid():
@@ -123,26 +122,10 @@ class Profile(View):
         user = get_object_or_404(Customer, id=user_id)
         tickets = Ticket.objects.filter(customer=user).order_by('-transaction_timestamp')
         print(tickets)
-        # updateform = UpdateForm()
-        return render(request, 'profile_page.html', {'user': user, 'tickets': tickets,})# 'form':updateform})
+        return render(request, 'profile_page.html', {'user': user, 'tickets': tickets})
 
     def post(self, request):
         print('in post profile')
-        # updateform = UpdateForm(request.POST)
-        #
-        # if not request.POST:
-        #     # delete the user
-        #     user_id = request.session.get('_auth_user_id')
-        #     print(user_id)
-        #     user = get_object_or_404(Customer, id=user_id)
-        #     print('on post delete: ', user)
-        #     messages.success(request, 'Your account has been deleted.')
-        #     logout(request)
-        #     user.delete()
-        #     return redirect('home')
-        # else:
-        #     return redirect('profile_update')
-
         # delete the user
         user_id = request.session.get('_auth_user_id')
         print(user_id)
@@ -157,7 +140,7 @@ class Profile(View):
 class UserLogout(View):
     def get(self, request):
         logout(request)
-        return HttpResponseRedirect(reverse('welcome'))
+        return HttpResponseRedirect(reverse('jumpstart:welcome'))
 
 
 class CustomerBooking(View):
@@ -165,7 +148,7 @@ class CustomerBooking(View):
     def get(self, request):
         user_id = request.session.get('_auth_user_id')
         user = get_object_or_404(Customer, id=user_id)
-        print('got' ,user, messages)
+        print('got', user, messages)
         form = TicketForm()
         events = Event.objects.all()
 
@@ -199,7 +182,7 @@ class CustomerBooking(View):
             ticket_id = "T_" + "".join(random.choices(string.ascii_letters + string.digits, k=4))
             transaction_id = "TX_" + "".join(random.choices(string.ascii_letters + string.digits, k=14))
             # pprint([(x, y) for x, y in form.cleaned_data.items()])
-            #
+
             # print(f'form validated: checking other validaitons:\n{reserved_event}\n{reservation_time}\n{reservation_date}')
             # checking each event capacity for that time
             get_details_from_db = Ticket.objects.filter(
@@ -224,7 +207,6 @@ class CustomerBooking(View):
                 messages.error(request,
                                f"Atleast 1 ticket should be booked, Empty booking is not allowed")
                 return render(request, 'booking_page.html', {'form': form, 'user': user, 'events': events})
-
 
             new_ticket = Ticket(
                 reserved_event=reserved_event,
@@ -288,7 +270,6 @@ class CustomerBooking(View):
 class Search(View):
 
     def get(self, request, id):
-
         results = Event.objects.filter(
             Q(id__icontains=id)
         )
@@ -304,11 +285,10 @@ class Search(View):
 
 
 class CustomerUpdateView(UpdateView):
-
     model = Customer
     form_class = UpdateForm
     template_name = 'profile_page.html'
-    success_url = reverse_lazy('view_profile')
+    success_url = reverse_lazy('jumpstart:view_profile')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -316,11 +296,13 @@ class CustomerUpdateView(UpdateView):
         return context
 
     def form_valid(self, form):
-        # Check whether the entered password contains at least one uppercase, one lowercase, one digit, and one special character
+        # Check whether the entered password contains at least one uppercase, one lowercase,
+        # one digit, and one special character
         if not re.search(r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$',
                          form.cleaned_data['password']):
             form.errors['password'] = [
-                'Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character.']
+                'Password must contain at least one uppercase letter, one lowercase letter, '
+                'one digit, and one special character.']
             return self.form_invalid(form)
         form.instance.password = make_password(form.cleaned_data['password'])
         messages.success(self.request, 'Your profile has been updated successfully!')
@@ -332,6 +314,3 @@ class CustomerUpdateView(UpdateView):
 
     def get_object(self, queryset=None):
         return get_object_or_404(Customer, id=self.request.session.get('_auth_user_id'))
-
-
-

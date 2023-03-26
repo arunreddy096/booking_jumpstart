@@ -55,14 +55,14 @@
 </head>
 <body>
 <div class="w3-bar w3-red w3-large">
-    <a href="{% url 'welcome' %}" class="w3-bar-item w3-button w3-red w3-mobile"
+    <a href="{% url 'jumpstart:welcome' %}" class="w3-bar-item w3-button w3-red w3-mobile"
        style="text-decoration: none">
         <i class="fa-solid fa-tricycle w3-margin-right"></i>
         <i class="fa-brands fa-space-awesome fa-flip"></i>&nbsp
 
         Jumpstart
     </a>
-    <a href="{% url 'search' '00' %}" class="w3-bar-item w3-button w3-mobile">
+    <a href="{% url 'jumpstart:search' '00' %}" class="w3-bar-item w3-button w3-mobile">
         <i class="fa-solid fa-magnifying-glass" style="font-size: 15px; text-decoration: none"></i>Search</a>
 </div>
 <div class="container" style="margin-top: 110px">
@@ -90,7 +90,8 @@
                             <div class="card-body">
                                 <h5 class="card-title"
                                     style="font-size: 1.5rem;text-decoration: underline">{{ result.name }}</h5>
-                                {{ result.short_description }}<br/><hr/>
+                                {{ result.short_description }}<br/>
+                                <hr/>
                                 {% if result.event_type == 'multi' %}
                                     <i class="fa-sharp fa-solid fa-people-group"
                                        style="font-size: 1.2rem; margin-bottom: 1rem;"></i>

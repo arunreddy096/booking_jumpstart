@@ -84,17 +84,17 @@
 
 <body style="background-color: lightgrey">
 <div class="w3-bar w3-red w3-large">
-    <a href="{% url 'welcome' %}" class="w3-bar-item w3-button w3-red w3-mobile"
+    <a href="{% url 'jumpstart:welcome' %}" class="w3-bar-item w3-button w3-red w3-mobile"
        style="text-decoration: none">
               <i class="fa-solid fa-tricycle w3-margin-right"></i>
         <i class="fa-brands fa-space-awesome fa-flip"></i>&nbsp
 
         Jumpstart
     </a>
-            <a href="{% url 'create_booking' %}" class="w3-bar-item w3-button w3-mobile">
+            <a href="{% url 'jumpstart:create_booking' %}" class="w3-bar-item w3-button w3-mobile">
             <i class="fa-solid fa-ticket" style="font-size: 15px; text-decoration: none"></i>
             Book</a>
-    <a href="{% url 'logout' %}" class="w3-bar-item w3-button w3-right w3-mobile">
+    <a href="{% url 'jumpstart:logout' %}" class="w3-bar-item w3-button w3-right w3-mobile">
             <i class="fa-sharp fa-solid fa-right-to-bracket fa-flip-both" style="font-size: 15px; text-decoration: none"></i>
             logout</a>
 </div>
@@ -124,7 +124,7 @@
     <div class="options">
 {#        <a href="#orders" class="btn btn-primary">View Orders</a>#}
 {#        <a href="#update" class="btn btn-secondary">Update Profile</a>#}
-        <a href="{% url 'profile_update' %}"><button type="submit" class="btn btn-secondary">Update Profile</button></a>
+        <a href="{% url 'jumpstart:profile_update' %}"><button type="submit" class="btn btn-secondary">Update Profile</button></a>
         <a href="#delete" class="btn btn-danger">Delete Account</a>
 {#        <a href="{% url 'logout' %}" class="btn btn-info">#}
 {#            <i class="fa-sharp fa-solid fa-right-to-bracket fa-flip-both" style="font-size: 20px"></i>#}
@@ -214,7 +214,7 @@
                 <button type="submit" class="btn btn-primary">Save Changes</button>
                 {#                <button type="submit">Save changes</button>#}
             </form>
-            <a href="{% url 'view_profile' %}">
+            <a href="{% url 'jumpstart:view_profile' %}">
                     <button type="submit" class="btn btn-dark"  style="margin-top: 3px">Cancel Changes</button>
             </a>
         </div>

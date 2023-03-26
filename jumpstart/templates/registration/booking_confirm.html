@@ -19,8 +19,10 @@
 <main style="max-width: 600px; margin: 0 auto; padding: 20px;">
     <p>Dear {{ ticket.customer }},</p>
     <p>Thank you for reserving a slot for <strong>{{ ticket.reserved_event }} on {{ ticket.reservation_date }}
-        at {{ ticket.reservation_time }}</strong>. <br/>Your reservation is confirmed and your ticket ID is <strong>{{ ticket.ticket_id }}</strong>.</p>
-    <p>The price for your reservation is ${{ ticket.total_price }}. Please ensure that you make payment as soon as possible to confirm
+        at {{ ticket.reservation_time }}</strong>. <br/>Your reservation is confirmed and your ticket ID is
+        <strong>{{ ticket.ticket_id }}</strong>.</p>
+    <p>The price for your reservation is ${{ ticket.total_price }}. Please ensure that you make payment as soon as
+        possible to confirm
         your reservation. The reference for transaction is <strong>{{ ticket.transaction_id }}</strong></p>
     <p>If you have any questions or concerns about your reservation, please don't hesitate to contact us.</p>
     <p>Thank you for choosing our event. We hope you have a great time!</p>

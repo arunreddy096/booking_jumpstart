@@ -18,7 +18,7 @@
 </head>
 <body>
 <div class="w3-bar w3-red w3-large">
-    <a href="{% url 'welcome' %}" class="w3-bar-item w3-button w3-red w3-mobile"
+    <a href="{% url 'jumpstart:welcome' %}" class="w3-bar-item w3-button w3-red w3-mobile"
        style="text-decoration: none">
               <i class="fa-solid fa-tricycle w3-margin-right"></i>
         <i class="fa-brands fa-space-awesome fa-flip"></i>&nbsp
@@ -34,7 +34,7 @@
 
             <!-- Brand Box -->
             <div class="col-sm-6 brand">
-                <a href="{% url 'welcome' %}" class="logo">
+                <a href="{% url 'jumpstart:welcome' %}" class="logo">
                     <i class="fa-brands fa-space-awesome" style="color: #f95959"></i>
 {#                    &nbspJumpstart</a>#}
                 </a>
@@ -83,7 +83,7 @@
                         <div class="CTA">
                             <input type="submit" value="Login">
                             <a href="#" class="switch">Signup</a>
-                            <a href="{% url 'password_reset' %}"
+                            <a href="{% url 'jumpstart:password_reset' %}"
                                style="padding-left: 25px; font-size:12px; color:gray; text-decoration:none;"
                                onmouseover="this.style.color='tomato'; this.style.textDecoration='underline'" ;
                                onmouseout="this.style.color='gray'; this.style.textDecoration='none';">Forgot

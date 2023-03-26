@@ -1,12 +1,15 @@
+# Python built-in modules
 import datetime
 import re
 
+# Django modules
 from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import lower
-
-from .city_n_provinces_n_edu import CITY_CHOICES, PROVINCE_CHOICES, UNIVERSITY_CHOICES, EVENT_TIME_CHOICES
 from django.utils import timezone
+
+# Local modules
+from .city_n_provinces_n_edu import CITY_CHOICES, PROVINCE_CHOICES, UNIVERSITY_CHOICES, EVENT_TIME_CHOICES
 
 # Create your models here.
 
@@ -100,4 +103,3 @@ class Ticket(models.Model):
 
     def __str__(self):
         return f"{self.reserved_event} - {self.ticket_id}"
-

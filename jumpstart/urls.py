@@ -1,17 +1,28 @@
-from django.urls import path, include
+from django.urls import path
+
+# View-related imports
 from . import views
+from django.contrib.auth import views as reset_views
+
+# Django settings-related imports
 from django.conf import settings
 from django.conf.urls.static import static
-from django.contrib.auth import views as reset_views
+
+# Form-related imports
 from .forms import CustomPasswordResetForm
 
-# app_name = 'jumpstart'
+
+app_name = 'jumpstart'
 urlpatterns = [
     path('login/', views.LoginSignup.as_view(), name='login'),
     path('logout/', views.UserLogout.as_view(), name='logout'),
     path('', views.Welcome.as_view(), name='welcome'),
     path('booking/create/', views.CustomerBooking.as_view(), name='create_booking'),
+    path('view_profile/', views.Profile.as_view(), name='view_profile'),
+    path('view_profile/update/', views.CustomerUpdateView.as_view(), name='profile_update'),
+    path('search/<int:id>', views.Search.as_view(), name='search'),
 
+    # forgot password views
     path('password_reset/',
          reset_views.PasswordResetView.as_view(form_class=CustomPasswordResetForm),
          name='password_reset'),
@@ -22,11 +33,6 @@ urlpatterns = [
          reset_views.PasswordResetConfirmView.as_view(template_name='registration/password_reset_confirm.html'),
          name='password_reset_confirm'),
     path('reset/done/', reset_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
-
-    path('view_profile/', views.Profile.as_view(), name='view_profile'),
-    path('view_profile/update/', views.CustomerUpdateView.as_view(), name='profile_update'),
-    path('search/<int:id>', views.Search.as_view(), name='search'),
-
 ]
 
 if settings.DEBUG:

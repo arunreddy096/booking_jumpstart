@@ -1,24 +1,30 @@
+# Authentication and User management
 from django.contrib.auth import authenticate
-from django.contrib.sites.shortcuts import get_current_site
-from django.core.validators import RegexValidator
-from django.forms import ModelForm, TextInput, EmailInput, PasswordInput
-from django.utils.html import strip_tags
-
-from .models import Customer, Event, Ticket
-from django import forms
 from django.contrib.auth.hashers import make_password
-from django.utils.translation import gettext_lazy as _
-
+from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.forms import UserCreationForm, PasswordResetForm, SetPasswordForm
+
+# Email and Template Rendering
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
+
+# Forms and Form Fields
+from django.forms import ModelForm, TextInput, EmailInput, PasswordInput
+from django import forms
+
+# URL Handling and Settings
+from django.urls import reverse
+from django.conf import settings
+
+# Models
+from .models import Customer, Event, Ticket
+
+# Utilities
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
-from django.contrib.auth.tokens import default_token_generator
-from django.conf import settings
-from django.urls import reverse
-
-from .city_n_provinces_n_edu import CITY_CHOICES, PROVINCE_CHOICES, UNIVERSITY_CHOICES, EVENT_TIME_CHOICES
+from django.utils.translation import gettext_lazy as _
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.html import strip_tags
 
 
 class LoginForm(ModelForm):
@@ -178,7 +184,6 @@ class CustomSetPasswordForm(SetPasswordForm):
         }),
         help_text="Enter the same password as before, for verification.",
     )
-
 
 
 class TicketForm(forms.ModelForm):
