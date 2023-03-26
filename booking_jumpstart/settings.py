@@ -178,7 +178,7 @@ SOCIALACCOUNT_PROVIDERS = {
 
 SITE_ID = 3
 LOGIN_REDIRECT_URL = reverse_lazy('jumpstart:welcome')
-LOGOUT_REDIRECT_URL = 'logout'
+LOGOUT_REDIRECT_URL = reverse_lazy('jumpstart:logout')
 
 # Additional configuration settings
 SOCIALACCOUNT_LOGIN_ON_GET = True
