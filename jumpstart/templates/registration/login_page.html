@@ -40,6 +40,17 @@
                 </a>
 
                 <div class="heading">
+                    {% for field in signup %}
+                        {% if field.errors %}
+                            <h6><i class="fa-solid fa-triangle-exclamation fa-shake" style="color: #ba2437;"></i>
+                            </h6>
+                            <ul>
+                                {% for error in field.errors %}
+                                    <li style="color: #ba2437;">{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    {% endfor %}
                     {% if messages %}
                         {% for message in messages %}
 {#                            {% if 'SUCCESSFULLY' in message %}#}

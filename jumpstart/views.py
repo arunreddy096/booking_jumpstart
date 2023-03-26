@@ -66,10 +66,6 @@ class LoginSignup(View):
             return render(request, 'registration/login_page.html', {'form': form})
         else:
             print('user sign in not valid')
-            messages.error(request, "Please enter a Strong password")
-            user_signup.first_name = user_signup.cleaned_data['first_name']
-            user_signup.last_name = user_signup.cleaned_data['last_name']
-            user_signup.email = user_signup.cleaned_data['email']
             context = {'form': LoginForm(), 'signup': user_signup}
             return render(request, 'registration/login_page.html', context)
 

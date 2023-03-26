@@ -101,6 +101,12 @@ class RegistrationForm(UserCreationForm):
         print(new_customer)
         new_customer.save()
 
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if Customer.objects.get(email=email):
+            raise forms.ValidationError('Email already registered. Please use another email')
+        return email
+
 
 class CustomPasswordResetForm(PasswordResetForm):
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'}))
