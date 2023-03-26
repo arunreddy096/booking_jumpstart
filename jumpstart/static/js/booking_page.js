@@ -26,6 +26,7 @@ $(document).ready(function() {
     // When the form is changed, calculate the total price
     $('#booking-form').on('input', function() {
         var total = 0;
+        var event_price = 0;
 
         if ($('#event-type').val() === 'multi-event') {
             var eventName = $('#event-name-multi').val();
@@ -36,22 +37,22 @@ $(document).ready(function() {
             var specialChildrenTickets = parseInt($('#special-children-tickets').val() || 0);
 
             if (eventName === 'High Ropes & Ziplines') {
-                total += 40;
+                event_price = 40;
             }
             else if (eventName === 'Trampoline Park') {
-                total += 20;
+                event_price = 20;
             }
             else if (eventName === 'Indoor Soccer' || eventName === 'Archery Tag') {
-                total += 30;
+                event_price = 30;
             }
             else if (eventName === 'Escape Rooms') {
-                total += 30;
+                event_price = 25;
             }
 
-            total += adultTickets;
-            total += childrenTickets;
-            total += specialAdultTickets;
-            total += specialChildrenTickets;
+            total += adultTickets * event_price;
+            total += childrenTickets * event_price;
+            total += specialAdultTickets * event_price;
+            total += specialChildrenTickets * event_price;
 
         } else {
             var eventName = $('#event-name-single').val();
@@ -62,13 +63,13 @@ $(document).ready(function() {
             // total += 10;
 
             if (eventName === 'Arcade Corner') {
-                total += 25;
+                total = 25;
             }
             else if (eventName === 'Rock Climbing Wall') {
-                total += 30;
+                total = 30;
             }
             else if (eventName === 'Axe Throwing') {
-                total += 35;
+                total = 35;
             }
 
             if (isStudent) {

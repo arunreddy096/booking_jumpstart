@@ -39,16 +39,16 @@
 {#                    &nbspJumpstart</a>#}
                 </a>
 
-                    <div class="heading">
-                {% if messages %}
-                    {% for message in messages %}
-                        {% if 'SUCCESSFULLY' in message %}
-                            <p style="color: #f95959">{{ message }}</p>
-                        {% endif %}
-                    {% endfor %}
-                {% endif %}
-                        <h2>Welcome</h2>
-                   </div>
+                <div class="heading">
+                    {% if messages %}
+                        {% for message in messages %}
+{#                            {% if 'SUCCESSFULLY' in message %}#}
+                                <p style="color: #f95959">{{ message }}</p>
+{#                            {% endif %}#}
+                        {% endfor %}
+                    {% endif %}
+                    <h2>Welcome</h2>
+                </div>
             </div>
 
             <!-- Form Box -->

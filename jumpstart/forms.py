@@ -287,3 +287,28 @@ class TicketForm(forms.ModelForm):
         if len(phone_number) != 10:
             raise forms.ValidationError('Phone number should be exactly 10 digits long')
         return phone_number
+
+
+class UpdateForm(forms.ModelForm):
+    class Meta:
+        model = Customer
+        fields = ['username', 'first_name', 'last_name', 'password', 'profile_image']
+
+        widgets = {
+            # telling Django your password field in the mode is a password input on the template
+            'username': TextInput(attrs={
+                'class': 'form-control',
+            }),
+            'first_name': TextInput(attrs={
+                'class': 'form-control',
+            }),
+            'last_name': TextInput(attrs={
+                'class': 'form-control',
+            }),
+            'password': PasswordInput(attrs={
+                'class': 'form-control',
+            }),
+        }
+        help_texts = {
+            'password': 'Your password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number.'
+        }

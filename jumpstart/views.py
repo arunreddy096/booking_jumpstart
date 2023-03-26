@@ -1,7 +1,9 @@
 import random, string
+import re
 from pprint import pprint
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.http import HttpResponseRedirect
@@ -14,8 +16,9 @@ from django.utils.http import urlsafe_base64_encode
 from django.views import View
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.views.generic import UpdateView
 
-from .forms import LoginForm, RegistrationForm, TicketForm
+from .forms import LoginForm, RegistrationForm, TicketForm, UpdateForm
 from .models import Customer, User, Ticket, Event
 
 # email imports
@@ -46,7 +49,7 @@ class LoginSignup(View):
             user = authenticate(email=form.cleaned_data['email'], password=form.cleaned_data['password'])
             if user is None:
                 user_signup = RegistrationForm()
-                messages.error(request, "Incorrect username or password")
+                messages.error(request, "Incorrect E-mail or password")
                 return render(request, 'registration/login_page.html', {'form': form, 'signup': user_signup})
             print(user, type(user))
             # request.session['user_id'] = user.id
@@ -111,7 +114,7 @@ class Welcome(View):
         else:
             return render(request, 'home_page.html', {})
 
-# @method_decorator(login_required(), name='dispatch')
+
 class Profile(View):
 
     def get(self, request):
@@ -120,10 +123,27 @@ class Profile(View):
         user = get_object_or_404(Customer, id=user_id)
         tickets = Ticket.objects.filter(customer=user).order_by('-transaction_timestamp')
         print(tickets)
-        return render(request, 'profile_page.html', {'user': user, 'tickets': tickets})
+        # updateform = UpdateForm()
+        return render(request, 'profile_page.html', {'user': user, 'tickets': tickets,})# 'form':updateform})
 
     def post(self, request):
         print('in post profile')
+        # updateform = UpdateForm(request.POST)
+        #
+        # if not request.POST:
+        #     # delete the user
+        #     user_id = request.session.get('_auth_user_id')
+        #     print(user_id)
+        #     user = get_object_or_404(Customer, id=user_id)
+        #     print('on post delete: ', user)
+        #     messages.success(request, 'Your account has been deleted.')
+        #     logout(request)
+        #     user.delete()
+        #     return redirect('home')
+        # else:
+        #     return redirect('profile_update')
+
+        # delete the user
         user_id = request.session.get('_auth_user_id')
         print(user_id)
         user = get_object_or_404(Customer, id=user_id)
@@ -131,8 +151,7 @@ class Profile(View):
         messages.success(request, 'Your account has been deleted.')
         logout(request)
         user.delete()
-        # return redirect('home')
-        return render(request, 'registration/login_page.html', )
+        return redirect('login')
 
 
 class UserLogout(View):
@@ -277,5 +296,37 @@ class Search(View):
         )
         # print(results)
         return render(request, 'search.html', {'results': results, 'query': query})
+
+
+class CustomerUpdateView(UpdateView):
+
+    model = Customer
+    form_class = UpdateForm
+    template_name = 'profile_page.html'
+    success_url = reverse_lazy('view_profile')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user'] = get_object_or_404(Customer, id=self.request.session.get('_auth_user_id'))
+        return context
+
+    def form_valid(self, form):
+        # Check whether the entered password contains at least one uppercase, one lowercase, one digit, and one special character
+        if not re.search(r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$',
+                         form.cleaned_data['password']):
+            form.errors['password'] = [
+                'Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character.']
+            return self.form_invalid(form)
+        form.instance.password = make_password(form.cleaned_data['password'])
+        messages.success(self.request, 'Your profile has been updated successfully!')
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, 'There was an error in your submission.')
+        return super().form_invalid(form)
+
+    def get_object(self, queryset=None):
+        return get_object_or_404(Customer, id=self.request.session.get('_auth_user_id'))
+
 
 

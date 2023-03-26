@@ -112,17 +112,35 @@
         <img src="{{ user.profile_image.url }}">
         <h2>{{ user.username }}</h2>
         <h6><i class="fa-solid fa-envelope"></i>&nbsp&nbsp{{ user.email }}</h6>
+        <h6><i class="fa-solid fa-envelope"></i>first name&nbsp&nbsp{{ user.first_name }}</h6>
     </div>
 
     <!-- Options section -->
     <div class="options">
 {#        <a href="#orders" class="btn btn-primary">View Orders</a>#}
 {#        <a href="#update" class="btn btn-secondary">Update Profile</a>#}
+        <a href="{% url 'profile_update' %}"><button type="submit" class="btn btn-secondary">Update Profile</button></a>
         <a href="#delete" class="btn btn-danger">Delete Account</a>
 {#        <a href="{% url 'logout' %}" class="btn btn-info">#}
 {#            <i class="fa-sharp fa-solid fa-right-to-bracket fa-flip-both" style="font-size: 20px"></i>#}
 {#            logout</a>#}
     </div>
+    <div>
+        {% if messages %}
+            {% for msg in messages %}
+                {% if msg.tags == 'error' %}
+                    <div class="alert alert-danger">
+                        <h6><i class="fa-solid fa-times"></i> {{ msg }}</h6>
+                    </div>
+                {% elif msg.tags == 'success' %}
+                    <div class="alert alert-success">
+                        <h6><i class="fa-solid fa-check"></i> {{ msg }}</h6>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
+
 
     <!-- Orders section -->
     <div id="orders" class="orders">
@@ -154,21 +172,27 @@
             </tbody>
         </table>
     </div>
-{#    <!-- Update section -->#}
-{#    <div id="update" class="update">#}
-{#        <h3>Update Profile</h3>#}
-{#        <form>#}
-{#            <div class="mb-3">#}
-{#                <label for="username" class="form-label">Username</label>#}
-{#                <input type="text" class="form-control" id="username" value="John Doe">#}
-{#            </div>#}
-{#            <div class="mb-3">#}
-{#                <label for="email" class="form-label">Email</label>#}
-{#                <input type="email" class="form-control" id="email" value="johndoe@example.com">#}
-{#            </div>#}
-{#            <button type="submit" class="btn btn-primary">Update</button>#}
-{#        </form>#}
-{#    </div>#}
+
+    <!-- Update section -->
+    {% if form %}
+        <div id="update" class="update">
+            <h3>Update Profile</h3>
+            {% if form.errors %}
+                <div class="alert alert-danger">
+                    {% for error in form.errors %}
+                        <h6><i class="fa-solid fa-triangle-exclamation fa-shake"></i>
+                            &nbsp&nbsp{{ error }}</h6>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+                {#                <button type="submit">Save changes</button>#}
+            </form>
+        </div>
+    {% endif %}
     <!-- Delete section -->
     <form id="delete-form" method="POST" action="">
         {% csrf_token %}
@@ -202,6 +226,7 @@
         </div>
     </form>
 </div>
+
 <!-- Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
