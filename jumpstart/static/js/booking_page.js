@@ -1,12 +1,13 @@
 $(document).ready(function() {
     // Hide the multi-event and student-related fields by default
-    $('.multi-event').hide();
+    // $('.multi-event').hide();
     $('.single-event.event-name-single').hide();
     $('.single-event.event-name-multi').hide();
-    $('.single-event.student').hide();
-    $('.single-event label[for="university"]').hide();
-    $('.single-event select[name="university"]').hide();
-    $('.single-event p.student').hide();
+    // $('.form-group.label[for="university"]').hide();
+    // $('.form-group.select[name="university"]').hide();
+    // $('.single-event p.student').hide();
+    $('.form-group.student').show();
+    $('.form-group.student').show();
 
     // When the event type changes, show the corresponding form
     $('#event-type').change(function() {
@@ -27,14 +28,14 @@ $(document).ready(function() {
     $('#booking-form').on('input', function() {
         var total = 0;
         var event_price = 0;
+        var isStudent = $('#student').is(':checked');
+        var adultTickets = parseInt($('#adult-tickets').val() || 0);
+        var childrenTickets = parseInt($('#children-tickets').val() || 0);
+        var childrenTicketPrice = 10
 
         if ($('#event-type').val() === 'multi-event') {
             var eventName = $('#event-name-multi').val();
             // Calculate the price for multi-event
-            var adultTickets = parseInt($('#adult-tickets').val() || 0);
-            var childrenTickets = parseInt($('#children-tickets').val() || 0);
-            var specialAdultTickets = parseInt($('#special-adult-tickets').val() || 0);
-            var specialChildrenTickets = parseInt($('#special-children-tickets').val() || 0);
 
             if (eventName === 'High Ropes & Ziplines') {
                 event_price = 40;
@@ -48,38 +49,30 @@ $(document).ready(function() {
             else if (eventName === 'Escape Rooms') {
                 event_price = 25;
             }
-
-            total += adultTickets * event_price;
-            total += childrenTickets * event_price;
-            total += specialAdultTickets * event_price;
-            total += specialChildrenTickets * event_price;
-
         } else {
             var eventName = $('#event-name-single').val();
             // Calculate the price for single-event
 
-            var eventTime = $('#event-time').val();
-            var isStudent = $('#student').is(':checked');
-            // total += 10;
-
             if (eventName === 'Arcade Corner') {
-                total = 25;
+                event_price = 25;
+            } else if (eventName === 'Rock Climbing Wall') {
+                event_price = 30;
+            } else if (eventName === 'Axe Throwing') {
+                event_price = 35;
             }
-            else if (eventName === 'Rock Climbing Wall') {
-                total = 30;
-            }
-            else if (eventName === 'Axe Throwing') {
-                total = 35;
-            }
+        }
+        total += adultTickets * event_price;
+        total += childrenTickets * 10;
 
-            if (isStudent) {
-                total -= 10;
-                $('.single-event label[for="university"]').show();
-                $('.single-event select[name="university"]').show();
-            } else {
-                $('.single-event label[for="university"]').hide();
-                $('.single-event select[name="university"]').hide();
-            }
+        if (isStudent) {
+            total -= 10;
+            $('.form-group.student').show();
+            $('.form-group.student').show();
+
+        } else {
+            $('.form-group.student').hide();
+            $('.form-group.student').hide();
+
         }
 
         // Update the total price field

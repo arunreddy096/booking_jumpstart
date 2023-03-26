@@ -219,14 +219,6 @@ class TicketForm(forms.ModelForm):
                 'class': 'form-control',
                 'id': 'children-tickets',
             }),
-            'spl_adult_tickets': forms.NumberInput(attrs={
-                'class': 'form-control',
-                'id': 'special-adult-tickets',
-            }),
-            'spl_children_tickets': forms.NumberInput(attrs={
-                'class': 'form-control',
-                'id': 'special-children-tickets',
-            }),
             'address': forms.TextInput(attrs={
                 'class': 'form-control',
                 'id': 'address',
@@ -287,6 +279,18 @@ class TicketForm(forms.ModelForm):
         if len(phone_number) != 10:
             raise forms.ValidationError('Phone number should be exactly 10 digits long')
         return phone_number
+
+    def clean_adult_tickets(self):
+        adult_tickets = self.cleaned_data.get('adult_tickets')
+        if adult_tickets < 0:
+            raise forms.ValidationError('Please a positive number for adult tickets')
+        return adult_tickets
+
+    def clean_children_tickets(self):
+        children_tickets = self.cleaned_data.get('children_tickets')
+        if children_tickets < 0:
+            raise forms.ValidationError('Please a positive number for children tickets')
+        return children_tickets
 
 
 class UpdateForm(forms.ModelForm):

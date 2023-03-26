@@ -51,8 +51,6 @@ class Ticket(models.Model):
     university = models.CharField(max_length=50, choices=UNIVERSITY_CHOICES, default='University of Windsor')
     adult_tickets = models.IntegerField(default=0)
     children_tickets = models.IntegerField(default=0)
-    spl_adult_tickets = models.IntegerField(default=0)
-    spl_children_tickets = models.IntegerField(default=0)
     total_price = models.DecimalField(max_digits=6, decimal_places=2)
     address = models.CharField(max_length=200)
     city = models.CharField(max_length=100, choices=CITY_CHOICES)

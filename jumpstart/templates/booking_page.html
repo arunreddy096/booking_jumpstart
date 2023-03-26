@@ -90,35 +90,27 @@
                     {{ form.reservation_time.label_tag }}
                     {{ form.reservation_time }}
                 </div>
-                <div class="single-event form-group">
+                <div class="form-group">
                     <div class="form-check">
                         {{ form.is_student }}
                         <label class="form-check-label" for="{{ form.is_student.id_for_label }}">
                             I am a student</label>
                     </div>
                 </div>
-                <p class="single-event form-group student" style="color: darkred">
+                <p class="form-group student" style="color: darkred">
                     <i class="fa-solid fa-circle-info fa-beat-fade"></i>&nbsp
                     If Student, individual should have a valid Student ID</p>
-                <div class="single-event form-group student">
+                <div class="form-group student">
                     {{ form.university.label_tag }}
                     {{ form.university }}
                 </div>
-                <div class="multi-event form-group">
+                <div class="form-group">
                     {{ form.adult_tickets.label_tag }}
                     {{ form.adult_tickets }}
                 </div>
-                <div class="multi-event form-group">
+                <div class="form-group">
                     {{ form.children_tickets.label_tag }}
                     {{ form.children_tickets }}
-                </div>
-                <div class="multi-event form-group">
-                    {{ form.spl_adult_tickets.label_tag }}
-                    {{ form.spl_adult_tickets }}
-                </div>
-                <div class="multi-event form-group">
-                    {{ form.spl_children_tickets.label_tag }}
-                    {{ form.spl_children_tickets }}
                 </div>
                 <div class="form-group">
                     {{ form.address.label_tag }}
@@ -174,11 +166,16 @@
                         </ol>
                     {% endif %}
                 {% endfor %}
+                <hr/>
+                <h4 class="d-flex justify-content-center"><i class="fa-solid fa-flag"></i></h4>
                 <ol>Student Discount&nbsp&nbsp-&nbsp
-                        <strong>-$10</strong>
+                        <strong>$10 off</strong>
+                </ol>
+                <ol>Children Ticket&nbsp&nbsp-&nbsp
+                        <strong>$10</strong>
                 </ol>
 {#                <p>[ ticket price: +$10 ]</p>#}
-                <br/><hr/>
+                <br/>
 {#                <h4 class="d-flex justify-content-center">#}
 {#                    <i class="fa-solid fa-user"></i>&nbspIndividual prices#}
 {#                </h4>#}

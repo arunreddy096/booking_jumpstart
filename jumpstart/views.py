@@ -191,8 +191,6 @@ class CustomerBooking(View):
             university = form.cleaned_data['university']
             adult_tickets = form.cleaned_data['adult_tickets']
             children_tickets = form.cleaned_data['children_tickets']
-            spl_adult_tickets = form.cleaned_data['spl_adult_tickets']
-            spl_children_tickets = form.cleaned_data['spl_children_tickets']
             total_price = float(form.cleaned_data['total_price'].replace('$', ''))
             address = form.cleaned_data['address']
             city = form.cleaned_data['city']
@@ -203,6 +201,7 @@ class CustomerBooking(View):
             pprint([(x, y) for x, y in form.cleaned_data.items()])
 
             print(f'form validated: checking other validaitons:\n{reserved_event}\n{reservation_time}\n{reservation_date}')
+            # checking each event capacity for that time
             get_details_from_db = Ticket.objects.filter(
                 event_type=event_type,
                 reserved_event=reserved_event,
@@ -214,6 +213,19 @@ class CustomerBooking(View):
                                f"{reserved_event} event booked full for this slot {reservation_time} on \
                                {reservation_date}. Please choose another slot!")
                 return render(request, 'booking_page.html', {'form': form, 'user': user, 'events': events})
+
+            # checking abnormal ticket conditions
+            if children_tickets and not adult_tickets:
+                if reserved_event.name != 'Arcade Corner':
+                    messages.error(request,
+                                   f"Atleast 1 adult ticket should be booked for all the events except Arcade Corner")
+                    return render(request, 'booking_page.html', {'form': form, 'user': user, 'events': events})
+            elif not children_tickets and not adult_tickets:
+                messages.error(request,
+                               f"Atleast 1 ticket should be booked, Empty booking is not allowed")
+                return render(request, 'booking_page.html', {'form': form, 'user': user, 'events': events})
+
+
             new_ticket = Ticket(
                 reserved_event=reserved_event,
                 customer=customer,
@@ -224,8 +236,6 @@ class CustomerBooking(View):
                 university=university,
                 adult_tickets=adult_tickets,
                 children_tickets=children_tickets,
-                spl_adult_tickets=spl_adult_tickets,
-                spl_children_tickets=spl_children_tickets,
                 total_price=total_price,
                 address=address,
                 city=city,
@@ -237,41 +247,41 @@ class CustomerBooking(View):
             )
             new_ticket.save()
 
-            subject = 'DO NOT REPLY - Jumpstart - Reservation'
-            email_template_name = 'registration/booking_confirm.html'
-            html_email_template_name = 'registration/booking_confirm.html'
-            from_email = settings.DEFAULT_FROM_EMAIL
-            print('from mail ', from_email)
-            to_email = user.email
-            ticket = Ticket.objects.get(ticket_id=ticket_id)
-            context = {
-                'email': to_email,
-                'site_name': 'Jumpstart',
-                'user': user,
-                'ticket': ticket
-            }
-            email = render_to_string(email_template_name, context)
-            html_email = render_to_string(html_email_template_name, context)
-
-            # Create the email message
-            msg = EmailMultiAlternatives(
-                subject=subject,
-                body=strip_tags(email),
-                from_email=from_email,
-                to=[to_email],
-            )
-            # Attach the HTML version of the email
-            msg.attach_alternative(html_email, 'text/html')
-
-            # Send the email using the SMTP backend
-            msg.send()
+            # subject = 'DO NOT REPLY - Jumpstart - Reservation'
+            # email_template_name = 'registration/booking_confirm.html'
+            # html_email_template_name = 'registration/booking_confirm.html'
+            # from_email = settings.DEFAULT_FROM_EMAIL
+            # print('from mail ', from_email)
+            # to_email = user.email
+            # ticket = Ticket.objects.get(ticket_id=ticket_id)
+            # context = {
+            #     'email': to_email,
+            #     'site_name': 'Jumpstart',
+            #     'user': user,
+            #     'ticket': ticket
+            # }
+            # email = render_to_string(email_template_name, context)
+            # html_email = render_to_string(html_email_template_name, context)
+            #
+            # # Create the email message
+            # msg = EmailMultiAlternatives(
+            #     subject=subject,
+            #     body=strip_tags(email),
+            #     from_email=from_email,
+            #     to=[to_email],
+            # )
+            # # Attach the HTML version of the email
+            # msg.attach_alternative(html_email, 'text/html')
+            #
+            # # Send the email using the SMTP backend
+            # msg.send()
 
             messages.success(request, 'Booking Successful and Email is sent')
             return render(request, 'booking_success.html')
         else:
             print('invalid form')
 
-            print(form.errors, )
+            print(form.errors)
             return render(request, 'booking_page.html', {'form': form, 'user': user, 'events': events})
 
 
