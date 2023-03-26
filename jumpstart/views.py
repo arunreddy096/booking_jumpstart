@@ -18,7 +18,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.views.generic import UpdateView
 
 # form imports
-from .forms import LoginForm, RegistrationForm, TicketForm, UpdateForm
+from .forms import LoginForm, RegistrationForm, TicketForm, UpdateForm, CancelTicket
 
 # model imports
 from .models import Customer, Ticket, Event
@@ -118,15 +118,32 @@ class Profile(View):
         user = get_object_or_404(Customer, id=user_id)
         tickets = Ticket.objects.filter(customer=user).order_by('-transaction_timestamp')
         print(tickets)
-        return render(request, 'profile_page.html', {'user': user, 'tickets': tickets})
+        cancel_ticket = CancelTicket()
+        return render(request, 'profile_page.html', {'user': user, 'tickets': tickets, 'cancel_ticket':cancel_ticket})
 
     def post(self, request):
-        print('in post profile')
-        # delete the user
         user_id = request.session.get('_auth_user_id')
         print(user_id)
         user = get_object_or_404(Customer, id=user_id)
-        print('on post delete: ', user)
+        # print('in post profile', request.POST.keys())
+        if 'ticket_id' in request.POST.keys():
+            cancel_ticket = CancelTicket(request.POST)
+            if cancel_ticket.is_valid():
+                # print('validated')
+                get_ticket = Ticket.objects.get(ticket_id=cancel_ticket.cleaned_data['ticket_id'])
+                get_ticket.delete()
+                tickets = Ticket.objects.filter(customer=user).order_by('-transaction_timestamp')
+                messages.success(request, 'ticket deleted')
+                return render(request, 'profile_page.html',
+                              {'user': user,
+                               'tickets': tickets,
+                               'cancel_ticket': CancelTicket()})
+            else:
+                tickets = Ticket.objects.filter(customer=user).order_by('-transaction_timestamp')
+                return render(request, 'profile_page.html',
+                              {'user': user, 'tickets': tickets, 'cancel_ticket': cancel_ticket})
+
+        # delete the user
         messages.success(request, 'Your account has been deleted.')
         logout(request)
         user.delete()
@@ -187,7 +204,7 @@ class CustomerBooking(View):
                 reservation_time=reservation_time,
                 reservation_date=reservation_date
             )
-            if get_details_from_db.count() >= 5:
+            if get_details_from_db.count() >= 10:
                 messages.error(request,
                                f"{reserved_event} event booked full for this slot {reservation_time} on \
                                {reservation_date}. Please choose another slot!")
@@ -202,6 +219,10 @@ class CustomerBooking(View):
             elif not children_tickets and not adult_tickets:
                 messages.error(request,
                                f"Atleast 1 ticket should be booked, Empty booking is not allowed")
+                return render(request, 'booking_page.html', {'form': form, 'user': user, 'events': events})
+            elif children_tickets + adult_tickets > 10:
+                messages.error(request,
+                               f"Only 10 tickets to be booked in a single booking; For Bulk booking please contact us")
                 return render(request, 'booking_page.html', {'form': form, 'user': user, 'events': events})
 
             new_ticket = Ticket(

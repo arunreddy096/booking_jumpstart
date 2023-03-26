@@ -126,6 +126,7 @@
 {#        <a href="#update" class="btn btn-secondary">Update Profile</a>#}
         <a href="{% url 'jumpstart:profile_update' %}"><button type="submit" class="btn btn-secondary">Update Profile</button></a>
         <a href="#delete" class="btn btn-danger">Delete Account</a>
+        <a href="#cancel" class="btn btn-info">Cancel Ticket</a>
 {#        <a href="{% url 'logout' %}" class="btn btn-info">#}
 {#            <i class="fa-sharp fa-solid fa-right-to-bracket fa-flip-both" style="font-size: 20px"></i>#}
 {#            logout</a>#}
@@ -217,6 +218,20 @@
             <a href="{% url 'jumpstart:view_profile' %}">
                     <button type="submit" class="btn btn-dark"  style="margin-top: 3px">Cancel Changes</button>
             </a>
+        </div>
+    {% endif %}
+
+    <!-- Cancel section -->
+    {% if cancel_ticket %}
+        <div id="cancel" class="update">
+            <h3>Cancel Ticket</h3>
+            <p>Please enter the ticket to be cancelled</p>
+            <form method="post">
+                {% csrf_token %}
+                {{ cancel_ticket.as_p }}
+                <button type="submit" class="btn btn-primary">Cancel Ticket</button>
+                {#                <button type="submit">Save changes</button>#}
+            </form>
         </div>
     {% endif %}
     <!-- Delete section -->

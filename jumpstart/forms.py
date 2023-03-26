@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.forms import UserCreationForm, PasswordResetForm, SetPasswordForm
+from django.core.exceptions import ObjectDoesNotExist
 
 # Email and Template Rendering
 from django.core.mail import EmailMultiAlternatives
@@ -103,9 +104,11 @@ class RegistrationForm(UserCreationForm):
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
-        if Customer.objects.get(email=email):
-            raise forms.ValidationError('Email already registered. Please use another email')
-        return email
+        try:
+            if Customer.objects.get(email=email):
+                raise forms.ValidationError('Email already registered. Please use another email')
+        except ObjectDoesNotExist:
+            return email
 
 
 class CustomPasswordResetForm(PasswordResetForm):
@@ -327,3 +330,25 @@ class UpdateForm(forms.ModelForm):
         help_texts = {
             'password': 'Your password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number.'
         }
+
+
+class CancelTicket(forms.ModelForm):
+    class Meta:
+        model = Ticket
+        fields = ['ticket_id']
+
+        widgets = {
+            # telling Django your password field in the mode is a password input on the template
+            'username': TextInput(attrs={
+                'class': 'form-control',
+            })
+        }
+
+    def clean_ticket_id(self):
+        ticket_id = self.cleaned_data.get('ticket_id')
+        print('here at tickets')
+        try:
+            get_ticket = Ticket.objects.get(ticket_id=ticket_id)
+        except ObjectDoesNotExist:
+            raise forms.ValidationError('Please enter a valid ticket id or You have zero orders')
+        return ticket_id
