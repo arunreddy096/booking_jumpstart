@@ -82,7 +82,7 @@
     </style>
 </head>
 
-<body style="background-color: silver">
+<body style="background-color: lightgrey">
 <div class="w3-bar w3-red w3-large">
     <a href="{% url 'welcome' %}" class="w3-bar-item w3-button w3-red w3-mobile"
        style="text-decoration: none">
@@ -112,8 +112,13 @@
         <img src="{{ user.profile_image.url }}">
         <h2>{{ user.username }}</h2>
         <h6><i class="fa-solid fa-envelope"></i>&nbsp&nbsp{{ user.email }}</h6>
-        <h6><i class="fa-solid fa-envelope"></i>first name&nbsp&nbsp{{ user.first_name }}</h6>
+        <h6><i class="fa-sharp fa-solid fa-file-circle-exclamation"></i>
+            <strong>username</strong>&nbsp&nbsp{{ user.username }}&nbsp&nbsp
+            <strong>first name</strong>&nbsp&nbsp{{ user.first_name }}&nbsp&nbsp
+            <strong>last name</strong>&nbsp&nbsp{{ user.first_name }}&nbsp&nbsp
+        </h6>
     </div>
+    <hr/>
 
     <!-- Options section -->
     <div class="options">
@@ -125,14 +130,28 @@
 {#            <i class="fa-sharp fa-solid fa-right-to-bracket fa-flip-both" style="font-size: 20px"></i>#}
 {#            logout</a>#}
     </div>
-    <div>
+    <div style="margin-top: 25px">
+    {% if form.errors %}
+        <div class="alert alert-danger">
+            {% for field in form %}
+                {% if field.errors %}
+                    <h6><i class="fa-solid fa-triangle-exclamation fa-shake"></i>&nbsp&nbsp{{ field.label }}</h6>
+                    <ul>
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
         {% if messages %}
             {% for msg in messages %}
-                {% if msg.tags == 'error' %}
-                    <div class="alert alert-danger">
-                        <h6><i class="fa-solid fa-times"></i> {{ msg }}</h6>
-                    </div>
-                {% elif msg.tags == 'success' %}
+{#                {% if msg.tags == 'error' %}#}
+{#                    <div class="alert alert-danger">#}
+{#                        <h6><i class="fa-solid fa-times"></i> {{ msg }} {{ form.phone_number.error }}</h6>#}
+{#                    </div>#}
+                {% if msg.tags == 'success' %}
                     <div class="alert alert-success">
                         <h6><i class="fa-solid fa-check"></i> {{ msg }}</h6>
                     </div>
@@ -145,7 +164,7 @@
     <!-- Orders section -->
     <div id="orders" class="orders">
         <h3>Recent Orders</h3>
-        <table class="table table-hover table-bordered">
+        <table class="table table-hover table-bordered" style="border-radius: 10px">
             <thead>
             <tr>
                 <th>Ticket ID</th>
@@ -154,6 +173,8 @@
                 <th>Event Booked</th>
                 <th>Reservation Date</th>
                 <th>Reserved slot</th>
+                <th>Adult Tickets</th>
+                <th>Child Tickets</th>
                 <th>Total Price</th>
             </tr>
             </thead>
@@ -166,6 +187,8 @@
                     <td>{{ ticket.reserved_event }}</td>
                     <td>{{ ticket.reservation_date }}</td>
                     <td>{{ ticket.reservation_time }}</td>
+                    <td>${{ ticket.adult_tickets }}</td>
+                    <td>${{ ticket.children_tickets }}</td>
                     <td>${{ ticket.total_price }}</td>
                 </tr>
             {% endfor %}
