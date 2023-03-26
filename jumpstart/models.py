@@ -1,6 +1,10 @@
 import datetime
+import re
+
 from django.db import models
 from django.contrib.auth.models import User
+from django.template.defaultfilters import lower
+
 from .city_n_provinces_n_edu import CITY_CHOICES, PROVINCE_CHOICES, UNIVERSITY_CHOICES, EVENT_TIME_CHOICES
 from django.utils import timezone
 
@@ -32,9 +36,43 @@ class Event(models.Model):
     timings = models.CharField(max_length=100)
     short_description = models.CharField(max_length=200)
     additional_info = models.TextField(blank=True)
+    keywords = models.TextField(blank=True)
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+
+        # Extract the time ranges from the string using regex
+        matches = re.findall(r':\s+(\d{1,2}(?:am|pm)-\d{1,2}(?:am|pm))', self.timings)
+        days = "Monday Tuesday Wednesday Thursday Friday Saturday Sunday"
+
+        # print(self.name, matches)
+
+        # Generate the times for each range
+        times = []
+        for match in matches:
+            time_range = match
+            start_time, end_time = time_range.split('-')
+            start_time = datetime.datetime.strptime(start_time, "%I%p")
+            end_time = datetime.datetime.strptime(end_time, "%I%p")
+            curr_time = start_time
+            while curr_time <= end_time:
+                times.append(lower(curr_time.strftime("%I%p")))
+                curr_time += datetime.timedelta(hours=1)
+        times.append(days)
+        times = set(times)
+        # Join the list of times into a single string separated by space
+        times_str = " ".join(times)
+
+        # Split name, short_description, and additional_info fields into words
+        words = []
+        for field in [self.name, self.short_description, self.additional_info]:
+            words += field.split()
+        # Save the words as keywords
+        self.keywords = ' '.join(set(words))
+        self.keywords = self.keywords + ' ' + times_str
+        super().save(*args, **kwargs)
 
 
 class Ticket(models.Model):

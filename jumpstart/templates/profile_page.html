@@ -187,8 +187,8 @@
                     <td>{{ ticket.reserved_event }}</td>
                     <td>{{ ticket.reservation_date }}</td>
                     <td>{{ ticket.reservation_time }}</td>
-                    <td>${{ ticket.adult_tickets }}</td>
-                    <td>${{ ticket.children_tickets }}</td>
+                    <td>{{ ticket.adult_tickets }}</td>
+                    <td>{{ ticket.children_tickets }}</td>
                     <td>${{ ticket.total_price }}</td>
                 </tr>
             {% endfor %}
@@ -214,6 +214,9 @@
                 <button type="submit" class="btn btn-primary">Save Changes</button>
                 {#                <button type="submit">Save changes</button>#}
             </form>
+            <a href="{% url 'view_profile' %}">
+                    <button type="submit" class="btn btn-dark"  style="margin-top: 3px">Cancel Changes</button>
+            </a>
         </div>
     {% endif %}
     <!-- Delete section -->
@@ -240,7 +243,7 @@
                             <p>Are you sure you want to delete your account? This action cannot be undone.</p>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, Cancel</button>
+                            <button type="button" class="btn btn-success" data-bs-dismiss="modal">No, Cancel</button>
                             <button type="button" class="btn btn-danger">Yes, Delete</button>
                         </div>
                     </div>
