@@ -134,7 +134,7 @@ class Profile(View):
         messages.success(request, 'Your account has been deleted.')
         logout(request)
         user.delete()
-        return redirect('login')
+        return redirect('jumpstart:login')
 
 
 class UserLogout(View):
