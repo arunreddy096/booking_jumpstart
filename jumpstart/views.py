@@ -247,34 +247,34 @@ class CustomerBooking(View):
             )
             new_ticket.save()
 
-            # subject = 'DO NOT REPLY - Jumpstart - Reservation'
-            # email_template_name = 'registration/booking_confirm.html'
-            # html_email_template_name = 'registration/booking_confirm.html'
-            # from_email = settings.DEFAULT_FROM_EMAIL
-            # print('from mail ', from_email)
-            # to_email = user.email
-            # ticket = Ticket.objects.get(ticket_id=ticket_id)
-            # context = {
-            #     'email': to_email,
-            #     'site_name': 'Jumpstart',
-            #     'user': user,
-            #     'ticket': ticket
-            # }
-            # email = render_to_string(email_template_name, context)
-            # html_email = render_to_string(html_email_template_name, context)
-            #
-            # # Create the email message
-            # msg = EmailMultiAlternatives(
-            #     subject=subject,
-            #     body=strip_tags(email),
-            #     from_email=from_email,
-            #     to=[to_email],
-            # )
-            # # Attach the HTML version of the email
-            # msg.attach_alternative(html_email, 'text/html')
-            #
-            # # Send the email using the SMTP backend
-            # msg.send()
+            subject = 'DO NOT REPLY - Jumpstart - Reservation'
+            email_template_name = 'registration/booking_confirm.html'
+            html_email_template_name = 'registration/booking_confirm.html'
+            from_email = settings.DEFAULT_FROM_EMAIL
+            print('from mail ', from_email)
+            to_email = user.email
+            ticket = Ticket.objects.get(ticket_id=ticket_id)
+            context = {
+                'email': to_email,
+                'site_name': 'Jumpstart',
+                'user': user,
+                'ticket': ticket
+            }
+            email = render_to_string(email_template_name, context)
+            html_email = render_to_string(html_email_template_name, context)
+
+            # Create the email message
+            msg = EmailMultiAlternatives(
+                subject=subject,
+                body=strip_tags(email),
+                from_email=from_email,
+                to=[to_email],
+            )
+            # Attach the HTML version of the email
+            msg.attach_alternative(html_email, 'text/html')
+
+            # Send the email using the SMTP backend
+            msg.send()
 
             messages.success(request, 'Booking Successful and Email is sent')
             return render(request, 'booking_success.html')
