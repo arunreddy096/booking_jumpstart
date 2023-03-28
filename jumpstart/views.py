@@ -59,6 +59,7 @@ class LoginSignup(View):
 
         elif user_signup.is_valid():
             print('user sign in form is valid')
+            messages.success(request, "Successful Sign-up; Please login", extra_tags='success')
             user_signup.save()
             form = LoginForm(initial={
                 'email': user_signup.cleaned_data['email']

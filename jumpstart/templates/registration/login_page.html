@@ -53,9 +53,13 @@
                     {% endfor %}
                     {% if messages %}
                         {% for message in messages %}
-{#                            {% if 'SUCCESSFULLY' in message %}#}
-                                <p style="color: #f95959">{{ message }}</p>
-{#                            {% endif %}#}
+                            {% if 'success' in message.tags %}
+                                <h6><i class="fa-solid fa-check fa-shake" style="color: #49ba24;"></i>
+                                <p style="color: #49ba24">{{ message }}</p>
+                            {% else %}
+                                <h6><i class="fa-solid fa-triangle-exclamation fa-shake" style="color: #ba2437;"></i>
+                                <p style="color: #f95959">{{ message }} {{ message.success }}</p>
+                            {% endif %}
                         {% endfor %}
                     {% endif %}
                     <h2>Welcome</h2>
@@ -131,9 +135,13 @@
                             {{ signup.password2 }}
                             <span class="error"></span>
                         </div>
+                        <div class="form-group">
+                            {{ signup.profile_image.label_tag }}
+                            <br/><br/>
                             {{ signup.profile_image }}
+                        </div>
 
-{#                        <p>{{ signup.profile_image }} Save your profile pic here</p>#}
+                        {#                        <p>{{ signup.profile_image }} Save your profile pic here</p>#}
 
 {#                        <div class="form-group">#}
 {#                            <label for="name">Full Name</label>#}

@@ -65,8 +65,8 @@ $(document).ready(function () {
             var password = $(this).val();
             var firstName = $('input[name="first_name"]').val();
             var lastName = $('input[name="last_name"]').val();
-            if (password.toLowerCase().indexOf(firstName.toLowerCase()) !== -1 || password.toLowerCase().indexOf(lastName.toLowerCase()) !== -1) {
-                $(this).siblings('span.error').text('Password cannot contain your first or last name').fadeIn().parent('.form-group').addClass('hasError');
+            if (password.toLowerCase().indexOf(firstName.toLowerCase()) !== -1) {
+                $(this).siblings('span.error').text('Password cannot contain your first name').fadeIn().parent('.form-group').addClass('hasError');
                 passwordError = true;
             } else if (password.length < 8) {
                 $(this).siblings('span.error').text('Please type at least 8 characters').fadeIn().parent('.form-group').addClass('hasError');

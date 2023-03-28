@@ -74,6 +74,7 @@ class RegistrationForm(UserCreationForm):
             'first_name': _('first name*'),
             'last_name': _('last name'),
             'email': _('email*'),
+            'profile_image': _('profile_image*'),
         }
 
     def __init__(self, *args, **kwargs):
