@@ -54,10 +54,10 @@
                     {% if messages %}
                         {% for message in messages %}
                             {% if 'success' in message.tags %}
-                                <h6><i class="fa-solid fa-check fa-shake" style="color: #49ba24;"></i>
+                                <h6><i class="fa-solid fa-check fa-shake" style="color: #49ba24;"></i></h6>
                                 <p style="color: #49ba24">{{ message }}</p>
                             {% else %}
-                                <h6><i class="fa-solid fa-triangle-exclamation fa-shake" style="color: #ba2437;"></i>
+                                <h6><i class="fa-solid fa-triangle-exclamation fa-shake" style="color: #ba2437;"></i></h6>
                                 <p style="color: #f95959">{{ message }} {{ message.success }}</p>
                             {% endif %}
                         {% endfor %}
