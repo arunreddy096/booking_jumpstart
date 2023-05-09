@@ -205,7 +205,7 @@ class CustomerBooking(View):
                 reservation_time=reservation_time,
                 reservation_date=reservation_date
             )
-            if get_details_from_db.count() >= 10:
+            if get_details_from_db.count() >= 2:
                 messages.error(request,
                                f"{reserved_event} event booked full for this slot {reservation_time} on \
                                {reservation_date}. Please choose another slot!")

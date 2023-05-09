@@ -9,7 +9,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 # Form-related imports
-from .forms import CustomPasswordResetForm
+from .forms import CustomPasswordResetForm, CustomSetPasswordForm
 
 
 app_name = 'jumpstart'
@@ -32,7 +32,8 @@ urlpatterns = [
          reset_views.PasswordResetDoneView.as_view(template_name='registration/password_reset_done.html'),
          name='password_reset_done'),
     path('reset/<uidb64>/<token>/',
-         reset_views.PasswordResetConfirmView.as_view(template_name='registration/password_reset_confirm.html',
+         reset_views.PasswordResetConfirmView.as_view(form_class=CustomSetPasswordForm,
+                                                    template_name='registration/password_reset_confirm.html',
                                                       success_url=reverse_lazy('jumpstart:password_reset_complete')),
          name='password_reset_confirm'),
     path('reset/done/', reset_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),

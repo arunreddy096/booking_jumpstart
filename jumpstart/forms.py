@@ -1,4 +1,6 @@
 # Authentication and User management
+import re
+
 from django.contrib.auth import authenticate
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.tokens import default_token_generator
@@ -171,14 +173,17 @@ class CustomPasswordResetForm(PasswordResetForm):
 
 
 class CustomSetPasswordForm(SetPasswordForm):
+    class Meta:
+        fields = ['new_password1', 'new_password2']
+
     new_password1 = forms.CharField(
         label="New password",
-        strip=False,
+        # strip=False,
         widget=forms.PasswordInput(attrs={
-            'autocomplete': 'new-password',
             'class': 'form-control',
+            'autocomplete': 'new-password',
             'placeholder': 'Enter new password',
-            'aria-describedby': 'new_password_help_text'
+            'aria-describedby': 'new_password_help_text',
         }),
         help_text="Your password must contain at least 8 characters.",
     )
@@ -194,6 +199,15 @@ class CustomSetPasswordForm(SetPasswordForm):
         }),
         help_text="Enter the same password as before, for verification.",
     )
+
+    def clean_new_password1(self):
+        given_password = self.cleaned_data.get('new_password1')
+        # print('here at set password')
+        if not re.search(r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$',
+                         given_password):
+            raise forms.ValidationError('Password must contain at least one uppercase letter, one lowercase letter, '
+                                        'one digit, and one special character.')
+        return given_password
 
 
 class TicketForm(forms.ModelForm):
